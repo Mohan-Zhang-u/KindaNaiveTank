@@ -28,7 +28,7 @@ namespace Complete
             // Go through all the colliders...
             for (int i = 0; i < colliders.Length; i++)
             {
-				Debug.Log ("How many collide, "+i.ToString()+" name, "+ colliders[i].name);
+//				Debug.Log ("How many collide, "+i.ToString()+" name, "+ colliders[i].name);
                 // ... and find their rigidbody.
 //                Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody> ();
 				Rigidbody targetRigidbody = colliders[i].GetComponentInParent<Rigidbody> ();

@@ -165,7 +165,7 @@ namespace Complete
 				}
 			}
 			if (m_FillImage == null) {
-				Image[] Images = transform.GetComponentsInChildren<Image> (true);
+				Image[] Images = m_Slider.GetComponentsInChildren<Image> (true);
 				foreach (Image m in Images) {
 					if (m.name == "Fill")
 						m_FillImage = m;
