@@ -1,9 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Completed-Assets\Scripts\Tank\TankHealth.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Manager\GameManager.cs">
     <Files>
-      <File FileName="Assets\_Completed-Assets\Scripts\Tank\TankHealth.cs" Line="298" Column="3" />
-      <File FileName="Assets\_Completed-Assets\Scripts\Shell\ShellExplosion.cs" Line="34" Column="81" />
+      <File FileName="Assets\_Completed-Assets\Scripts\Tank\TankHealth.cs" Line="33" Column="41" />
+      <File FileName="Assets\_Completed-Assets\Scripts\Shell\ShellExplosion.cs" Line="31" Column="3" />
+      <File FileName="Assets\_Completed-Assets\Scripts\Tank\TankShooting.cs" Line="4" Column="1" />
+      <File FileName="Assets\_Scripts\Manager\GameManager.cs" Line="9" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

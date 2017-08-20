@@ -66,6 +66,7 @@
      <Compile Include="Assets\_Scripts\Data\BoxLibrary.cs" />
      <Compile Include="Assets\_Scripts\Data\ShellLibrary.cs" />
      <Compile Include="Assets\_Scripts\Data\TankLibrary.cs" />
+     <Compile Include="Assets\_Scripts\Manager\GameManager.cs" />
      <Compile Include="Assets\_Scripts\Manager\SpawnManager.cs" />
      <Compile Include="Assets\_Scripts\Manager\SpawnPoint.cs" />
      <Compile Include="Assets\_Scripts\MyLibrary.cs" />
