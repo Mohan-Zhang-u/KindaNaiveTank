@@ -1,0 +1,63 @@
+SetHealthAndShieldUI ();
+set default 在tankmanager里面用的
+
+private void SetTankActive(bool active) in TankHealth not finished yet. need to colaborate with tank manager.
+TankHealth里面好多东西都用到了tankmanager...记得去改
+m_CurrentSpawnPoint.Decrement();
+
+//注意，tanks!!!的set active 不是在tankhealth里面改的，有可能是在manager里面改的。 而Tanks!!!ref却是在tankhealth里面改的。
+
+actually fillimage can be set to public as in Tanks!!! we can change it!!!
+
+
+Attention: when importing completetank, we need to readd the joystick img.
+tank layer:
+completeTank
+  specific tanke name(original tank)(has a Box Collider)
+    TankRenderer
+    Canvas
+  
+
+
+TODO:!!!!!!!!!!!!!! 
+tankShoot，更改关联。 
+不爆炸?查看tankhealth里面的那几个进程
+
+
+
+
+
+
+
+
+TODO:implement spawn manager.!~
+explosion又是一个大类。。。
+
+记得删掉tank track particles。 主要在tankdisplay 里面。
+
+
+
+
+
+
+
+
+
+
+道具和shell说明可以添加视频。
+
+isServer -- TankHealth
+
+
+!!!!所有坦克出生的时候 蓝轴(z轴)必须冲上！！！！
+
+子弹穿墙是个很严重的问题啊。。。。。必须把墙弄得厚一点！！！！！！！！！！！！！！！！！！！
+1.
+CameraControl
+//    [HideInInspector] // will change after
+public Transform[] m_Targets; // All the targets the camera needs to encompass.
+
+
+
+unity bugs:
+joystick设置成prefab之后各种闪烁。
