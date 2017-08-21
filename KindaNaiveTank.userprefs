@@ -2,11 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Tank\TankShooting.cs">
     <Files>
-      <File FileName="Assets\_Scripts\Shell\ProjectileShellHandler.cs" Line="8" Column="3" />
-      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="16" Column="8" />
-      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="107" Column="46" />
-      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="165" Column="6" />
+      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="110" Column="4" />
+      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="18" Column="30" />
+      <File FileName="Assets\_Scripts\Data\ShellLibrary.cs" Line="59" Column="28" />
       <File FileName="Assets\_Scripts\Manager\GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="16" Column="45" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
