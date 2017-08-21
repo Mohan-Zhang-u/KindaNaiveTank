@@ -1,15 +1,22 @@
-﻿//TODO: RPC and INIT,  change STARTING HEALTH AND ARMOR accordingly.!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// set SetHealthAndShieldUI!!!!!!!!!!!!!!!!
-// SetDamagedBy still not finished.
-// SetTankActive 
-// a lot of tankmanager thing... TankManager
-// From notepad.
+﻿/// TODO: RPC and INIT,  change STARTING HEALTH AND ARMOR accordingly.!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/// set SetHealthAndShieldUI!!!!!!!!!!!!!!!!
+/// Death, not finished, deal with damage source!!!!!!!!!!!!!!!!
+/// SetDamagedBy still not finished.
+/// SetDestoryedBy still not finished.
+/// SetTankActive 
+/// a lot of tankmanager thing... TankManager
+/// From notepad.
 
 
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.Networking;
+using System.Collections.Generic;
+
+public struct DamageSource {
+	float amount; int playerNumber; string explosionId;
+}
 
 namespace Complete
 {
@@ -75,7 +82,8 @@ namespace Complete
 		public event Action playerReset;
 		//This constant defines the player index used to represent player suicide in the damage parsing system.
 		public const int TANK_SUICIDE_INDEX = -1;
-
+		//This constant defines the player index used to represent player damaged by the nutural environment in the damage parsing system.
+		public const int TANK_ENVIRONMNETDMG_INDEX = -2;
 	
 		public SpawnPoint currentSpawnPoint
 		{
@@ -94,24 +102,29 @@ namespace Complete
 		}
 
 
-		//Field that stores the index of the last player to do damage to this tank.
-		private int m_LastDamagedByPlayerNumber = -1;
-		public int lastDamagedByPlayerNumber
+		private int m_PlayerNumber = -1;
+		public int PlayerNumber
 		{
 			get
 			{
-				return m_LastDamagedByPlayerNumber;
+				return m_PlayerNumber;
+			}
+			set{
+				m_PlayerNumber = value;
 			}
 		}
 
+		private List<DamageSource> DamageSourceList = new List<DamageSource> ();
 
-		//Field that stores the last explosion ID to damage this tank. Used for analytics purposes.
-		private string m_LastDamagedByExplosionId;
-		public string lastDamagedByExplosionId
+		//Returns the last Damage deal to this tank.
+		public DamageSource lastDamage
 		{
 			get
 			{
-				return m_LastDamagedByExplosionId;
+				if (DamageSourceList.Count == 0)
+					return -1;
+				else
+					return DamageSourceList [DamageSourceList.Count - 1];
 			}
 		}
 
@@ -211,12 +224,18 @@ namespace Complete
 		}
 
 		// This is called whenever the tank takes damage. Implements IDamageObject. !!!!!!!!!also called Damage
-		public void Damage(float amount)
+		public void Damage(float amount, int playerNumber, string explosionId)
 		{
 			if (invulnerable)
 			{
 				return;
 			}
+
+			if (amount < 0.01f) {
+				return;
+			}
+
+			SetDamagedBy (amount, playerNumber, explosionId);
 
 //			RpcDamageFlash(m_LastDamagedByPlayerNumber); 
 
@@ -272,7 +291,7 @@ namespace Complete
 		}
 
 		//Assigns internal damage variables from explosion.
-		public void SetDamagedBy(int playerNumber, string explosionId)
+		public void SetDamagedBy(float amount, int playerNumber, string explosionId)
 		{
 			//If we've received the tank suicide index, replace it with this tank's player index to count it as a suicide.
 			if (playerNumber == TANK_SUICIDE_INDEX)
@@ -280,9 +299,22 @@ namespace Complete
 //				playerNumber = m_Manager.playerNumber;
 			}
 
+			DamageSourceList.Add (new DamageSource(){amount, playerNumber, explosionId});
+		}
+
+		//Assigns internal damage variables from explosion.
+		public void SetDestroyedBy(int playerNumber, string explosionId)
+		{
+			// TODO: finish this part in TankManager.
+			//If we've received the tank suicide index, replace it with this tank's player index to count it as a suicide.
+			if (playerNumber == TANK_SUICIDE_INDEX) {
+				//				playerNumber = m_Manager.playerNumber;
+			} else if (playerNumber == TANK_ENVIRONMNETDMG_INDEX) {
+				//				playerNumber = m_Manager.playerNumber;
+			}
+
 			Debug.LogFormat("Destroyed by playerNumber = {0}", playerNumber);
-			m_LastDamagedByPlayerNumber = playerNumber;
-			m_LastDamagedByExplosionId = explosionId;
+			//TODO: finish this with TankManager.
 		}
 
 

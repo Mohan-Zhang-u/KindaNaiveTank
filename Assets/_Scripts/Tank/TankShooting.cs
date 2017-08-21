@@ -14,6 +14,8 @@ namespace Complete
         public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
 		public Transform m_FireTransform;           // A child of the tank where the shells are spawned.
 
+		public bool AmountLimited;
+		private int LimitedAmount;
 		private bool Chargeable;
         private float m_MinLaunchForce;        // The force given to the shell if the fire button is not held.
         private float m_MaxLaunchForce;        // The force given to the shell if the fire button is held for the max charge time.
@@ -26,8 +28,6 @@ namespace Complete
 		private ShellTypeDefinition ShellDef;
 		private GameObject ShellPrefab;
 		private Rigidbody ShellRigBody;
-
-
         private bool m_Fired;                       // Whether or not the shell has been launched with this button press.  
 
  
@@ -54,9 +54,10 @@ namespace Complete
 			}
 		}
 
-		private void OnChangeShellByIndex(int index){
-			ShellDef = DynamicObjectLibrary.GetComponent<ShellLibrary> ().GetShellDataForIndex (index);
-			ShellPrefab = ShellDef.displayPrefab;
+		// this is the helperfunction used in OnChangeShellByIndex and OnChangeShellByName
+		private void SetFunctionForOnChangeShell(ShellTypeDefinition def){
+			m_Fired = false;
+			ShellPrefab = def.displayPrefab;
 			ShellRigBody = ShellPrefab.GetComponent<Rigidbody>();
 			Chargeable = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().ForceChargeable;
 			if (Chargeable) {
@@ -75,29 +76,19 @@ namespace Complete
 				m_MaxChargeTime = 0;
 				m_ChargeSpeed = 0;
 			}
+			AmountLimited = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().AmountLimited;
+			LimitedAmount = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().LimitedAmount;
+		}
+
+		private void OnChangeShellByIndex(int index){
+			ShellDef = DynamicObjectLibrary.GetComponent<ShellLibrary> ().GetShellDataForIndex (index);
+			SetFunctionForOnChangeShell (ShellDef);
+
 		}
 
 		private void OnChangeShellByName(string name){
 			ShellDef = DynamicObjectLibrary.GetComponent<ShellLibrary> ().GetShellDataForName (name);
-			ShellPrefab = ShellDef.displayPrefab;
-			ShellRigBody = ShellPrefab.GetComponent<Rigidbody>();
-			Chargeable = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().ForceChargeable;
-			if (Chargeable) {
-				m_CurrentLaunchForce = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MinShootForce;
-				m_AimSlider.value = m_CurrentLaunchForce;
-				m_MinLaunchForce = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MinShootForce;
-				m_MaxLaunchForce = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MaxShootForce;
-				m_MaxChargeTime = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().m_MaxChargeTime;
-				m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
-
-			} else {
-				m_CurrentLaunchForce = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().FlyingSpeed;
-				m_AimSlider.value = 0;
-				m_MinLaunchForce = 0;
-				m_MaxLaunchForce = 0;
-				m_MaxChargeTime = 0;
-				m_ChargeSpeed = 0;
-			}
+			SetFunctionForOnChangeShell (ShellDef);
 		}
 
 
@@ -119,6 +110,25 @@ namespace Complete
 				Debug.Log ("<color = red>m_FireTransform not found </color>");
 		}
 
+
+		private void Update () {
+			if (Chargeable) {
+				m_AimSlider.value = m_CurrentLaunchForce;
+				if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired) {
+					// ... use the max force and launch the shell.
+					m_CurrentLaunchForce = m_MaxLaunchForce;
+					Fire ();
+				}
+
+			} else {
+				//not chargeable, so always shoot.
+				if (AmountLimited) {
+					// only a limited amount of shells can be fire at the same time.
+				} else {
+
+				}
+			}
+		}
 
         private void Update ()
         {

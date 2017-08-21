@@ -4,6 +4,13 @@ using UnityEngine;
 using Complete;
 
 public abstract class ShellHandlerAbstractClass : MonoBehaviour {
+
+	// IDs.
+	private int FireByTankId;
+	public int ExplosionId;
+
+	public bool AmountLimited = false;
+	public int LimitedAmount;
 	public int ReflectOrBounceTimes; // bounce like refectshell? or not?
 	public float ShootColdDown; // if ShootColdDown = 0, just like a laser sword.
 	public float FlyingSpeed; //if not ForceChargeable, its speed shall be a constant.
