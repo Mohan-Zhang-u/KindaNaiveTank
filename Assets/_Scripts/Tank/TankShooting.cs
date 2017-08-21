@@ -164,9 +164,11 @@ namespace Complete
 		// this is the helperfunction used in OnChangeTankByIndex and OnChangeTankByName
 		private void SetFunctionForOnChangeTank(TankTypeDefinition def){
 			// first, destroy the old tank.
-			foreach (GameObject gt in CompleteTank.GetComponentsInChildren<GameObject>(true)) {
-				if (LayerMask.LayerToName (gt.layer) == "TankToSpawn") {
-					Destroy(gt);
+			Transform[] allchilds = CompleteTank.GetComponentsInChildren <Transform>(true);
+			foreach (Transform gt in allchilds) {
+//				Debug.Log (LayerMask.LayerToName (gt.gameObject.layer));
+				if (LayerMask.LayerToName (gt.gameObject.layer) == "TankToSpawn") {
+					Destroy(gt.gameObject);
 				}
 			}
 			// then, initialize and add a new tank.

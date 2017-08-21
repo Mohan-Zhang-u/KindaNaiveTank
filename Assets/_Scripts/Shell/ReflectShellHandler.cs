@@ -66,6 +66,7 @@ public class ReflectShellHandler : ShellHandlerAbstractClass {
 
 	// TODO: implement. but, if added proper constraint (e.g. only move in x and z direction), should do this by itself.
 	private void ShellReflect(){
+		Debug.Log ("entered111");
 
 	}
 

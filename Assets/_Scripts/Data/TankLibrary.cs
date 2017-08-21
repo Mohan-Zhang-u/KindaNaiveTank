@@ -19,7 +19,6 @@ public struct TankTypeDefinition
 	//Unique stats to customize tank handling and fire rate
 	public float speed;
 	public float rotationSpeed;//public float turnRate;
-	public float hitPoints;//default
 	public float fireRateMultiplier;//default 1f
 
 	public float StartHealth; //default 100f

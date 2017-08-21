@@ -1,18 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Tank\TankShooting.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Shell\ReflectShellHandler.cs">
     <Files>
-      <File FileName="Assets\_Scripts\Tank\TankMovement.cs" Line="21" Column="1" />
-      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="18" Column="1" />
-      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="39" Column="36" />
-      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="16" Column="28" />
-      <File FileName="Assets\_Scripts\Data\TankLibrary.cs" Line="23" Column="33" />
-      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="9" Column="46" />
-      <File FileName="Assets\_Scripts\Shell\ProjectileShellHandler.cs" Line="13" Column="18" />
+      <File FileName="Assets\_Scripts\Tank\TankMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="169" Column="3" />
+      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Data\TankLibrary.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="69" Column="25" />
+      <File FileName="Assets\_Scripts\Shell\ProjectileShellHandler.cs" Line="1" Column="1" />
       <File FileName="Assets\_Scripts\Manager\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\_Completed-Assets\Scripts\Shell\ShellExplosion.cs" Line="1" Column="1" />
-      <File FileName="Assets\_Scripts\Data\ShellLibrary.cs" Line="58" Column="69" />
-      <File FileName="Assets\_Scripts\_HasPrefabs\Shell\ShellDisplay.cs" Line="34" Column="40" />
+      <File FileName="Assets\_Scripts\Data\ShellLibrary.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\_HasPrefabs\Shell\ShellDisplay.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
