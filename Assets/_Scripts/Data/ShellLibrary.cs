@@ -17,17 +17,17 @@ public struct ShellTypeDefinition
 	public string description;
 
 	//Unique stats to customize tank handling and fire rate
-	public float FlySpeed;
-	public float ShellfireRate;//default
+//	public float FlySpeed;
+//	public float ShellfireRate;//default
 
-	public float damage;
+//	public float damage;
 
 	//Now, here to define Explosion!!!!
 	//TODO:
 
 	// does it uses gravaty, or can it reflect.
-	public bool UseGravity;
-	public int ReflectTimes;
+//	public bool UseGravity;
+//	public int ReflectTimes;
 
 	//The display prefab to be instantiated to represent this shell in the menu and in-game
 	public GameObject displayPrefab;
