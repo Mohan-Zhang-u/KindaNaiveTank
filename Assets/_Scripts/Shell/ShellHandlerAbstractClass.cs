@@ -5,9 +5,10 @@ using Complete;
 
 public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 
+	public string ShellId;
 	// IDs.
-	private int FireByTankId;
-	public int ExplosionId;
+	public int FireByTankId;
+	public string ExplosionId;
 
 	public bool AmountLimited = false;
 	public int LimitedAmount;
@@ -94,7 +95,15 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 		Destroy (gameObject);
 	}
 
-	//TODO: its shared all accross!!!!!!!!!!!!!!!!!!!!
+	//TODO: its shared all accross!!!!!!!!!!!!!!!!!!!! t
+	/// <summary>
+	/// it is the ugliest part in C#. because, since this is a parent abstract class,
+	/// if we dont copy and paste this code to its parent, the ExplosionParticles and ExplosionAudio
+	/// will be THIS ABSTRACT CLASS' ExplosionParticles and ExplosionAudio.
+	/// The only way we can use ExplosionParticles and ExplosionAudio in parent class is that 
+	/// we copy and paste this function there.
+	/// </summary>
+	/// <param name="c">C.</param>
 	virtual public void CollideWithTanks(Collider c){
 		Rigidbody targetRigidbody = c.GetComponentInParent<Rigidbody> ();
 		if (!targetRigidbody)
@@ -114,7 +123,7 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 		float damage = CalculateDamage (targetRigidbody.position);
 
 		// Deal this damage to the tank.
-		targetHealth.Damage (damage);
+		targetHealth.Damage (damage, FireByTankId, ExplosionId);
 
 		if (ExplosionParticles) {
 			// Unparent the particles from the shell.

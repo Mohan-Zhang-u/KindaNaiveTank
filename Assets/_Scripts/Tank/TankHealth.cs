@@ -16,6 +16,11 @@ using System.Collections.Generic;
 
 public struct DamageSource {
 	float amount; int playerNumber; string explosionId;
+	public DamageSource(float p1, int p2, string p3){
+		amount = p1;
+		playerNumber = p2;
+		explosionId = p3;
+	}
 }
 
 namespace Complete
@@ -122,7 +127,7 @@ namespace Complete
 			get
 			{
 				if (DamageSourceList.Count == 0)
-					return -1;
+					return new DamageSource ( 0, -2, "" );
 				else
 					return DamageSourceList [DamageSourceList.Count - 1];
 			}
@@ -224,6 +229,7 @@ namespace Complete
 		}
 
 		// This is called whenever the tank takes damage. Implements IDamageObject. !!!!!!!!!also called Damage
+		// This can be also use to heal, right?
 		public void Damage(float amount, int playerNumber, string explosionId)
 		{
 			if (invulnerable)
@@ -231,7 +237,7 @@ namespace Complete
 				return;
 			}
 
-			if (amount < 0.01f) {
+				if (amount < 0.01f && amount > -0.01f) {
 				return;
 			}
 
@@ -299,7 +305,7 @@ namespace Complete
 //				playerNumber = m_Manager.playerNumber;
 			}
 
-			DamageSourceList.Add (new DamageSource(){amount, playerNumber, explosionId});
+			DamageSourceList.Add (new DamageSource(amount, playerNumber, explosionId));
 		}
 
 		//Assigns internal damage variables from explosion.

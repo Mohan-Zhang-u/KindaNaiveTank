@@ -8,14 +8,15 @@ namespace Complete
     {
 //        public int m_PlayerNumber = 1;              // Used to identify the different players.
 		public GameObject DynamicObjectLibrary;
-        
+		public Button FireButton;
         public AudioSource m_ShootingAudio;         // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
         public AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
         public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
 		public Transform m_FireTransform;           // A child of the tank where the shells are spawned.
 
-		public bool AmountLimited;
-		private int LimitedAmount;
+		public bool AmountLimited;  // is shell amount limited?
+		private int LimitedAmount;  // how many?
+		private int CurrentAmount;  // how many shells currently in the scene?
 		private bool Chargeable;
         private float m_MinLaunchForce;        // The force given to the shell if the fire button is not held.
         private float m_MaxLaunchForce;        // The force given to the shell if the fire button is held for the max charge time.
@@ -91,6 +92,10 @@ namespace Complete
 			SetFunctionForOnChangeShell (ShellDef);
 		}
 
+		// TODO: implement it!!!! typically used in lasersword
+		public void RespawnedShellExploded(string ShellId){
+
+		}
 
         private void Start ()
         {
@@ -111,63 +116,63 @@ namespace Complete
 		}
 
 
-		private void Update () {
-			if (Chargeable) {
-				m_AimSlider.value = m_CurrentLaunchForce;
-				if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired) {
-					// ... use the max force and launch the shell.
-					m_CurrentLaunchForce = m_MaxLaunchForce;
-					Fire ();
-				}
-
-			} else {
-				//not chargeable, so always shoot.
-				if (AmountLimited) {
-					// only a limited amount of shells can be fire at the same time.
-				} else {
-
-				}
-			}
-		}
-
-        private void Update ()
-        {
-            // The slider should have a default value of the minimum launch force.
-            m_AimSlider.value = m_MinLaunchForce;
-
-            // If the max force has been exceeded and the shell hasn't yet been launched...
-            if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)
-            {
-                // ... use the max force and launch the shell.
-                m_CurrentLaunchForce = m_MaxLaunchForce;
-                Fire ();
-            }
-            // Otherwise, if the fire button has just started being pressed...
-            else if (Input.GetButtonDown (m_FireButton))
-            {
-                // ... reset the fired flag and reset the launch force.
-                m_Fired = false;
-                m_CurrentLaunchForce = m_MinLaunchForce;
-
-                // Change the clip to the charging clip and start it playing.
-                m_ShootingAudio.clip = m_ChargingClip;
-                m_ShootingAudio.Play ();
-            }
-            // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
-            else if (Input.GetButton (m_FireButton) && !m_Fired)
-            {
-                // Increment the launch force and update the slider.
-                m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
-
-                m_AimSlider.value = m_CurrentLaunchForce;
-            }
-            // Otherwise, if the fire button is released and the shell hasn't been launched yet...
-            else if (Input.GetButtonUp (m_FireButton) && !m_Fired)
-            {
-                // ... launch the shell.
-                Fire ();
-            }
-        }
+//		private void Update () {
+//			if (Chargeable) {
+//				m_AimSlider.value = m_CurrentLaunchForce;
+//				if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired) {
+//					// ... use the max force and launch the shell.
+//					m_CurrentLaunchForce = m_MaxLaunchForce;
+//					Fire ();
+//				}
+//
+//			} else {
+//				//not chargeable, so always shoot.
+//				if (AmountLimited) {
+//					// only a limited amount of shells can be fire at the same time.
+//				} else {
+//
+//				}
+//			}
+//		}
+//
+//        private void Update ()
+//        {
+//            // The slider should have a default value of the minimum launch force.
+//            m_AimSlider.value = m_MinLaunchForce;
+//
+//            // If the max force has been exceeded and the shell hasn't yet been launched...
+//            if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)
+//            {
+//                // ... use the max force and launch the shell.
+//                m_CurrentLaunchForce = m_MaxLaunchForce;
+//                Fire ();
+//            }
+//            // Otherwise, if the fire button has just started being pressed...
+//            else if (Input.GetButtonDown (m_FireButton))
+//            {
+//                // ... reset the fired flag and reset the launch force.
+//                m_Fired = false;
+//                m_CurrentLaunchForce = m_MinLaunchForce;
+//
+//                // Change the clip to the charging clip and start it playing.
+//                m_ShootingAudio.clip = m_ChargingClip;
+//                m_ShootingAudio.Play ();
+//            }
+//            // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
+//            else if (Input.GetButton (m_FireButton) && !m_Fired)
+//            {
+//                // Increment the launch force and update the slider.
+//                m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
+//
+//                m_AimSlider.value = m_CurrentLaunchForce;
+//            }
+//            // Otherwise, if the fire button is released and the shell hasn't been launched yet...
+//            else if (Input.GetButtonUp (m_FireButton) && !m_Fired)
+//            {
+//                // ... launch the shell.
+//                Fire ();
+//            }
+//        }
 
 
         private void Fire ()

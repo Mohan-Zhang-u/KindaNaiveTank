@@ -1,14 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Tank\TankHealth.cs">
     <Files>
-      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="227" Column="72" />
-      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="133" Column="22" />
-      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="34" Column="16" />
-      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="12" Column="33" />
+      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="130" Column="1" />
+      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="11" Column="15" />
+      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="34" Column="1" />
+      <File FileName="Assets\_Scripts\Shell\ProjectileShellHandler.cs" Line="1" Column="1" />
       <File FileName="Assets\_Scripts\Data\ShellLibrary.cs" Line="1" Column="1" />
       <File FileName="Assets\_Scripts\Manager\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\_Scripts\UI\JoyStick\VirtualJoyStickScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Completed-Assets\Scripts\Shell\ShellExplosion.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

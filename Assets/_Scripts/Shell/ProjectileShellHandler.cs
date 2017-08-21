@@ -33,7 +33,7 @@ public class ProjectileShellHandler : ShellHandlerAbstractClass {
 		float damage = CalculateDamage (targetRigidbody.position);
 
 		// Deal this damage to the tank.
-		targetHealth.Damage (damage);
+		targetHealth.Damage (damage, FireByTankId, ExplosionId);
 
 		if (ExplosionParticles) {
 			// Unparent the particles from the shell.
