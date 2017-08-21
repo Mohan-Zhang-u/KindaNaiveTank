@@ -25,6 +25,8 @@ public class BoxDisplay : MonoBehaviour {
 	[SerializeField]
 	protected Transform BoxTransform;
 
+	public bool AlreadySpawned = false;
+
 //	//Reference to all renderers that are to be colour tinted.
 //	[SerializeField]
 //	protected Renderer[] m_BoxRenderers;

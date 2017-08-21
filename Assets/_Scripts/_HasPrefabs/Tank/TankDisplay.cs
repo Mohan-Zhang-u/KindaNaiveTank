@@ -61,7 +61,7 @@ public class TankDisplay : MonoBehaviour {
 	[SerializeField]
 	protected float m_BobNoiseScale;
 
-
+	public bool AlreadySpawned = false;
 	//Now Myself:!!!!!!!!!!!!
 	// the default value if turrent is lower. Check this!
 	[SerializeField]

@@ -20,7 +20,7 @@ public struct TankTypeDefinition
 	public float speed;
 	public float rotationSpeed;//public float turnRate;
 	public float hitPoints;//default
-	public float fireRate;//default
+	public float fireRateMultiplier;//default
 
 	public float health; //default 100f
 	public float armour;//default 1f

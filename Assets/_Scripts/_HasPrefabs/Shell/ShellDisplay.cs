@@ -29,6 +29,8 @@ public class ShellDisplay : MonoBehaviour {
 	[SerializeField]
 	protected Renderer[] m_ShellRenderers;
 
+	public bool AlreadySpawned = false;
+
 	//TODO: now give shell fire, explosion sound effects and particle effects.!!!!!!!!!!!!!!!!!!
 
 
