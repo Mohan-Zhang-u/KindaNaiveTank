@@ -4,6 +4,9 @@ namespace Complete
 {
     public class TankMovement : MonoBehaviour
     {
+
+		private GameObject DynamicObjectLibrary;
+		public GameObject CompleteTank;
 //        public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
         public float m_Speed = 12f;                 // How fast the tank moves forward and back.
         public float m_TurnSpeed = 8f;            // How fast the tank turns in degrees per second.
@@ -21,7 +24,15 @@ namespace Complete
 //        private float m_TurnInputValue;             // The current value of the turn input.
         private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
         private ParticleSystem[] m_particleSystems; // References to all the particles systems used by the Tanks
+		private bool EnableMove = true;
 
+		public void SetEnableTankMove(bool b){
+			EnableMove = b;
+		}
+
+//		public void SetDynamicObjectLibrary () {
+//			DynamicObjectLibrary = GameObject.Find ("DynamicObjectLibrary");
+//		}
         private void Awake ()
         {
             m_Rigidbody = GetComponent<Rigidbody> ();
@@ -108,6 +119,9 @@ namespace Complete
 
 		private void FixedUpdate ()
 		{
+			if (!EnableMove) {
+				return;
+			}
 			// Adjust the rigidbodies position and orientation in FixedUpdate.
 			Move ();
 			//now do the rotation

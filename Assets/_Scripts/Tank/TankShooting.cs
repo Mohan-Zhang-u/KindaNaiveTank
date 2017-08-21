@@ -1,64 +1,88 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.Collections;
 
 namespace Complete
 {
 	public class TankShooting : NetworkBehaviour
     {
-//        public int m_PlayerNumber = 1;              // Used to identify the different players.
-		public GameObject DynamicObjectLibrary;
+        public int m_PlayerNumber = 1;              // Used to identify the different players. TODO: This shall be modified in GameManager.
+		private GameObject DynamicObjectLibrary;
+		public GameObject CompleteTank;
 		public bool FireButtonOnPointerDown = false;
+
+		// TODO:--------------------AUDIO CUSTOM-----------------------------------------
         public AudioSource m_ShootingAudio;         // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
         public AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
         public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
+		// -------------------------AUDIO CUSTOM-----------------------------------------
 
 		private Transform m_FireTransform;           // A child of the tank where the shells are spawned.
 		public bool AmountLimited;  // is shell amount limited?
 		private int LimitedAmount;  // how many?
 		private int CurrentAmount;  // how many shells currently in the scene?
+		private float ShootColdDown;
+		private float FlyingSpeed;
 		private bool Chargeable;
         private float m_MinLaunchForce;        // The force given to the shell if the fire button is not held.
         private float m_MaxLaunchForce;        // The force given to the shell if the fire button is held for the max charge time.
         private float m_MaxChargeTime;       // How long the shell can charge for before it is fired at max force.
 		private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
+		private bool UpdateFireable = true;     			// use to decide whether the shoot is on colddown.
 
-        private string m_FireButton;                // The input axis that is used for launching shells.
+//        private string m_FireButton;                // The input axis that is used for launching shells.
         private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
 		private Slider m_AimSlider;                  // A child of the tank that displays the current launch force.
 		private ShellTypeDefinition ShellDef;
 		private GameObject ShellPrefab;
-		private Rigidbody ShellRigBody;
+//		private Rigidbody ShellRigBody;
+
         private bool m_Fired;                       // Whether or not the shell has been launched with this button press.  
 
 		//NowTanks
+		private TankTypeDefinition tdef;
+		private GameObject SubTank; // this tank has layer "TankToSpawn"
 		private TankDisplay TankDisplayScript;
-
+		private float fireRateMultiplier;
+		private WaitForSeconds ColdDownWait; // this comes from  fireRateMultiplier * ShootColdDown.
 
 		// -------------------------now, MonoBehaviour Functions.--------------------------------
-
-        private void OnEnable()
-        {
-			// WHY use ShellPrefab.GetComponent<ShellHandlerAbstractClass> ()? because we dont know what exact class is it, and we dont  want to use directly what in such abstractclass.
-            // When the tank is turned on, reset the launch force and the UI
+		// I dont know whether we need OnEnable or not.
+//        private void OnEnable()
+//        {
+//			// WHY use ShellPrefab.GetComponent<ShellHandlerAbstractClass> ()? because we dont know what exact class is it, and we dont  want to use directly what in such abstractclass.
+//            // When the tank is turned on, reset the launch force and the UI
+//			OnChangeTankByIndex(0);
+//			OnChangeShellByIndex (0);
+//			SetFireTransform ();
+//			SetAimSlider ();
+//			
+////			Debug.Log (ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MaxDamage);
+//        }
+			
+		// was start, change to onenable.
+		void Awake() {
+			SetDynamicObjectLibrary ();
 			OnChangeTankByIndex(0);
-			OnChangeShellByIndex (0);
-			SetFireTransform ();
-			SetAimSlider ();
-			
-//			Debug.Log (ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MaxDamage);
-        }
-			
-		private void Start ()
-		{
-			// The fire axis is based on the player number.
-			m_FireButton = "Fire";
-			SetFireTransform ();
-			SetAimSlider ();
 			OnChangeShellByIndex (0);
 		}
 
-		private void Update () {
+		void OnEnable ()
+		{
+			// The fire axis is based on the player number.
+//			m_FireButton = "Fire";
+			OnChangeTankByIndex(0);
+			OnChangeShellByIndex (0);
+		}
+
+		void Update () {
+			// check whether finished colddown.
+			if (!UpdateFireable) {
+				return;
+			}
+			
+			// check what type of shell is going to be fired.
 			if (Chargeable) {
 				m_AimSlider.value = m_CurrentLaunchForce;
 				// If the max force has been exceeded and the shell hasn't yet been launched...
@@ -94,10 +118,20 @@ namespace Complete
 				}
 			} else {
 				//not chargeable, so always shoot.
+				m_AimSlider.value = 0;
+				m_CurrentLaunchForce = FlyingSpeed;
 				if (AmountLimited) {
-
+					if (CurrentAmount == LimitedAmount) {
+						return;
+					} else {
+						CurrentAmount++;
+						Fire ();
+					}	
 				} else {
-
+					// continuously fire.
+					if (FireButtonOnPointerDown) {
+						Fire ();
+					}
 				}
 			}
 		}
@@ -112,19 +146,48 @@ namespace Complete
 			FireButtonOnPointerDown = false;
 		}
 
-
-		//TODO: finish it!!!!!
-		private void OnChangeTankByIndex(int index){
-		
+		public void SetDynamicObjectLibrary () {
+			DynamicObjectLibrary = GameObject.Find ("DynamicObjectLibrary");
 		}
 			
-		private void OnChangeShellByIndex(int index){
+		public void OnChangeTankByIndex(int index){
+			tdef = DynamicObjectLibrary.GetComponent<TankLibrary>().GetTankDataForIndex(index);
+			SetFunctionForOnChangeTank(tdef);
+		}
+
+		public void OnChangeTankByName(string name){
+			tdef = DynamicObjectLibrary.GetComponent<TankLibrary>().GetTankDataForName(name);
+			SetFunctionForOnChangeTank(tdef);
+
+		}
+
+		// this is the helperfunction used in OnChangeTankByIndex and OnChangeTankByName
+		private void SetFunctionForOnChangeTank(TankTypeDefinition def){
+			// first, destroy the old tank.
+			foreach (GameObject gt in CompleteTank.GetComponentsInChildren<GameObject>(true)) {
+				if (LayerMask.LayerToName (gt.layer) == "TankToSpawn") {
+					Destroy(gt);
+				}
+			}
+			// then, initialize and add a new tank.
+			SubTank = (GameObject) Instantiate(def.displayPrefab, CompleteTank.transform.position , CompleteTank.transform.rotation, CompleteTank.transform);
+			TankDisplayScript = SubTank.GetComponent<TankDisplay> ();
+			fireRateMultiplier = tdef.fireRateMultiplier;
+			ColdDownWait = new WaitForSeconds (fireRateMultiplier * ShootColdDown);
+
+
+			// then, finally outter sets.
+			SetFireTransform ();
+			SetAimSlider ();
+		}
+			
+		public void OnChangeShellByIndex(int index){
 			ShellDef = DynamicObjectLibrary.GetComponent<ShellLibrary> ().GetShellDataForIndex (index);
 			SetFunctionForOnChangeShell (ShellDef);
 
 		}
 
-		private void OnChangeShellByName(string name){
+		public void OnChangeShellByName(string name){
 			ShellDef = DynamicObjectLibrary.GetComponent<ShellLibrary> ().GetShellDataForName (name);
 			SetFunctionForOnChangeShell (ShellDef);
 		}
@@ -133,7 +196,8 @@ namespace Complete
 		private void SetFunctionForOnChangeShell(ShellTypeDefinition def){
 			m_Fired = false;
 			ShellPrefab = def.displayPrefab;
-			ShellRigBody = ShellPrefab.GetComponent<Rigidbody>();
+//			ShellRigBody = ShellPrefab.GetComponent<Rigidbody>();
+			ShootColdDown = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().ShootColdDown;
 			Chargeable = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().ForceChargeable;
 			if (Chargeable) {
 				m_CurrentLaunchForce = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MinShootForce;
@@ -144,7 +208,8 @@ namespace Complete
 				m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
 
 			} else {
-				m_CurrentLaunchForce = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().FlyingSpeed;
+				FlyingSpeed = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().FlyingSpeed;
+				m_CurrentLaunchForce = FlyingSpeed;
 				m_AimSlider.value = 0;
 				m_MinLaunchForce = 0;
 				m_MaxLaunchForce = 0;
@@ -173,18 +238,16 @@ namespace Complete
 		}
 			
 		private void SetFireTransform (){
-			TankDisplayScript = transform.GetComponentInChildren<TankDisplay> (true);
+			m_FireTransform = TankDisplayScript.m_FireTransform;
 			if (m_FireTransform == null)
 				Debug.Log ("<color = red>m_FireTransform not found </color>");
 		}
 
 		private void SetAimSlider (){
-			if (m_AimSlider == null) {
-				Slider[] Sliders = transform.GetComponentsInChildren<Slider> (true);
-				foreach (Slider s in Sliders) {
-					if (s.name == "AimSlider")
-						m_AimSlider = s;
-				}
+			Slider[] Sliders = transform.GetComponentsInChildren<Slider> (true);
+			foreach (Slider s in Sliders) {
+				if (s.name == "AimSlider")
+					m_AimSlider = s;
 			}
 		}
 
@@ -231,23 +294,53 @@ namespace Complete
         private void Fire ()
         {
             // Set the fired flag so only Fire is only called once.
-            m_Fired = true;
 
-            // Create an instance of the shell and store a reference to it's rigidbody.
-			GameObject shellInstance =
-				Instantiate (ShellPrefab, m_FireTransform.position, m_FireTransform.rotation) as GameObject;
 
-            // Set the shell's velocity to the launch force in the fire position's forward direction.
-			shellInstance.GetComponent<Rigidbody>().velocity = m_CurrentLaunchForce * m_FireTransform.forward;
-//            shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward; 
+			// Create an instance of the shell and store a reference to it's rigidbody.
+			GameObject shellInstance = Instantiate (ShellPrefab, m_FireTransform.position, m_FireTransform.rotation) as GameObject;
+			// set ShellDisplay.TankShootingScript;
+			shellInstance.GetComponent<ShellDisplay> ().TankShootingScript = this;
+
+			// ------------now the only two var that is not initialized in ShellHandlerAbstractClass
+			shellInstance.GetComponent<ShellHandlerAbstractClass> ().FireByTankId = m_PlayerNumber;
+			// TODO: set ExplosionId
+			shellInstance.GetComponent<ShellHandlerAbstractClass> ().ExplosionId = "";
+					
+			if (Chargeable) {
+				m_Fired = true;
+				// Set the shell's velocity to the launch force in the fire position's forward direction.
+				shellInstance.GetComponent<Rigidbody> ().velocity = m_CurrentLaunchForce * m_FireTransform.forward;
+				// shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward; 
+
+				// Reset the launch force.  This is a precaution in case of missing button events.
+				m_CurrentLaunchForce = m_MinLaunchForce;
+			} else {
+
+				shellInstance.GetComponent<Rigidbody> ().velocity = FlyingSpeed * m_FireTransform.forward;
+
+				if (AmountLimited) {
+
+				} else {
+
+				}
+			}
 
             // Change the clip to the firing clip and play it.
             m_ShootingAudio.clip = m_FireClip;
             m_ShootingAudio.Play ();
 
-            // Reset the launch force.  This is a precaution in case of missing button events.
-            m_CurrentLaunchForce = m_MinLaunchForce;
+            
+			if (fireRateMultiplier > 0.00001f) {
+				StartCoroutine (PerformColdDown ());
+			}
+			//now, proceed the colddown.
         }
+
+		private IEnumerator PerformColdDown(){
+			UpdateFireable = false;
+			yield return ColdDownWait;
+			UpdateFireable = true;
+		}
 			
     }
 }

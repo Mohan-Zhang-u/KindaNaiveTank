@@ -2,17 +2,17 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Tank\TankShooting.cs">
     <Files>
-      <File FileName="Assets\_Scripts\UI\JoyStick\VirtualJoyStickScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="44" Column="23" />
-      <File FileName="Assets\_Scripts\_HasPrefabs\Tank\TankDisplay.cs" Line="90" Column="25" />
-      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="57" Column="10" />
-      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="44" Column="48" />
-      <File FileName="Assets\_Scripts\Shell\ProjectileShellHandler.cs" Line="48" Column="11" />
+      <File FileName="Assets\_Scripts\Tank\TankMovement.cs" Line="21" Column="1" />
+      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="18" Column="1" />
+      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="39" Column="36" />
+      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="16" Column="28" />
+      <File FileName="Assets\_Scripts\Data\TankLibrary.cs" Line="23" Column="33" />
+      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="9" Column="46" />
+      <File FileName="Assets\_Scripts\Shell\ProjectileShellHandler.cs" Line="13" Column="18" />
       <File FileName="Assets\_Scripts\Manager\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\_Completed-Assets\Scripts\Shell\ShellExplosion.cs" Line="1" Column="1" />
-      <File FileName="Assets\_Scripts\Data\ShellLibrary.cs" Line="33" Column="19" />
-      <File FileName="Assets\_Scripts\Tank\TankMovement.cs" Line="18" Column="1" />
-      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="18" Column="1" />
+      <File FileName="Assets\_Scripts\Data\ShellLibrary.cs" Line="58" Column="69" />
+      <File FileName="Assets\_Scripts\_HasPrefabs\Shell\ShellDisplay.cs" Line="34" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

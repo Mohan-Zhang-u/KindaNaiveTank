@@ -20,9 +20,9 @@ public struct TankTypeDefinition
 	public float speed;
 	public float rotationSpeed;//public float turnRate;
 	public float hitPoints;//default
-	public float fireRateMultiplier;//default
+	public float fireRateMultiplier;//default 1f
 
-	public float health; //default 100f
+	public float StartHealth; //default 100f
 	public float armour;//default 1f
 
 	//The display prefab to be instantiated to represent this tank in the menu and in-game

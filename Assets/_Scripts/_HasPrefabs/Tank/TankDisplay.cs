@@ -26,8 +26,7 @@ public class TankDisplay : MonoBehaviour {
 
 	// !!!!!
 	//Reference to the transform that indicates where shells will be instantiated on firing.
-	[SerializeField]
-	protected Transform m_FireTransform;
+	public Transform m_FireTransform;
 
 	[SerializeField]
 	protected Transform m_FireTransformUp;
