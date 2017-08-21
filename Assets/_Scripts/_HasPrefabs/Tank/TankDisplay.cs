@@ -29,6 +29,12 @@ public class TankDisplay : MonoBehaviour {
 	[SerializeField]
 	protected Transform m_FireTransform;
 
+	[SerializeField]
+	protected Transform m_FireTransformUp;
+
+	[SerializeField]
+	protected Transform m_FireTransformDown;
+
 	//Reference to the turret root, for rotation.
 	[SerializeField]
 	protected Transform m_TurretTransform;
@@ -66,21 +72,26 @@ public class TankDisplay : MonoBehaviour {
 	// the default value if turrent is lower. Check this!
 	[SerializeField]
 	protected Animation TurrentAni;
-	private bool IsTurrentLower = true;
+
+
+	//sync this? [syncVar]
+	public bool IsTurrentLower = true;
 
 
 	//Now Myself:!!!!!!!!!!!!
 	public void RiseTurrent(){
-		if (IsTurrentLower)
+		if (IsTurrentLower) {
 			TurrentAni.PlayQueued ("TurrentRiseAni");
-
+			m_FireTransform = m_FireTransformUp;
+		}
 		IsTurrentLower = false;
 	}
 
 	public void DownTurrent(){
-		if (!IsTurrentLower)
+		if (!IsTurrentLower) {
 			TurrentAni.PlayQueued ("TurrentDownAni");
-
+			m_FireTransform = m_FireTransformDown;
+		}
 		IsTurrentLower = true;
 	}
 

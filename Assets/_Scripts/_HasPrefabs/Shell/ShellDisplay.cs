@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Complete;
 //using Shells.Data;
 //using Shells.Effects;
 
@@ -20,6 +21,7 @@ public class ShellDisplay : MonoBehaviour {
 	// [SerializeField]
 	// protected MeshRenderer m_Shadow;
 
+
 	// !!!!!
 	//Reference to the transform that indicates where shells will be instantiated on firing.
 	[SerializeField]
@@ -29,7 +31,8 @@ public class ShellDisplay : MonoBehaviour {
 	[SerializeField]
 	protected Renderer[] m_ShellRenderers;
 
-	public bool AlreadySpawned = false;
+	public TankShooting TankShootingScript;
+//	public bool AlreadySpawned = false;
 
 	//TODO: now give shell fire, explosion sound effects and particle effects.!!!!!!!!!!!!!!!!!!
 
@@ -65,4 +68,8 @@ public class ShellDisplay : MonoBehaviour {
 		}
 	}
 
+	// when the shell is destoryed, notify TankShooting.
+	public void OnDestroy () {
+		TankShootingScript.RespawnedShellExploded ();
+	}
 }
