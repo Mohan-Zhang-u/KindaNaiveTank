@@ -55,9 +55,6 @@
      <Compile Include="Assets\_Completed-Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\_Completed-Assets\Scripts\Managers\TankManager.cs" />
      <Compile Include="Assets\_Completed-Assets\Scripts\Shell\ShellExplosion.cs" />
-     <Compile Include="Assets\_Completed-Assets\Scripts\Tank\TankHealth.cs" />
-     <Compile Include="Assets\_Completed-Assets\Scripts\Tank\TankMovement.cs" />
-     <Compile Include="Assets\_Completed-Assets\Scripts\Tank\TankShooting.cs" />
      <Compile Include="Assets\_Completed-Assets\Scripts\UI\UIDirectionControl.cs" />
      <Compile Include="Assets\_Scripts\_HasPrefabs\Box\BoxDisplay.cs" />
      <Compile Include="Assets\_Scripts\_HasPrefabs\Shell\ShellDisplay.cs" />
@@ -70,6 +67,12 @@
      <Compile Include="Assets\_Scripts\Manager\SpawnManager.cs" />
      <Compile Include="Assets\_Scripts\Manager\SpawnPoint.cs" />
      <Compile Include="Assets\_Scripts\MyLibrary.cs" />
+     <Compile Include="Assets\_Scripts\Shell\ProjectileShellHandler.cs" />
+     <Compile Include="Assets\_Scripts\Shell\ReflectShellHandler.cs" />
+     <Compile Include="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" />
+     <Compile Include="Assets\_Scripts\Tank\TankHealth.cs" />
+     <Compile Include="Assets\_Scripts\Tank\TankMovement.cs" />
+     <Compile Include="Assets\_Scripts\Tank\TankShooting.cs" />
      <Compile Include="Assets\_Scripts\TestMovementScript.cs" />
      <Compile Include="Assets\_Scripts\UI\JoyStick\VirtualJoyStickScript.cs" />
      <Compile Include="Assets\_Scripts\Utilities\PersistentSingleton.cs" />
