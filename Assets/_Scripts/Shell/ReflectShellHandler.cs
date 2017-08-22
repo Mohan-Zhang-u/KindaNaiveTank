@@ -12,6 +12,7 @@ public class ReflectShellHandler : ShellHandlerAbstractClass {
 //	}
 
 	override public void CollideWithTanks(Collider c){
+		Debug.Log ("executing collide with tank");
 
 		Rigidbody targetRigidbody = c.GetComponentInParent<Rigidbody> ();
 		if (!targetRigidbody)
@@ -50,24 +51,45 @@ public class ReflectShellHandler : ShellHandlerAbstractClass {
 			ExplosionAudio.Play();
 	}
 
-	new public void OnTriggerEnter (Collider other){
+//	void OnCollisionEnter (Collision collision) {
+//		Debug.Log ("OnCollisionEnter");
+////		if (ReflectOrBounceTimes <= 0) {
+////			return;
+////		}
+////		else{
+////			ReflectOrBounceTimes -= 1;
+////		
+////			// get the point of contact
+////			ContactPoint contact = collision.contacts[0];
+////			Vector3 oldVelocity = gameObject.GetComponent<Rigidbody> ().velocity;
+////			// reflect our old velocity off the contact point's normal vector
+////			Vector3 reflectedVelocity = Vector3.Reflect(oldVelocity, contact.normal);        
+////
+////			// assign the reflected velocity back to the rigidbody
+////			gameObject.GetComponent<Rigidbody> ().velocity = reflectedVelocity;
+////			// rotate the object by the same ammount we changed its velocity
+////			Quaternion rotation = Quaternion.FromToRotation(oldVelocity, reflectedVelocity);
+////			gameObject.GetComponent<Rigidbody> ().rotation = rotation * transform.rotation;
+////		}
+//	}
 
+	new public void OnTriggerEnter (Collider other){
+		Debug.Log ("OnTriggerEnter1"+other.name);
 		if (LayerMask.LayerToName (other.gameObject.layer) == "Wall") {
-			if (ReflectOrBounceTimes == 0) {
+			if (ReflectOrBounceTimes <= 0) {
 				Explode (other);
 			}
 			else{
 				ReflectOrBounceTimes -= 1;
-				ShellReflect ();
+//				ShellReflect (other);
 			}
 		}
 
 	}
 
 	// TODO: implement. but, if added proper constraint (e.g. only move in x and z direction), should do this by itself.
-	private void ShellReflect(){
-		Debug.Log ("entered111");
-
-	}
+//	private void ShellReflect(Collider wallc){
+//		// Debug.Log ("entered111");
+//	}
 
 }
