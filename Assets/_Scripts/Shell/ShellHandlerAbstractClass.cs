@@ -57,13 +57,34 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 		Destroy (gameObject, MaxLifeTime);
 	}
 
+	//  ezly copy from ProjectileShellHandler.cs
+	#region CopyAndPaste 
+	///-----------------------------------------------NOW, START COPY AND PASTE!!!!!!-------------------------------------------------------------
+	//TODO: its shared all accross!!!!!!!!!!!!!!!!!!!! t
+	/// <summary>
+	/// it is the ugliest part in C#. because, since this is a parent abstract class,
+	/// if we dont copy and paste this code to its parent, the ExplosionParticles and ExplosionAudio
+	/// will be THIS ABSTRACT CLASS' ExplosionParticles and ExplosionAudio.
+	/// The only way we can use ExplosionParticles and ExplosionAudio in parent class is that 
+	/// we copy and paste this function there.
+	/// </summary>
+	/// <param name="c">C.</param>
 	// the main handler, AND THE DEFUALT IS, explode whenever hits a thing.!!!! TODO: can OPTIMIZE PERFORMANCE here. 
-	public void OnTriggerEnter (Collider other)
+	virtual public void OnTriggerEnter (Collider other)
 	{
 		Explode (other);
 	}
 
-	public void Explode (Collider other) {
+	//TODO: its shared all accross!!!!!!!!!!!!!!!!!!!! t
+	/// <summary>
+	/// it is the ugliest part in C#. because, since this is a parent abstract class,
+	/// if we dont copy and paste this code to its parent, the ExplosionParticles and ExplosionAudio
+	/// will be THIS ABSTRACT CLASS' ExplosionParticles and ExplosionAudio.
+	/// The only way we can use ExplosionParticles and ExplosionAudio in parent class is that 
+	/// we copy and paste this function there.
+	/// </summary>
+	/// <param name="c">C.</param>
+	virtual public void Explode (Collider other) {
 		// Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
 		Collider[] TankColliders = Physics.OverlapSphere (transform.position, ExplosionRadius, TankMask);
 		Collider[] WallColliders = Physics.OverlapSphere (transform.position, ExplosionRadius, WallMask);
@@ -89,7 +110,7 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 			CollideWithExplosiveItems (GeneralItemsColliders[i]);
 		}
 		for (int i = 0; i < GroundColliders.Length; i++) {
-			CollideWithGround (GeneralItemsColliders[i]);
+			CollideWithGround (GroundColliders[i]);
 		}
 
 		Destroy (gameObject);
@@ -142,10 +163,6 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 			ExplosionAudio.Play();
 	}
 
-	virtual public void CollideWithWalls(Collider c){
-
-	}
-
 	//TODO: im not pretty sure whether its is CORRECT!!!!!!!!!!!!!!!!!!!!
 	virtual public void CollideWithShells(Collider c){
 		if (c.isTrigger) {
@@ -153,23 +170,8 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 		}
 	}
 
-	virtual public void CollideWithGeneralItem(Collider c){
-
-	}
-
-	//TODO: this need to be construct!!!!!!!!!!!!or, leave it for the sake of gameplay?
-	virtual public void CollideWithExplosiveItems(Collider c){
-
-	}
-
-	virtual public void CollideWithGround(Collider c){
-
-	}
-
-
-
 	// targetPosition is tank's position. the function calculates according to tank's position and the explosive(shell's) position
-	public float CalculateDamage (Vector3 targetPosition)
+	virtual public float CalculateDamage (Vector3 targetPosition)
 	{
 		// Create a vector from the shell to the target.
 		Vector3 explosionToTarget = targetPosition - transform.position;
@@ -188,4 +190,29 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 
 		return damage;
 	}
+
+	 
+	///-----------------------------------------------NOW, END COPY AND PASTE!!!!!!-------------------------------------------------------------
+	#endregion
+
+
+	public void CollideWithWalls(Collider c){
+
+	}
+
+
+
+	public void CollideWithGeneralItem(Collider c){
+
+	}
+
+	//TODO: this need to be construct!!!!!!!!!!!!or, leave it for the sake of gameplay?
+	public void CollideWithExplosiveItems(Collider c){
+
+	}
+
+	public void CollideWithGround(Collider c){
+
+	}
+		
 }
