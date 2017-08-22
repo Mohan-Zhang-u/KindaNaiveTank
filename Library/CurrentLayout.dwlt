@@ -107,8 +107,8 @@ MonoBehaviour:
     y: 30
     width: 1343
     height: 619
-  m_MinSize: {x: 679, y: 442}
-  m_MaxSize: {x: 12008, y: 8042}
+  m_MinSize: {x: 713, y: 471}
+  m_MaxSize: {x: 18008, y: 14021}
   vertical: 0
   controlID: 21
 --- !u!114 &6
@@ -178,8 +178,8 @@ MonoBehaviour:
     y: 317
     width: 507
     height: 302
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -205,10 +205,10 @@ MonoBehaviour:
     y: 0
     width: 559
     height: 619
-  m_MinSize: {x: 200, y: 321}
-  m_MaxSize: {x: 4004, y: 8021}
+  m_MinSize: {x: 234, y: 471}
+  m_MaxSize: {x: 10004, y: 14021}
   vertical: 1
-  controlID: 68
+  controlID: 91
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -252,14 +252,14 @@ MonoBehaviour:
     y: 316
     width: 559
     height: 303
-  m_MinSize: {x: 104, y: 121}
-  m_MaxSize: {x: 4004, y: 4021}
-  m_ActualView: {fileID: 17}
+  m_MinSize: {x: 234, y: 271}
+  m_MaxSize: {x: 10004, y: 10021}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
   - {fileID: 17}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -384,8 +384,8 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: -32000
-    y: -31951
+    x: 8
+    y: 100
     width: 505
     height: 296
   m_SceneLighting: 1
@@ -464,9 +464,9 @@ MonoBehaviour:
     height: 295
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
+    m_SelectedIDs: 66280000
     m_LastClickedID: 0
-    m_ExpandedIDs: f863fffffa63ffff5284ffff5484ffff5684ffff62a9ffff64a9ffff1afcffff00000000
+    m_ExpandedIDs: e6fbffff1afcffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -527,7 +527,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/_Prefabs/Shells
+    - Assets/_Prefabs/SciFiTanks
   m_ViewMode: 0
   m_StartGridSize: 16
   m_LastFolders: []
@@ -538,7 +538,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: ee240000
     m_LastClickedID: 9454
-    m_ExpandedIDs: 00000000d8050000360600004e2700005a270000fc27000036280000a0280000b0280000c6280000a6290000ca290000cc290000d8290000f8290000fa290000062a0000102a0000422a0000442a00004c2a0000522a0000602a0000ac2a0000ea2a0000ec2a0000122b0000142b0000162b00001a2b0000202b00002a2b00003e2b00004c2b00006c2b0000882b0000b42b0000fa2b00000c2c0000162c0000ec2d0000ee2d0000f02d0000f22d0000f42d0000
+    m_ExpandedIDs: 00000000d8050000360600004e2700005a2700008a270000fc27000036280000a0280000b0280000c6280000a6290000ca290000cc290000d8290000f8290000fa290000062a0000102a0000422a0000442a00004c2a0000522a0000602a0000ac2a0000ea2a0000ec2a0000142b0000162b00001a2b0000202b00002a2b00003e2b00006c2b0000882b0000b42b0000fa2b00000c2c0000162c0000fa2d0000fc2d0000fe2d0000002e0000022e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -563,10 +563,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 60}
-    m_SelectedIDs: 74ebfdff
+    scrollPos: {x: 0, y: 20}
+    m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d8050000360600004e2700005a2700008a270000fc27000036280000a0280000b0280000c6280000a6290000ca290000cc290000d8290000f8290000fa290000062a0000102a0000422a0000442a00004c2a0000522a0000602a0000ac2a0000ea2a0000ec2a0000142b0000162b00001a2b0000202b00002a2b00003e2b00006c2b0000882b0000b42b0000fa2b00000c2c0000162c0000ec2d0000ee2d0000f02d0000f22d0000f42d0000
+    m_ExpandedIDs: 00000000d8050000360600004e2700005a2700008a270000fc27000036280000a0280000b0280000c6280000a6290000ca290000cc290000d8290000f8290000fa290000062a0000102a0000422a0000442a00004c2a0000522a0000602a0000ac2a0000ea2a0000ec2a0000142b0000162b00001a2b0000202b00002a2b00003e2b00006c2b0000882b0000b42b0000fa2b00000c2c0000162c0000fa2d0000fc2d0000fe2d0000002e0000022e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -591,8 +591,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 74ebfdff
-    m_LastClickedInstanceID: -136332
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:

@@ -16,6 +16,7 @@ using System.Collections.Generic;
 
 public struct DamageSource {
 	float amount; int playerNumber; string explosionId;
+
 	public DamageSource(float p1, int p2, string p3){
 		amount = p1;
 		playerNumber = p2;
@@ -27,7 +28,7 @@ namespace Complete
 {
 	public class TankHealth : NetworkBehaviour
     {
-
+		//AudioSource ParticleSystem m_Slider m_FillImage m_TankDisplay m_Collider m_CurrentSpawnPoint
 		private GameObject DynamicObjectLibrary;
 		public GameObject CompleteTank;
         public float m_StartingHealth = 100f;               // The amount of health each tank starts with.
@@ -150,6 +151,9 @@ namespace Complete
 //		public void SetDynamicObjectLibrary () {
 //			DynamicObjectLibrary = GameObject.Find ("DynamicObjectLibrary");
 //		}
+
+		//AudioSource ParticleSystem m_Slider m_FillImage m_TankDisplay m_Collider m_CurrentSpawnPoint
+
         private void Awake ()
         {
             // Instantiate the explosion prefab and get a reference to the particle system on it.

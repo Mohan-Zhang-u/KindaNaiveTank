@@ -1,16 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="K:\Tryout\CsharpTryOut\CsharpTryOut\Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Tank\TankHealth.cs">
     <Files>
-      <File FileName="K:\Tryout\CsharpTryOut\CsharpTryOut\Program.cs" Line="32" Column="5" />
-      <File FileName="Assets\_Scripts\Tank\TankMovement.cs" Line="40" Column="48" />
-      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="44" Column="35" />
-      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="396" Column="1" />
-      <File FileName="Assets\_Scripts\Data\TankLibrary.cs" Line="34" Column="2" />
+      <File FileName="Assets\_Scripts\Tank\TankMovement.cs" Line="23" Column="34" />
+      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="24" Column="20" />
+      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="155" Column="97" />
+      <File FileName="Assets\_Scripts\Data\TankLibrary.cs" Line="50" Column="44" />
       <File FileName="Assets\_Scripts\Manager\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\_Completed-Assets\Scripts\Shell\ShellExplosion.cs" Line="1" Column="1" />
       <File FileName="Assets\_Scripts\Data\ShellLibrary.cs" Line="1" Column="1" />
       <File FileName="Assets\_Scripts\_HasPrefabs\Shell\ShellDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="163" Column="12" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
