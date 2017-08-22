@@ -155,15 +155,12 @@ public class ReflectShellHandler : ShellHandlerAbstractClass {
 	}
 
 	void OnCollisionEnter (Collision collisionc) {
-		Debug.Log ("OnCollisionEnter"+collisionc.collider.name);
-
 		if (LayerMask.LayerToName (collisionc.gameObject.layer) != "Wall") {
 			Explode (collisionc.collider);
 		} else {
 			if (ReflectOrBounceTimes <= 0) {
 				Explode (collisionc.collider);
 			} else {
-				Debug.Log ("ReflectOrBounceTimes"+ReflectOrBounceTimes);
 				ReflectOrBounceTimes -= 1;
 			
 				// get the point of contact

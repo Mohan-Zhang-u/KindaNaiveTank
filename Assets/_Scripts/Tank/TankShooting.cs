@@ -7,9 +7,11 @@ namespace Complete
 {
 	public class TankShooting : NetworkBehaviour
     {
+		[HideInInspector]
         public int m_PlayerNumber = 1;              // Used to identify the different players. TODO: This shall be modified in GameManager.
 		private GameObject DynamicObjectLibrary;
 		public GameObject CompleteTank;
+		[HideInInspector]
 		public bool FireButtonOnPointerDown = false;
 
 		// TODO:--------------------AUDIO CUSTOM-----------------------------------------
@@ -19,6 +21,7 @@ namespace Complete
 		// -------------------------AUDIO CUSTOM-----------------------------------------
 
 		private Transform m_FireTransform;           // A child of the tank where the shells are spawned.
+		[HideInInspector]
 		public bool AmountLimited;  // is shell amount limited?
 		private int LimitedAmount;  // how many?
 		private int CurrentAmount;  // how many shells currently in the scene?
