@@ -30,6 +30,19 @@ public struct TankTypeDefinition
 	//How much this tank costs to unlock in the game's internal currency.
 	public int cost;
 
+	[HeaderAttribute("Selection For AudioClips (used for TankShooting)")]
+
+	public AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
+	public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
+
+	[HeaderAttribute("Selection For AudioClips (used for TankMovement)")]
+
+	[HeaderAttribute("Selection For parent RigidBody")]
+
+	public float TankMass; // default 1
+	public float TankDrag; // default 0
+	public float TankAngularDrag; // default 0.05
+
 	//How many stars are displayed per stat for this tank in the customization screen.
 	[HeaderAttribute("Selection Star Rating")]
 	public int armourRating;

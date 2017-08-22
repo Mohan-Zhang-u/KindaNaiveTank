@@ -14,8 +14,8 @@ namespace Complete
 
 		// TODO:--------------------AUDIO CUSTOM-----------------------------------------
         public AudioSource m_ShootingAudio;         // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
-        public AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
-        public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
+		private AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
+		private AudioClip m_FireClip;                // Audio that plays when each shot is fired.
 		// -------------------------AUDIO CUSTOM-----------------------------------------
 
 		private Transform m_FireTransform;           // A child of the tank where the shells are spawned.
@@ -41,7 +41,7 @@ namespace Complete
         private bool m_Fired;                       // Whether or not the shell has been launched with this button press.  
 
 		//NowTanks
-		private TankTypeDefinition tdef;
+		private TankTypeDefinition tdef;  
 		private GameObject SubTank; // this tank has layer "TankToSpawn"
 		private TankDisplay TankDisplayScript;
 		private float fireRateMultiplier;
@@ -177,7 +177,9 @@ namespace Complete
 			fireRateMultiplier = tdef.fireRateMultiplier;
 			ColdDownWait = new WaitForSeconds (fireRateMultiplier * ShootColdDown);
 
-
+			// then, deal with audioclips.
+			m_ChargingClip = tdef.m_ChargingClip;            // Audio that plays when each shot is charging up.
+			m_FireClip = tdef.m_FireClip;                // Audio that plays when each shot is fired.
 			// then, finally outter sets.
 			SetFireTransform ();
 			SetAimSlider ();
@@ -292,7 +294,6 @@ namespace Complete
 //            }
 //        }
 
-
         private void Fire ()
         {
             // Set the fired flag so only Fire is only called once.
@@ -343,6 +344,15 @@ namespace Complete
 			yield return ColdDownWait;
 			UpdateFireable = true;
 		}
-			
+
+			public TankTypeDefinition GetTankDefinition () {
+				return tdef;
+			}
+
     }
+
+	// ----------------------------------getters------------------------------------
+//	public TankTypeDefinition GetTankDefinition () {
+//		return tdef;
+//	}
 }
