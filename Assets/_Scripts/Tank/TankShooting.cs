@@ -78,8 +78,8 @@ namespace Complete
 		{
 			// The fire axis is based on the player number.
 //			m_FireButton = "Fire";
-			OnChangeTankByIndex(0);
-			OnChangeShellByIndex (0);
+//			OnChangeTankByIndex(0);
+//			OnChangeShellByIndex (0);
 		}
 
 		void Update () {
@@ -353,6 +353,7 @@ namespace Complete
         }
 
 		private IEnumerator PerformColdDown(){
+			Debug.Log ("Now Cold DownP:"+UpdateFireable);
 			UpdateFireable = false;
 			yield return ColdDownWait;
 			UpdateFireable = true;

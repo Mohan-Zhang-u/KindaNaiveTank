@@ -27,14 +27,17 @@ namespace Complete
 		//        private float m_MovementInputValue;         // The current value of the movement input.
 		//        private float m_TurnInputValue;             // The current value of the turn input.
 	
-        private void Awake ()
-        {
-			SetDynamicObjectLibrary ();
-			SetVirtualJoyStick ();
-        }
+//        private void Awake ()
+//        {
+//			SetDynamicObjectLibrary ();
+//			SetVirtualJoyStick ();
+//			OnChangeTank ();
+//        }
 			
         private void OnEnable ()
         {
+			SetDynamicObjectLibrary ();
+			SetVirtualJoyStick ();
 			OnChangeTank ();
         }
 

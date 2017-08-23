@@ -2,19 +2,31 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Tank\TankHealth.cs">
     <Files>
-      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="113" Column="24" />
-      <File FileName="Assets\_Scripts\_HasPrefabs\Tank\TankDisplay.cs" Line="150" Column="58" />
-      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="181" Column="50" />
-      <File FileName="Assets\_Scripts\Data\TankLibrary.cs" Line="28" Column="29" />
+      <File FileName="Assets\_Scripts\Tank\TankHealth.cs" Line="111" Column="1" />
+      <File FileName="Assets\_Scripts\_HasPrefabs\Tank\TankDisplay.cs" Line="65" Column="32" />
+      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Data\TankLibrary.cs" Line="1" Column="1" />
       <File FileName="Assets\_Scripts\Manager\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\_Scripts\Data\ShellLibrary.cs" Line="1" Column="1" />
-      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Shell\ReflectShellHandler.cs" Line="124" Column="16" />
       <File FileName="Assets\_Scripts\Shell\ProjectileShellHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="92" Column="100" />
+      <File FileName="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>TDS.m_BobFrequency</Value>
+          <Value>TDS</Value>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\morga\Desktop\KindaNaiveTank\Assets\_Scripts\Tank\TankHealth.cs" line="166" column="39" />
+      <Breakpoint file="C:\Users\morga\Desktop\KindaNaiveTank\Assets\_Scripts\Tank\TankHealth.cs" line="130" column="1" />
+      <Breakpoint file="C:\Users\morga\Desktop\KindaNaiveTank\Assets\_Scripts\Tank\TankHealth.cs" line="111" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

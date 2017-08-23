@@ -28,7 +28,7 @@ namespace Complete
 {
 	public class TankHealth : NetworkBehaviour
     {
-		//AudioSource ParticleSystem Slider FillImage TankDisplay Collider CurrentSpawnPoint
+		//AudioSource ParticleSystem Slider FillImage TDS Collider CurrentSpawnPoint
 		private GameObject DynamicObjectLibrary;
 		private TankShooting TankShootingScript;
 		public GameObject CompleteTank;
@@ -50,13 +50,17 @@ namespace Complete
 
 		private Slider Slider;                             // The slider to represent how much health the tank currently has.
 		private Image FillImage;                           // The image component of the slider.
-		private TankDisplay TankDisplay;
+		private TankDisplay TDS;
 		// Used so that the tank doesn't collide with anything when it's dead.
 		private BoxCollider Collider;
 		//Internal reference to the spawn point where this tank is.
 		private SpawnPoint CurrentSpawnPoint;
-
+		private List<DamageSource> DamageSourceList;
 		// Events that fire when specific conditions are reached. Mainly used for the HUD to tie into.
+
+		//Field to set the tank as invulnerable. Mainly used in the shooting range.
+		[HideInInspector]
+		public bool invulnerable;
 		// !!!!!!!!! idk why but it uses DIVISION!!!!!!!!!!!
 		public event Action<float> healthChanged;
 		public event Action<float> shieldChanged;
@@ -83,31 +87,37 @@ namespace Complete
 		!!!!Now from tanks!!Ref!!!!!!!!!!
 */
 
-		private void Awake (){
-			SetDynamicObjectLibrary ();
-		}
+//		private void Awake (){
+//			SetDynamicObjectLibrary ();
+//			DamageSourceList = new List<DamageSource> ();
+//		}
 
 		private void OnEnable()
 		{
+			SetDynamicObjectLibrary ();
+			DamageSourceList = new List<DamageSource> ();
 			// setDefaults calls OnChangeTank;
-			SetDefaults ();
-			CurrentHealth = StartingHealth;
-			ShieldLevel = 0f;
-			TankDisplay.SetShieldBubbleActive(false);
-			ZeroHealthHappened = false;
-			// Update the health slider's value and color.
-			SetHealthAndShieldUI();
-			//i dont think its nesessary, tho.
-			SetTankActive(true);
+			OnChangeTank();
+//			CurrentHealth = StartingHealth;
+//			ShieldLevel = 0f;
+//			TDS.SetShieldBubbleActive(false);
+//			ZeroHealthHappened = false;
+//			// Update the health slider's value and color.
+//			SetHealthAndShieldUI();
+//			//i dont think its nesessary, tho.
+//			SetTankActive(true);
 		}
+
+//		private void Update(){
+//			Debug.Log (TDS.transform.position);
+//		}
 
 		// This function is called at the start of each round to make sure each tank is set up correctly.
 		public void SetDefaults()
 		{
-			OnChangeTank();
 			CurrentHealth = StartingHealth;
 			ShieldLevel = 0f;
-			TankDisplay.SetShieldBubbleActive(false);
+			TDS.SetShieldBubbleActive(false);
 			ZeroHealthHappened = false;
 			SetHealthAndShieldUI();
 			SetTankActive(true);
@@ -115,9 +125,10 @@ namespace Complete
 			{
 				playerReset();
 			}
+
 		}
 
-		// sets Slider FillImage TankDisplay
+		// sets Slider FillImage TDS
 		private void OnChangeTank(){
 			Slider[] Sliders = transform.GetComponentsInChildren<Slider> (true);
 			foreach (Slider s in Sliders) {
@@ -130,13 +141,13 @@ namespace Complete
 					FillImage = m;
 
 			}
-			TankDisplay = transform.GetComponentInChildren<TankDisplay> (true);
+			TDS = CompleteTank.GetComponentInChildren<TankDisplay> (true);
 			if (Slider == null)
 				Debug.Log ("<color = red>HealthSlider init error</color>");
 			if (FillImage == null)
 				Debug.Log ("<color = red>FillImage init error</color>");
-			if (TankDisplay == null)
-				Debug.Log ("<color = red>TankDisplay init error</color>");
+			if (TDS == null)
+				Debug.Log ("<color = red>TDS init error</color>");
 			TankShootingScript = GetComponent<TankShooting> ();
 			tdef = TankShootingScript.GetTankDefinition ();
 			ExplosionPrefab = tdef.TankExplosionPrefab;
@@ -149,17 +160,12 @@ namespace Complete
 			// Disable the prefab so it can be activated when it's required.
 			ExplosionParticles.gameObject.SetActive (false);
 
+			// reset tank to default state.
+			SetDefaults ();
 		}
 
 		//Implementation for IDamageObject
 		public bool isAlive { get { return CurrentHealth > 0; } } 
-
-		//Field to set the tank as invulnerable. Mainly used in the shooting range.
-		public bool invulnerable
-		{
-			get;
-			set;
-		}
 
 		public SpawnPoint currentSpawnPoint
 		{
@@ -192,8 +198,6 @@ namespace Complete
 				_PlayerNumber = value;
 			}
 		}
-
-		private List<DamageSource> DamageSourceList = new List<DamageSource> ();
 
 		//Returns the last Damage deal to this tank.
 		public DamageSource lastDamage
@@ -276,6 +280,8 @@ namespace Complete
 
 			if (CurrentHealth <= 0f && !ZeroHealthHappened)
 			{
+				// Set the flag so that this function is only called once.
+				ZeroHealthHappened = true;
 				OnZeroHealth();
 			}
 		}
@@ -288,9 +294,6 @@ namespace Complete
 		//Fires when health reaches zero on the server.
 		private void OnZeroHealth()
 		{
-			// Set the flag so that this function is only called once.
-			ZeroHealthHappened = true;
-
 			RpcOnZeroHealth ();
 
 			//TODO: what the fuck is this?
@@ -339,16 +342,15 @@ namespace Complete
 
 		private void SetTankActive(bool active)
 		{
-			if (Collider == null && TankDisplay != null)
+			if (Collider == null && TDS != null)
 			{
-				Collider = TankDisplay.GetComponent<BoxCollider>();
+				Collider = TDS.GetComponent<BoxCollider>();
 			}
 			if (Collider != null)
 			{
 				Collider.enabled = active;
 			}
-
-			TankDisplay.SetVisibleObjectsActive(active);
+			TDS.SetVisibleObjectsActive(active);
 
 			Debug.Log ("Related to TANKMANAGER HERE!");
 
@@ -363,40 +365,17 @@ namespace Complete
 //			}
 		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         private void SetHealthAndShieldUI ()
         {
+			if (ShieldLevel <= 0) {
+				TDS.SetShieldBubbleActive (false);
+			}
             // Set the slider's value appropriately.
             Slider.value = CurrentHealth;
 
             // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
             FillImage.color = Color.Lerp (ZeroHealthColor, FullHealthColor, CurrentHealth / StartingHealth);
 
-			Debug.Log ("Shield UI!!!");
         }
 
 		//Hooked into the currenthealth syncvar. Updates whenever health changes server-side.
@@ -415,7 +394,7 @@ namespace Complete
 		{
 			ShieldLevel = value;
 
-			TankDisplay.SetShieldBubbleActive(ShieldLevel > 0);
+			TDS.SetShieldBubbleActive(ShieldLevel > 0);
 
 			if (shieldChanged != null)
 			{
@@ -428,9 +407,9 @@ namespace Complete
 		//		public void Init(TankManager manager)
 		//		{
 		//			Manager = manager;
-		//			TankDisplay = manager.display;
+		//			TDS = manager.display;
 		//			StartingHealth = manager.playerTankType.hitPoints;
-		//			Collider = TankDisplay.GetComponent<BoxCollider>();
+		//			Collider = TDS.GetComponent<BoxCollider>();
 		//		}
 		//
 		//		[ClientRpc]
@@ -445,19 +424,20 @@ namespace Complete
 		//		{
 		//			if (sourcePlayer == GameManager.s_Instance.GetLocalPlayerId())
 		//			{
-		//				TankDisplay.StartDamageFlash();
+		//				TDS.StartDamageFlash();
 		//			}
 		//		}
 		//
 
-		//Initializes all required references to external scripts.
-		public void Init(TankManager manager)
-		{
+//		//Initializes all required references to external scripts.
+//		public void Init(TankManager manager)
+//		{
 //			Manager = manager;
-//			TankDisplay = manager.display;
+//			TDS = manager.display;
 //			StartingHealth = manager.playerTankType.hitPoints;
-			Collider = TankDisplay.GetComponent<BoxCollider>();
-		}
+//			Collider = TDS.GetComponent<BoxCollider>();
+//		}
+
 
 //		[ClientRpc]
 		private void RpcOnZeroHealth()
@@ -480,7 +460,7 @@ namespace Complete
 			// we are gonna do above in TankDisplay.cs
 			//-----------------------------------original-------------------------
 			// Break off our decorations
-//			TankDisplay.DetachDecorations();
+//			TDS.DetachDecorations();
 
 //			if (ExplosionManager.s_InstanceExists && DeathExplosion != null)
 //			{
@@ -495,7 +475,7 @@ namespace Complete
 		{
 			//Disable any active powerup SFX
 			ShieldLevel = 0f;
-			TankDisplay.SetShieldBubbleActive(false);
+			TDS.SetShieldBubbleActive(false);
 //			TankDisplay.SetNitroParticlesActive(false);
 
 			// Disable the collider and all the appropriate child gameobjects so the tank doesn't interact or show up when it's dead.

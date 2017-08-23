@@ -145,20 +145,40 @@ public class TankDisplay : MonoBehaviour {
 		if (m_ShieldBubble != null)
 		{
 			m_ShieldBubble.SetActive(active);
-
-			//----------------------------------------------
-			GameObject [] ga = GameObject.FindGameObjectsWithTag("Shield");
-			Debug.Log ("ga length:"+ga.Length);
-			GameObject gb;
-			foreach (GameObject gb1 in ga) {
-				if (gb1.name == "Shield") {
-					Debug.Log ("FOUND gb");
-					gb = gb1;
-				}
-			}
-			Debug.Log ("afterset:" + m_ShieldBubble.activeSelf);
-			Debug.Log ("inDisplay:" + GameObject.Find ("Shield").activeSelf);
-			//-------------------------------------------------
+//			m_ShieldBubble.GetComponent<MeshRenderer> ().enabled = active;
+//			Debug.Log ("seted "+active);
+//			//----------------------------------------------
+//			GameObject [] ga = GameObject.FindGameObjectsWithTag("Shield");
+//			Debug.Log ("ga length:"+ga.Length);
+//			GameObject gb = this.gameObject;
+//			GameObject gbf = this.gameObject;
+//			foreach (GameObject gb1 in ga) {
+//				if (gb1.name == "Shield") {
+//					Debug.Log ("FOUND gb");
+//					gb = gb1;
+//				}
+//			}
+////			Debug.Log ("eq:" + (gb == m_ShieldBubble).ToString ());
+//			Debug.Log ("gbpos:"+gb.transform.position);
+//			Debug.Log ("m_ShieldBubblepos:"+m_ShieldBubble.transform.position);
+//			Debug.Log ("eq:" + (gb == m_ShieldBubble).ToString ());
+//			Debug.Log ("eqparent:" + (gb.transform.parent == m_ShieldBubble.transform.parent).ToString ());
+////			gb.SetActive (false);
+//			m_ShieldBubble.SetActive(true);
+//			Debug.Log ("afterset:" + m_ShieldBubble.activeSelf);
+//			Debug.Log ("activeInHierarchy:" + gb.activeInHierarchy + "," + m_ShieldBubble.activeInHierarchy);
+//			m_ShieldBubble.SetActive (true);
+//			gb.transform.position = new Vector3 (-10, 2, 0);
+//			m_ShieldBubble.transform.position = new Vector3 (10, 2, 0);
+//			Debug.Log (m_ShieldBubble.transform.position);
+//			foreach (GameObject gb1 in ga) {
+//				if (gb1.name == "Shield") {
+//					Debug.Log ("FOUND gbf");
+//					gbf = gb1;
+////					gb1.
+//				}
+//			}
+//			//-------------------------------------------------
 		}
 	}
 
