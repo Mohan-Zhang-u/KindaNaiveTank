@@ -16,7 +16,7 @@ namespace Complete
 		[HideInInspector]
 		public bool FireButtonOnPointerDown = false;
 
-		// TODO:--------------------AUDIO CUSTOM-----------------------------------------
+		// -------------------------AUDIO CUSTOM-----------------------------------------
         public AudioSource m_ShootingAudio;         // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
 		private AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
 		private AudioClip m_FireClip;                // Audio that plays when each shot is fired.
@@ -181,6 +181,7 @@ namespace Complete
 			// then, initialize and add a new tank.
 			SubTank = (GameObject) Instantiate(def.displayPrefab, CompleteTank.transform.position , CompleteTank.transform.rotation, CompleteTank.transform);
 			TankDisplayScript = SubTank.GetComponent<TankDisplay> ();
+			m_FireTransform = TankDisplayScript.DownTurrent ();
 			fireRateMultiplier = tdef.fireRateMultiplier;
 			ColdDownWait = new WaitForSeconds (fireRateMultiplier * ShootColdDown);
 
@@ -188,7 +189,7 @@ namespace Complete
 			m_ChargingClip = tdef.m_ChargingClip;            // Audio that plays when each shot is charging up.
 			m_FireClip = tdef.m_FireClip;                // Audio that plays when each shot is fired.
 			// then, finally outter sets.
-			SetFireTransform ();
+//			SetFireTransform ();
 			SetAimSlider ();
 
 			OnChangeTankOrShell ();
@@ -232,7 +233,7 @@ namespace Complete
 			AmountLimited = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().AmountLimited;
 			LimitedAmount = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().LimitedAmount;
 
-			DoAnimationChange ();
+			DoAnimationChangeAndSetFiretransform ();
 
 			OnChangeTankOrShell ();
 		}
@@ -242,10 +243,15 @@ namespace Complete
 		private void OnChangeTankOrShell(){
 			ColdDownWait = new WaitForSeconds (fireRateMultiplier * ShootColdDown);
 		}
-
-		// TODO: change tank turrent position and fire transforms
-		private void DoAnimationChange (){
-
+			
+		// play animation if needed, set firetransform in TankDisplay and return it here.
+		private void DoAnimationChangeAndSetFiretransform (){
+			if (ShellDef.NeedTurrentUp){
+				m_FireTransform = TankDisplayScript.RiseTurrent();
+			}
+			else{
+				m_FireTransform = TankDisplayScript.DownTurrent();
+			}
 		}
 
 		// TODO: implement it!!!! typically used in lasersword
@@ -259,7 +265,7 @@ namespace Complete
 		}
 			
 		private void SetFireTransform (){
-			m_FireTransform = TankDisplayScript.m_FireTransform;
+			m_FireTransform = TankDisplayScript.GetFireTransform ();
 			if (m_FireTransform == null)
 				Debug.Log ("<color = red>m_FireTransform not found </color>");
 		}
@@ -314,7 +320,7 @@ namespace Complete
         private void Fire ()
         {
 			// solve the CROSS-WALL bug.
-			WallChecker = Physics.OverlapSphere (m_FireTransform.position, 0.1f);
+			WallChecker = Physics.OverlapSphere (m_FireTransform.position, 0.55f);
 			if (WallChecker.Length > 0) {
 				foreach(Collider wobj in WallChecker){
 					if (wobj.gameObject.layer == WallMask) {

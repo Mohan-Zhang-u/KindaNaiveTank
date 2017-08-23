@@ -26,7 +26,7 @@ public class TankDisplay : MonoBehaviour {
 
 	// !!!!!
 	//Reference to the transform that indicates where shells will be instantiated on firing.
-	public Transform m_FireTransform;
+	private Transform m_FireTransform;
 
 	[SerializeField]
 	protected Transform m_FireTransformUp;
@@ -78,20 +78,22 @@ public class TankDisplay : MonoBehaviour {
 
 
 	//Now Myself:!!!!!!!!!!!!
-	public void RiseTurrent(){
+	public Transform RiseTurrent(){
 		if (IsTurrentLower) {
 			TurrentAni.PlayQueued ("TurrentRiseAni");
-			m_FireTransform = m_FireTransformUp;
 		}
+		m_FireTransform = m_FireTransformUp;
 		IsTurrentLower = false;
+		return GetFireTransform ();
 	}
 
-	public void DownTurrent(){
+	public Transform DownTurrent(){
 		if (!IsTurrentLower) {
 			TurrentAni.PlayQueued ("TurrentDownAni");
-			m_FireTransform = m_FireTransformDown;
 		}
+		m_FireTransform = m_FireTransformDown;
 		IsTurrentLower = true;
+		return GetFireTransform ();
 	}
 
 

@@ -454,7 +454,8 @@ namespace Complete
 			// Play the tank explosion sound effect.
 			ExplosionAudio.Play();
 			// Destroy explosionParticle System and handle the freaking TankDisplay.cs thing.
-
+			ParticleSystem.MainModule mainModule = ExplosionParticles.main;
+			Destroy (ExplosionParticles.gameObject, mainModule.duration);
 
 //			// Turn the tank off.
 //			gameObject.SetActive (false);
@@ -488,12 +489,13 @@ namespace Complete
 			{
 				CurrentSpawnPoint.Decrement();
 				// TODO: implement this!!!
+				// finish this with TankManager.
 			}
 
 			if (playerDeath != null)
 			{
 				playerDeath();
-				// TODO: use this!
+				// TODO: use this in TankManager!
 			}
 		}
 

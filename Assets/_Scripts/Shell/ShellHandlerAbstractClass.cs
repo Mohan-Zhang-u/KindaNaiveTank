@@ -63,7 +63,7 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 	//  ezly copy from ProjectileShellHandler.cs
 	#region CopyAndPaste 
 	///-----------------------------------------------NOW, START COPY AND PASTE!!!!!!-------------------------------------------------------------
-	//TODO: its shared all accross!!!!!!!!!!!!!!!!!!!! t
+	//its shared all accross!!!!!!!!!!!!!!!!!!!! 
 	/// <summary>
 	/// it is the ugliest part in C#. because, since this is a parent abstract class,
 	/// if we dont copy and paste this code to its parent, the ExplosionParticles and ExplosionAudio
@@ -72,13 +72,13 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 	/// we copy and paste this function there.
 	/// </summary>
 	/// <param name="c">C.</param>
-	// the main handler, AND THE DEFUALT IS, explode whenever hits a thing.!!!! TODO: can OPTIMIZE PERFORMANCE here. 
+	// the main handler, AND THE DEFUALT IS, explode whenever hits a thing.!!!! can OPTIMIZE PERFORMANCE here. 
 	virtual public void OnTriggerEnter (Collider other)
 	{
 		Explode (other);
 	}
 
-	//TODO: its shared all accross!!!!!!!!!!!!!!!!!!!! t
+	// its shared all accross!!!!!!!!!!!!!!!!!!!!
 	/// <summary>
 	/// it is the ugliest part in C#. because, since this is a parent abstract class,
 	/// if we dont copy and paste this code to its parent, the ExplosionParticles and ExplosionAudio
@@ -133,7 +133,6 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 			if (ExplosionAudio)
 				ExplosionAudio.Play();
 
-			//TODO: particle system is used in shellhandlers.
 			// Once the particles have finished, destroy the gameobject they are on.
 			ParticleSystem.MainModule mainModule = ExplosionParticles.main;
 			Destroy (ExplosionParticles.gameObject, mainModule.duration);
@@ -142,7 +141,7 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 		Destroy (gameObject);
 	}
 
-	//TODO: its shared all accross!!!!!!!!!!!!!!!!!!!! t
+	// its shared all accross!!!!!!!!!!!!!!!!!!!!
 	/// <summary>
 	/// it is the ugliest part in C#. because, since this is a parent abstract class,
 	/// if we dont copy and paste this code to its parent, the ExplosionParticles and ExplosionAudio
@@ -200,29 +199,27 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 
 		return damage;
 	}
+		
+	public virtual void CollideWithWalls(Collider c){
 
-	 
+	}
+
+
+
+	public virtual void CollideWithGeneralItem(Collider c){
+
+	}
+
+	//TODO: We Assumes that It Have Explode.
+	public virtual void CollideWithExplosiveItems(Collider c){
+		c.GetComponent<ShellHandlerAbstractClass> ().Explode (ShellPrefab.GetComponent<Collider> ());
+	}
+
+	public virtual void CollideWithGround(Collider c){
+
+	}
+
 	///-----------------------------------------------NOW, END COPY AND PASTE!!!!!!-------------------------------------------------------------
 	#endregion
-
-
-	public void CollideWithWalls(Collider c){
-
-	}
-
-
-
-	public void CollideWithGeneralItem(Collider c){
-
-	}
-
-	//TODO: this need to be construct!!!!!!!!!!!!or, leave it for the sake of gameplay?
-	public void CollideWithExplosiveItems(Collider c){
-
-	}
-
-	public void CollideWithGround(Collider c){
-
-	}
 		
 }

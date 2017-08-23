@@ -31,7 +31,8 @@ public class ShellDisplay : MonoBehaviour {
 	[SerializeField]
 	protected Renderer[] m_ShellRenderers;
 
-	public TankShooting TankShootingScript;
+	[HideInInspector]
+	public TankShooting TankShootingScript; // this thing is initialized in TankShooting right after Instantiate shellInstance
 //	public bool AlreadySpawned = false;
 
 	//TODO: now give shell fire, explosion sound effects and particle effects.!!!!!!!!!!!!!!!!!!

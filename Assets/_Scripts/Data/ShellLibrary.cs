@@ -16,7 +16,8 @@ public struct ShellTypeDefinition
 	//A short blurb describing the tank
 	public string description;
 
-	//Unique stats to customize tank handling and fire rate
+	public bool NeedTurrentUp;
+	//Unique stats to customize tank handling and fire rate (ITS NOW IN SHELLHANDLER
 //	public float FlySpeed;
 //	public float ShellfireRate;//default
 
