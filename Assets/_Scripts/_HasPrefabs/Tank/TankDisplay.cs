@@ -145,6 +145,20 @@ public class TankDisplay : MonoBehaviour {
 		if (m_ShieldBubble != null)
 		{
 			m_ShieldBubble.SetActive(active);
+
+			//----------------------------------------------
+			GameObject [] ga = GameObject.FindGameObjectsWithTag("Shield");
+			Debug.Log ("ga length:"+ga.Length);
+			GameObject gb;
+			foreach (GameObject gb1 in ga) {
+				if (gb1.name == "Shield") {
+					Debug.Log ("FOUND gb");
+					gb = gb1;
+				}
+			}
+			Debug.Log ("afterset:" + m_ShieldBubble.activeSelf);
+			Debug.Log ("inDisplay:" + GameObject.Find ("Shield").activeSelf);
+			//-------------------------------------------------
 		}
 	}
 

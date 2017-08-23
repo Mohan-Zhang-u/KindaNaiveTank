@@ -31,7 +31,6 @@ namespace Complete
         {
 			SetDynamicObjectLibrary ();
 			SetVirtualJoyStick ();
-            m_Rigidbody = GetComponent<Rigidbody> ();
         }
 			
         private void OnEnable ()

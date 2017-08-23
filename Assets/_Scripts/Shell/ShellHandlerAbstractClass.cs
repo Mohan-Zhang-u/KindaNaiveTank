@@ -30,7 +30,10 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 	public float ExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
 	public float MaxLifeTime = 2f;                    // The time in seconds before the shell is removed.
 	public float ExplosionRadius = 5f;                // The maximum distance away from the explosion tanks can be and are still affected.
+	public GameObject ShellExplosion;
+	[HideInInspector]
 	public ParticleSystem ExplosionParticles;         // Reference to the particles that will play on explosion.
+	[HideInInspector]
 	public AudioSource ExplosionAudio;                // Reference to the audio that will play on explosion.
 	public GameObject ShellPrefab;
 
@@ -113,6 +116,29 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 			CollideWithGround (GroundColliders[i]);
 		}
 
+		// now, finialize explosion. perform Particles.
+		// prepare the explosion system
+		ExplosionParticles = Instantiate (ShellExplosion).GetComponent<ParticleSystem> ();
+		if (ExplosionAudio == null)
+			ExplosionAudio = ExplosionParticles.GetComponent<AudioSource> ();
+		ExplosionParticles.transform.position = transform.position;
+		ExplosionParticles.gameObject.SetActive (true);
+		if (ExplosionParticles) {
+			// Unparent the particles from the shell.
+			ExplosionParticles.transform.parent = null;
+
+			// Play the particle system.
+			ExplosionParticles.Play ();
+			// Play the explosion sound effect.
+			if (ExplosionAudio)
+				ExplosionAudio.Play();
+
+			//TODO: particle system is used in shellhandlers.
+			// Once the particles have finished, destroy the gameobject they are on.
+			ParticleSystem.MainModule mainModule = ExplosionParticles.main;
+			Destroy (ExplosionParticles.gameObject, mainModule.duration);
+		}
+
 		Destroy (gameObject);
 	}
 
@@ -145,22 +171,6 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 
 		// Deal this damage to the tank.
 		targetHealth.Damage (damage, FireByTankId, ExplosionId);
-
-		if (ExplosionParticles) {
-			// Unparent the particles from the shell.
-			ExplosionParticles.transform.parent = null;
-
-			// Play the particle system.
-			ExplosionParticles.Play ();
-
-			//TODO: particle system is used in shellhandlers.
-			// Once the particles have finished, destroy the gameobject they are on.
-			ParticleSystem.MainModule mainModule = ExplosionParticles.main;
-			Destroy (ExplosionParticles.gameObject, mainModule.duration);
-		}
-		// Play the explosion sound effect.
-		if (ExplosionAudio)
-			ExplosionAudio.Play();
 	}
 
 	//TODO: im not pretty sure whether its is CORRECT!!!!!!!!!!!!!!!!!!!!

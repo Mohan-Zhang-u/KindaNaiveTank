@@ -30,24 +30,25 @@ public struct TankTypeDefinition
 	//How much this tank costs to unlock in the game's internal currency.
 	public int cost;
 
-	[HeaderAttribute("Selection For TankMovementParticleSystem")]
-	public ParticleSystem[] m_particleSystems;
-
 	[HeaderAttribute("Selection For parent RigidBody")]
 
 	public float TankMass; // default 1
 	public float TankDrag; // default 0
 	public float TankAngularDrag; // default 0.05
 
-	[HeaderAttribute("Selection For AudioClips (used for TankShooting)")]
+	[HeaderAttribute("AudioClips And ParticleSystems (used for TankShooting)")]
 
-	public AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
-	public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
+	public AudioClip m_ChargingClip;  // default ShotCharging          // Audio that plays when each shot is charging up.
+	public AudioClip m_FireClip;  // default ShotFiring              // Audio that plays when each shot is fired.
 
-	[HeaderAttribute("Selection For AudioClips (used for TankMovement)")]
-	public AudioClip m_EngineIdling;            // Audio to play when the tank isn't moving.
-	public AudioClip m_EngineDriving;           // Audio to play when the tank is moving.
+	[HeaderAttribute("AudioClips And ParticleSystems (used for TankMovement)")]
+	public AudioClip m_EngineIdling;  // default EngineIdle         // Audio to play when the tank isn't moving.
+	public AudioClip m_EngineDriving; // default EngineDriving          // Audio to play when the tank is moving.
 	public float m_PitchRange; //default = 0.2          // The amount by which the pitch of the engine noises can vary.
+	public ParticleSystem[] m_particleSystems;
+
+	[HeaderAttribute("AudioClips And ParticleSystems (used for TankHealth)")]
+	public GameObject TankExplosionPrefab; // default CompleteTankExplosion
 
 	//How many stars are displayed per stat for this tank in the customization screen.
 	[HeaderAttribute("Selection Star Rating")]

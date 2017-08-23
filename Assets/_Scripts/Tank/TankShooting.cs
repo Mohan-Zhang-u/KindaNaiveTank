@@ -7,8 +7,10 @@ namespace Complete
 {
 	public class TankShooting : NetworkBehaviour
     {
+		private int WallMask;
+		private Collider[] WallChecker;
 		[HideInInspector]
-        public int m_PlayerNumber = 1;              // Used to identify the different players. TODO: This shall be modified in GameManager.
+        public int _PlayerNumber = 1;              // Used to identify the different players. TODO: This shall be modified in GameManager.
 		private GameObject DynamicObjectLibrary;
 		public GameObject CompleteTank;
 		[HideInInspector]
@@ -34,7 +36,7 @@ namespace Complete
 		private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
 		private bool UpdateFireable = true;     			// use to decide whether the shoot is on colddown.
 
-//        private string m_FireButton;                // The input axis that is used for launching shells.
+//      private string m_FireButton;                // The input axis that is used for launching shells.
         private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
 		private Slider m_AimSlider;                  // A child of the tank that displays the current launch force.
 		private ShellTypeDefinition ShellDef;
@@ -66,6 +68,7 @@ namespace Complete
 			
 		// was start, change to onenable.
 		void Awake() {
+			WallMask = LayerMask.NameToLayer ("Wall");
 			SetDynamicObjectLibrary ();
 			OnChangeTankByIndex(0);
 			OnChangeShellByIndex (0);
@@ -299,8 +302,15 @@ namespace Complete
 
         private void Fire ()
         {
-            // Set the fired flag so only Fire is only called once.
-
+			// solve the CROSS-WALL bug.
+			WallChecker = Physics.OverlapSphere (m_FireTransform.position, 0.01f);
+			if (WallChecker.Length > 0) {
+				foreach(Collider wobj in WallChecker){
+					if (wobj.gameObject.layer == WallMask) {
+						return;
+					}
+				}
+			}
 
 			// Create an instance of the shell and store a reference to it's rigidbody.
 			GameObject shellInstance = Instantiate (ShellPrefab, m_FireTransform.position, m_FireTransform.rotation) as GameObject;
@@ -308,7 +318,7 @@ namespace Complete
 			shellInstance.GetComponent<ShellDisplay> ().TankShootingScript = this;
 
 			// ------------now the only two var that is not initialized in ShellHandlerAbstractClass
-			shellInstance.GetComponent<ShellHandlerAbstractClass> ().FireByTankId = m_PlayerNumber;
+			shellInstance.GetComponent<ShellHandlerAbstractClass> ().FireByTankId = _PlayerNumber;
 			// TODO: set ExplosionId
 			shellInstance.GetComponent<ShellHandlerAbstractClass> ().ExplosionId = "";
 					

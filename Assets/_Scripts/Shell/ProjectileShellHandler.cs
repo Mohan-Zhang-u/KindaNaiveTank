@@ -68,6 +68,29 @@ public class ProjectileShellHandler : ShellHandlerAbstractClass {
 			CollideWithGround (GroundColliders[i]);
 		}
 
+		// now, finialize explosion. perform Particles.
+		// prepare the explosion system
+		ExplosionParticles = Instantiate (ShellExplosion).GetComponent<ParticleSystem> ();
+		if (ExplosionAudio == null)
+			ExplosionAudio = ExplosionParticles.GetComponent<AudioSource> ();
+		ExplosionParticles.transform.position = transform.position;
+		ExplosionParticles.gameObject.SetActive (true);
+		if (ExplosionParticles) {
+			// Unparent the particles from the shell.
+			ExplosionParticles.transform.parent = null;
+
+			// Play the particle system.
+			ExplosionParticles.Play ();
+			// Play the explosion sound effect.
+			if (ExplosionAudio)
+				ExplosionAudio.Play();
+
+			//TODO: particle system is used in shellhandlers.
+			// Once the particles have finished, destroy the gameobject they are on.
+			ParticleSystem.MainModule mainModule = ExplosionParticles.main;
+			Destroy (ExplosionParticles.gameObject, mainModule.duration);
+		}
+
 		Destroy (gameObject);
 	}
 
@@ -100,22 +123,6 @@ public class ProjectileShellHandler : ShellHandlerAbstractClass {
 
 		// Deal this damage to the tank.
 		targetHealth.Damage (damage, FireByTankId, ExplosionId);
-
-		if (ExplosionParticles) {
-			// Unparent the particles from the shell.
-			ExplosionParticles.transform.parent = null;
-
-			// Play the particle system.
-			ExplosionParticles.Play ();
-
-			//TODO: particle system is used in shellhandlers.
-			// Once the particles have finished, destroy the gameobject they are on.
-			ParticleSystem.MainModule mainModule = ExplosionParticles.main;
-			Destroy (ExplosionParticles.gameObject, mainModule.duration);
-		}
-		// Play the explosion sound effect.
-		if (ExplosionAudio)
-			ExplosionAudio.Play();
 	}
 
 	//TODO: im not pretty sure whether its is CORRECT!!!!!!!!!!!!!!!!!!!!
@@ -149,5 +156,6 @@ public class ProjectileShellHandler : ShellHandlerAbstractClass {
 
 	///-----------------------------------------------NOW, END COPY AND PASTE!!!!!!-------------------------------------------------------------
 	#endregion
+
 		
 }
