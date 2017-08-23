@@ -329,17 +329,7 @@ namespace Complete
 			Debug.LogFormat("Destroyed by playerNumber = {0}", playerNumber);
 			//TODO: finish this with TankManager.
 		}
-
-
-
-		//Sets the shield level to a given value. Called by the shield powerup object to enable shields.
-		public void SetShieldLevel(float value)
-		{
-			ShieldLevel = value;
-		}
-
-
-
+			
 		private void SetTankActive(bool active)
 		{
 			if (Collider == null && TDS != null)
@@ -363,6 +353,17 @@ namespace Complete
 //			{
 //				Manager.DisableControl();
 //			}
+		}
+
+
+		private void SetWholeTankThingsInActive(){
+			CompleteTank.SetActive(false);
+		}
+
+		//Sets the shield level to a given value. Called by the shield powerup object to enable shields.
+		public void SetShieldLevel(float value)
+		{
+			ShieldLevel = value;
 		}
 
         private void SetHealthAndShieldUI ()
@@ -480,6 +481,8 @@ namespace Complete
 
 			// Disable the collider and all the appropriate child gameobjects so the tank doesn't interact or show up when it's dead.
 			SetTankActive(false);
+
+			SetWholeTankThingsInActive ();
 
 			if (CurrentSpawnPoint != null)
 			{

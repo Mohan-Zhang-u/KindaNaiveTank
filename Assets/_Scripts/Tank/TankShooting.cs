@@ -34,7 +34,7 @@ namespace Complete
         private float m_MaxLaunchForce;        // The force given to the shell if the fire button is held for the max charge time.
         private float m_MaxChargeTime;       // How long the shell can charge for before it is fired at max force.
 		private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
-		private bool UpdateFireable = true;     			// use to decide whether the shoot is on colddown.
+		private bool UpdateFireColdingDown = false;     			// use to decide whether the shoot is on colddown.
 
 //      private string m_FireButton;                // The input axis that is used for launching shells.
         private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
@@ -72,19 +72,20 @@ namespace Complete
 			SetDynamicObjectLibrary ();
 			OnChangeTankByIndex(0);
 			OnChangeShellByIndex (0);
+			OnChangeTankOrShell ();
 		}
 
-		void OnEnable ()
-		{
-			// The fire axis is based on the player number.
-//			m_FireButton = "Fire";
+//		void OnEnable ()
+//		{
+//			// The fire axis is based on the player number.
+////			m_FireButton = "Fire";
 //			OnChangeTankByIndex(0);
 //			OnChangeShellByIndex (0);
-		}
+//		}
 
 		void Update () {
 			// check whether finished colddown.
-			if (!UpdateFireable) {
+			if (UpdateFireColdingDown) {
 				return;
 			}
 			
@@ -189,6 +190,8 @@ namespace Complete
 			// then, finally outter sets.
 			SetFireTransform ();
 			SetAimSlider ();
+
+			OnChangeTankOrShell ();
 		}
 			
 		public void OnChangeShellByIndex(int index){
@@ -230,6 +233,14 @@ namespace Complete
 			LimitedAmount = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().LimitedAmount;
 
 			DoAnimationChange ();
+
+			OnChangeTankOrShell ();
+		}
+
+		// this function is in need, because ColdDownWait can only be valuable if tank and shell both loaded.
+		// notice! the function is also called in both tank and shell loaded.
+		private void OnChangeTankOrShell(){
+			ColdDownWait = new WaitForSeconds (fireRateMultiplier * ShootColdDown);
 		}
 
 		// TODO: change tank turrent position and fire transforms
@@ -303,7 +314,7 @@ namespace Complete
         private void Fire ()
         {
 			// solve the CROSS-WALL bug.
-			WallChecker = Physics.OverlapSphere (m_FireTransform.position, 0.01f);
+			WallChecker = Physics.OverlapSphere (m_FireTransform.position, 0.1f);
 			if (WallChecker.Length > 0) {
 				foreach(Collider wobj in WallChecker){
 					if (wobj.gameObject.layer == WallMask) {
@@ -353,10 +364,9 @@ namespace Complete
         }
 
 		private IEnumerator PerformColdDown(){
-			Debug.Log ("Now Cold DownP:"+UpdateFireable);
-			UpdateFireable = false;
+			UpdateFireColdingDown = true;
 			yield return ColdDownWait;
-			UpdateFireable = true;
+			UpdateFireColdingDown = false;
 		}
 
 			public TankTypeDefinition GetTankDefinition () {
