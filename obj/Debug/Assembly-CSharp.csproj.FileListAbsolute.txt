@@ -31,3 +31,4 @@ C:\Users\morga\Desktop\KindaNaiveTank\Temp\bin\Debug\UnityEngine.Analytics.xml
 C:\Users\morga\Desktop\KindaNaiveTank\Temp\bin\Debug\UnityEngine.HoloLens.xml
 C:\Users\morga\Desktop\KindaNaiveTank\obj\Debug\Assembly-CSharp.dll
 C:\Users\morga\Desktop\KindaNaiveTank\obj\Debug\Assembly-CSharp.pdb
+C:\Users\morga\Desktop\KindaNaiveTank\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

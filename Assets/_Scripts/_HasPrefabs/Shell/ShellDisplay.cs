@@ -37,8 +37,6 @@ public class ShellDisplay : MonoBehaviour {
 
 	//TODO: now give shell fire, explosion sound effects and particle effects.!!!!!!!!!!!!!!!!!!
 
-
-
 	//Returns the fire transform for this shell.
 	public Transform GetShellTransform()
 	{

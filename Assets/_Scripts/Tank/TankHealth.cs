@@ -54,7 +54,7 @@ namespace Complete
 		// Used so that the tank doesn't collide with anything when it's dead.
 		private BoxCollider Collider;
 		//Internal reference to the spawn point where this tank is.
-		private SpawnPoint CurrentSpawnPoint;
+		//private SpawnPoint CurrentSpawnPoint;
 		private List<DamageSource> DamageSourceList;
 		// Events that fire when specific conditions are reached. Mainly used for the HUD to tie into.
 
@@ -167,24 +167,25 @@ namespace Complete
 		//Implementation for IDamageObject
 		public bool isAlive { get { return CurrentHealth > 0; } } 
 
-		public SpawnPoint currentSpawnPoint
-		{
-			get { return CurrentSpawnPoint; }
-			set { CurrentSpawnPoint = value; }
-		}
+		//public SpawnPoint currentSpawnPoint
+		//{
+		//	get { return CurrentSpawnPoint; }
+		//	set { CurrentSpawnPoint = value; }
+		//}
 
 		private void SetDynamicObjectLibrary () {
 			DynamicObjectLibrary = GameObject.Find ("DynamicObjectLibrary");
 		}
 
-		public void NullifySpawnPoint(SpawnPoint point)
-		{
-			//Make sure we don't nullify a point if the currentPoint has changed
-			if (CurrentSpawnPoint == point)
-			{
-				CurrentSpawnPoint = null;
-			}
-		}
+		//public void NullifySpawnPoint(SpawnPoint point)
+		//{
+  //          Debug.Log("<color = red> shall never use this! </color>");
+		//	//Make sure we don't nullify a point if the currentPoint has changed
+		//	if (CurrentSpawnPoint == point)
+		//	{
+		//		CurrentSpawnPoint = null;
+		//	}
+		//}
 
 
 		private int _PlayerNumber = -1;
@@ -485,12 +486,12 @@ namespace Complete
 
 			SetWholeTankThingsInActive ();
 
-			if (CurrentSpawnPoint != null)
-			{
-				CurrentSpawnPoint.Decrement();
-				// TODO: implement this!!!
-				// finish this with TankManager.
-			}
+			//if (CurrentSpawnPoint != null)
+			//{
+			//	CurrentSpawnPoint.Decrement();
+			//	// TODO: implement this!!!
+			//	// finish this with TankManager.
+			//}
 
 			if (playerDeath != null)
 			{

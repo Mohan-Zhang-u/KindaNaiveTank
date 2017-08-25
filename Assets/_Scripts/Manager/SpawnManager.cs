@@ -9,9 +9,12 @@ using System.Linq;
 /// </summary>
 public class SpawnManager : Singleton<SpawnManager>
 {
-	private List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
 
-	protected override void Awake()
+
+	private List<SpawnPoint> _SpawnPointScripts = new List<SpawnPoint>();
+    private RandomSpawnPoint _RandomSpawnPointScript;
+
+    protected override void Awake()
 	{
 		base.Awake();
 		LazyLoadSpawnPoints();
@@ -27,45 +30,52 @@ public class SpawnManager : Singleton<SpawnManager>
 	/// </summary>
 	private void LazyLoadSpawnPoints()
 	{
-		// if already inited, return
-		if (spawnPoints != null && spawnPoints.Count > 0)
-		{
-			return;
-		}
-		// else, add all spawn points from child.
-		SpawnPoint[] foundSpawnPoints = GetComponentsInChildren<SpawnPoint>();
-		spawnPoints.AddRange(foundSpawnPoints);
+        if (_SpawnPointScripts == null || _SpawnPointScripts.Count == 0){
+            // else, add all spawn points from child.
+            SpawnPoint[] foundSpawnPoints = GetComponentsInChildren<SpawnPoint>();
+            _SpawnPointScripts.AddRange(foundSpawnPoints);
+        }
+        if (_RandomSpawnPointScript == null)
+        {
+            _RandomSpawnPointScript = GetComponentInChildren<RandomSpawnPoint>();
+        }
 	}
 
-	/// <summary>
-	/// Gets index of a random empty spawn point
-	/// </summary>
-	/// <returns>The random empty spawn point index.</returns>
-	public int GetRandomEmptySpawnPointIndex()
-	{
-		LazyLoadSpawnPoints();
-		//Check for empty zones
-		List<SpawnPoint> emptySpawnPoints = spawnPoints.Where(sp => sp.isEmptyZone).ToList();
+	///// <summary>
+	///// Gets index of a random empty spawn point
+	///// </summary>
+	///// <returns>The random empty spawn point index.</returns>
+	//public int GetRandomEmptySpawnPointIndex()
+	//{
+	//	LazyLoadSpawnPoints();
+	//	//Check for empty zones
+	//	List<SpawnPoint> emptySpawnPoints = _SpawnPointScripts.Where(sp => sp.isEmptyZone).ToList();
 		
-		//If no zones are empty, which is impossible if the setup is correct, then return the first spawnpoint in the list
-		if (emptySpawnPoints.Count == 0)
-		{
-			return 0;
-		}
+	//	//If no zones are empty, which is impossible if the setup is correct, then return the first spawnpoint in the list
+	//	if (emptySpawnPoints.Count == 0)
+	//	{
+	//		return 0;
+	//	}
 		
-		//Get random empty spawn point
-		SpawnPoint emptySpawnPoint = emptySpawnPoints[Random.Range(0, emptySpawnPoints.Count)];
+	//	//Get random empty spawn point
+	//	SpawnPoint emptySpawnPoint = emptySpawnPoints[Random.Range(0, emptySpawnPoints.Count)];
 		
-		//Mark it as dirty
-		emptySpawnPoint.SetDirty();
+	//	//Mark it as dirty
+	//	emptySpawnPoint.SetDirty();
 		
-		//return the index of this spawn point
-		return spawnPoints.IndexOf(emptySpawnPoint);
-	}
+	//	//return the index of this spawn point
+	//	return _SpawnPointScripts.IndexOf(emptySpawnPoint);
+	//}
+
+    //public bool GetARandomPositionToSpawn(ref Transform location)
+    //{
+
+
+    //}
 
 	public bool IfSpawnPointExists(int i)
 	{
-		if (spawnPoints [i])
+		if (_SpawnPointScripts [i])
 			return true;
 		else
 			return false;
@@ -74,22 +84,123 @@ public class SpawnManager : Singleton<SpawnManager>
 	public SpawnPoint GetSpawnPointByIndex(int i)
 	{
 		LazyLoadSpawnPoints();
-		return spawnPoints[i];
+		return _SpawnPointScripts[i];
 	}
 
-	public Transform GetSpawnPointTransformByIndex(int i)
-	{
-		return GetSpawnPointByIndex(i).spawnPointTransform;
-	}
+	//public Transform GetSpawnPointTransformByIndex(int i)
+	//{
+	//	return GetSpawnPointByIndex(i).spawnPointTransform;
+	//}
 
 	/// <summary>
 	/// Cleans up the spawn points.
 	/// </summary>
 	public void CleanupSpawnPoints()
 	{
-		for (int i = 0; i < spawnPoints.Count(); i++)
+		for (int i = 0; i < _SpawnPointScripts.Count(); i++)
 		{
-			spawnPoints[i].Cleanup();
+			_SpawnPointScripts[i].Cleanup();
 		}
 	}
+
+    /* NOTE!!!!!! Both have collider, at least one have Istrigger and rigidBody.
+    type must be in:
+    public bool General;
+    public bool Player;
+    public bool Npc;
+    public bool Box;
+    public bool ExplosiveItem;
+    public bool DestroyableItem;
+    */
+    public bool FoundARandomSpawnPoint(string type, ref Transform t)
+    {
+        if (type == "General")
+        {
+            foreach(SpawnPoint sp in _SpawnPointScripts)
+            {
+                if (sp.General && sp.IsEmptyZone)
+                {
+                    t = sp.transform;
+                    return true;
+                }
+            }
+        }
+        if (type == "Player")
+        {
+            foreach (SpawnPoint sp in _SpawnPointScripts)
+            {
+                if ((sp.General || sp.Player) && sp.IsEmptyZone)
+                {
+                    t = sp.transform;
+                    return true;
+                }
+            }
+        }
+        if (type == "Npc")
+        {
+            foreach (SpawnPoint sp in _SpawnPointScripts)
+            {
+                if ((sp.General || sp.Npc) && sp.IsEmptyZone)
+                {
+                    t = sp.transform;
+                    return true;
+                }
+            }
+        }
+        if (type == "Box")
+        {
+            foreach (SpawnPoint sp in _SpawnPointScripts)
+            {
+                if ((sp.General || sp.Box) && sp.IsEmptyZone)
+                {
+                    t = sp.transform;
+                    return true;
+                }
+            }
+        }
+        if (type == "ExplosiveItem")
+        {
+            foreach (SpawnPoint sp in _SpawnPointScripts)
+            {
+                if ((sp.General || sp.ExplosiveItem) && sp.IsEmptyZone)
+                {
+                    t = sp.transform;
+                    return true;
+                }
+            }
+        }
+        if (type == "DestroyableItem")
+        {
+            foreach (SpawnPoint sp in _SpawnPointScripts)
+            {
+                if ((sp.General || sp.DestroyableItem) && sp.IsEmptyZone)
+                {
+                    t = sp.transform;
+                    return true;
+                }
+            }
+        }
+        // if all above fails, we need RanodomSpawnPoint.
+        if (_RandomSpawnPointScript.IsEmptyZone)
+        {
+            t = _RandomSpawnPointScript.transform;
+            return true;
+        }
+        if (!_RandomSpawnPointScript.IsEmptyZone)
+        {
+            _RandomSpawnPointScript.MoveToNewPosition();
+            if (!_RandomSpawnPointScript.IsEmptyZone)
+            {
+                return false;
+            }
+            else
+            {
+                t = _RandomSpawnPointScript.transform;
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
+ 
