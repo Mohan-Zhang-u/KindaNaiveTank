@@ -43,6 +43,7 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 	public LayerMask GeneralItemsMask;
 	public LayerMask ExplosiveItemsMask;
 	public LayerMask GroundMask;
+    public LayerMask ObstacleItemMask;
 
 //	public void Awake(){
 //		TankMask = LayerMask.NameToLayer ("TankToSpawn");

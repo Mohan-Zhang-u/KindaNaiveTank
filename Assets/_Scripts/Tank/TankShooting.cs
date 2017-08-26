@@ -101,7 +101,7 @@ namespace Complete
 					Fire ();
 				}
 				// Otherwise, if the fire button has just started being pressed...
-				else if (FireButtonOnPointerDown)
+				else if (FireButtonOnPointerDown && m_Fired)
 				{
 					// ... reset the fired flag and reset the launch force.
 					m_Fired = false;
@@ -210,19 +210,20 @@ namespace Complete
 
 		// this is the helperfunction used in OnChangeShellByIndex and OnChangeShellByName
 		private void SetFunctionForOnChangeShell(ShellTypeDefinition def){
-			m_Fired = false;
+            // this shall be set to true, in order to achieve: dont fire instantly.
+			m_Fired = true;
 			ShellPrefab = def.displayPrefab;
-//			ShellRigBody = ShellPrefab.GetComponent<Rigidbody>();
 			ShootColdDown = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().ShootColdDown;
 			Chargeable = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().ForceChargeable;
 			if (Chargeable) {
 				m_CurrentLaunchForce = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MinShootForce;
-				m_AimSlider.value = m_CurrentLaunchForce;
+                m_AimSlider.minValue = ShellPrefab.GetComponent<ShellHandlerAbstractClass>().MinShootForce;
+                m_AimSlider.maxValue = ShellPrefab.GetComponent<ShellHandlerAbstractClass>().MaxShootForce;
+                m_AimSlider.value = m_CurrentLaunchForce;
 				m_MinLaunchForce = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MinShootForce;
 				m_MaxLaunchForce = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MaxShootForce;
 				m_MaxChargeTime = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().m_MaxChargeTime;
 				m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
-
 			} else {
 				FlyingSpeed = ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().FlyingSpeed;
 				m_CurrentLaunchForce = FlyingSpeed;
