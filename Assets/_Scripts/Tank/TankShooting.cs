@@ -73,7 +73,7 @@ namespace Complete
 			WallMask = LayerMask.NameToLayer ("Wall");
 			SetDynamicObjectLibrary ();
 			OnChangeTankByIndex(0);
-			OnChangeShellByIndex (0);
+			OnChangeShellByIndex (1);
 			OnChangeTankOrShell ();
 		}
 
@@ -90,12 +90,12 @@ namespace Complete
 			if (UpdateFireColdingDown) {
 				return;
 			}
-			
-			// check what type of shell is going to be fired.
-			if (Chargeable) {
-				m_AimSlider.value = m_CurrentLaunchForce;
-				// If the max force has been exceeded and the shell hasn't yet been launched...
-				if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired) {
+            // check what type of shell is going to be fired.
+            if (Chargeable) {
+                m_AimSlider.value = m_CurrentLaunchForce;
+                //Debug.Log(m_AimSlider.value == 10); // update isn't called everyframe..
+                // If the max force has been exceeded and the shell hasn't yet been launched...
+                if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired) {
 					// ... use the max force and launch the shell.
 					m_CurrentLaunchForce = m_MaxLaunchForce;
 					Fire ();
@@ -350,7 +350,7 @@ namespace Complete
 
 				// Reset the launch force.  This is a precaution in case of missing button events.
 				m_CurrentLaunchForce = m_MinLaunchForce;
-			} else {
+            } else {
 
 				shellInstance.GetComponent<Rigidbody> ().velocity = FlyingSpeed * m_FireTransform.forward;
 

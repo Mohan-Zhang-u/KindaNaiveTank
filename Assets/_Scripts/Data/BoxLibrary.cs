@@ -7,25 +7,33 @@ using System.Collections.Generic;
 [Serializable]
 public struct BoxTypeDefinition
 {
-	//Unique ID to reference tank internally
+	//Unique ID to reference box internally
 	public string id;
 
-	//The displayed name of the tank
+	//The displayed name of the box
 	public string name;
 
-	//A short blurb describing the tank
-	public string description;
+    //A short blurb describing the box     powerupPrefab
+    public string description;
 
 	//The display prefab to be instantiated to represent this box in the menu and in-game
 	public GameObject displayPrefab;
 
+    //The relative probability of this object spawning. 用来加权平均?
+    public int dropWeighting;
 }
 
 
 public class BoxLibrary :PersistentSingleton<BoxLibrary> {
 
-	//An array of TankTypeDefinitions. These determine which tanks are available in the game and their properties.
-	[SerializeField]
+    //Reference to the ScriptableObject defining the explosion when powerups spawn.
+    public ExplosionSettings m_SpawnExplosion;
+
+    //The prefab to spawn to indicate an incoming drop, and a temporary reference variable so we can early-out it if necessary.
+    public GameObject m_HotdropEffectPrefab;
+
+    //An array of TankTypeDefinitions. These determine which boxs are available in the game and their properties.
+    [SerializeField]
 	private BoxTypeDefinition[] BoxDefinitions;
 
 	protected override void Awake()

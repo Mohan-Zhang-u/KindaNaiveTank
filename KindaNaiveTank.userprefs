@@ -1,8 +1,8 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Tank\TankMovement.cs">
+﻿<Properties StartupItem="KindaNaiveTank.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Scripts\Tank\TankShooting.cs">
     <Files>
-      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Scripts\Tank\TankShooting.cs" Line="4" Column="26" />
       <File FileName="Assets\_Scripts\Tank\TankMovement.cs" Line="117" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
