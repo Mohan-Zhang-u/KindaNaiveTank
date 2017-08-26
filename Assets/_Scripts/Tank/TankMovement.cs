@@ -73,16 +73,25 @@ namespace Complete
 			} 
 		}
 
-		private void Move ()
-		{
-			// Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-			Vector3 movement = Joystick.JoyStickInputVectors * m_Speed * Time.deltaTime;
+        //private void Move()
+        //{
+        //    // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
+        //    float movement = Joystick.JoyStickInputVectors.magnitude * m_Speed;
+        //    m_Rigidbody.velocity = transform.forward * movement;
+        //}
 
-			// Apply this movement to the rigidbody's position.
-			m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
-		}
+        private void Move()
+        {
+            // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
+            Vector3 movement = Joystick.JoyStickInputVectors * m_Speed * Time.deltaTime;
 
-		private void EngineAudio ()
+            // Apply this movement to the rigidbody's position.
+            m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+            //m_Rigidbody.velocity = Vector3.zero;
+            //m_Rigidbody.angularVelocity = Vector3.zero;
+        }
+
+        private void EngineAudio ()
 		{
 			// If there is no input (the tank is stationary)...
 			if (Mathf.Abs (Joystick.JoyStickInputVectors.magnitude) < 0.1f)

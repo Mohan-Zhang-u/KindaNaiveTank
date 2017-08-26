@@ -52,22 +52,24 @@ namespace Complete
 		private float fireRateMultiplier;
 		private WaitForSeconds ColdDownWait; // this comes from  fireRateMultiplier * ShootColdDown.
 
-		// -------------------------now, MonoBehaviour Functions.--------------------------------
-		// I dont know whether we need OnEnable or not.
-//        private void OnEnable()
-//        {
-//			// WHY use ShellPrefab.GetComponent<ShellHandlerAbstractClass> ()? because we dont know what exact class is it, and we dont  want to use directly what in such abstractclass.
-//            // When the tank is turned on, reset the launch force and the UI
-//			OnChangeTankByIndex(0);
-//			OnChangeShellByIndex (0);
-//			SetFireTransform ();
-//			SetAimSlider ();
-//			
-////			Debug.Log (ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MaxDamage);
-//        }
-			
-		// was start, change to onenable.
-		void Awake() {
+        private float DontGoThroughWallFloat = 0.5f;
+
+        // -------------------------now, MonoBehaviour Functions.--------------------------------
+        // I dont know whether we need OnEnable or not.
+        //        private void OnEnable()
+        //        {
+        //			// WHY use ShellPrefab.GetComponent<ShellHandlerAbstractClass> ()? because we dont know what exact class is it, and we dont  want to use directly what in such abstractclass.
+        //            // When the tank is turned on, reset the launch force and the UI
+        //			OnChangeTankByIndex(0);
+        //			OnChangeShellByIndex (0);
+        //			SetFireTransform ();
+        //			SetAimSlider ();
+        //			
+        ////			Debug.Log (ShellPrefab.GetComponent<ShellHandlerAbstractClass> ().MaxDamage);
+        //        }
+
+        // was start, change to onenable.
+        void Awake() {
 			WallMask = LayerMask.NameToLayer ("Wall");
 			SetDynamicObjectLibrary ();
 			OnChangeTankByIndex(0);
@@ -320,7 +322,7 @@ namespace Complete
         private void Fire ()
         {
 			// solve the CROSS-WALL bug.
-			WallChecker = Physics.OverlapSphere (m_FireTransform.position, 0.55f);
+			WallChecker = Physics.OverlapSphere (m_FireTransform.position, DontGoThroughWallFloat);
 			if (WallChecker.Length > 0) {
 				foreach(Collider wobj in WallChecker){
 					if (wobj.gameObject.layer == WallMask) {

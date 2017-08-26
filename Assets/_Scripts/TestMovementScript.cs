@@ -37,10 +37,10 @@ public class TestMovementScript : MonoBehaviour {
 	private void Move ()
 	{
 		// Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-		Vector3 movement = Joystick.JoyStickInputVectors * m_Speed * Time.deltaTime;
-
+		float movement = Joystick.JoyStickInputVectors.magnitude * m_Speed * Time.deltaTime;
+        m_Rigidbody.velocity = transform.forward * movement * 40;
 		// Apply this movement to the rigidbody's position.
-		m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+		//m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
 	}
 
 

@@ -10,7 +10,7 @@ public class VirtualJoyStickScript : MonoBehaviour, IDragHandler, IPointerUpHand
 	private Image BGImg;
 	private Image StickImg;
 	private Vector3 TempV;
-	private Vector3 InputV; // between (-1,0,-1) to (1,0,1) from bottom left to top right
+	private Vector3 InputV; // between (-1,0,-1) to (1,0,1) from bottom left to top right, its magnitude shall be 1.
 	public Vector3 JoyStickInputVectors{
 		get{
 			return InputV;
