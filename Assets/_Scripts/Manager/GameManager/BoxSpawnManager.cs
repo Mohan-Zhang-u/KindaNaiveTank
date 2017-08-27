@@ -128,8 +128,21 @@ public class BoxSpawnManager : MonoBehaviour
         m_NextSpawnTime = Time.time + dropEffect.GetComponent<HotdropLight>().dropTime;
     }
 
+    //Gets a random powerup and spawns it to the field along with an explosion to correlate with its "drop" from orbit.
     private void SpawnPowerup()
     {
-        
+        m_ActiveDropEffect = null;
+
+        GameObject cratePrefab = FindObjectOfType<GameManagerBase>().GetRandomBox().displayPrefab;
+
+        //Crates will auto-network-spawn on start, so we only need to instantiate them.
+        GameObject dropPod = (GameObject)Instantiate(cratePrefab, m_DropTargetPosition, Quaternion.identity);
+
+
+        if (m_SpawnExplosion != null && ExplosionManager.s_InstanceExists)
+        {
+            ExplosionManager.s_Instance.SpawnExplosion(dropPod.transform.position, transform.up, dropPod, -1, m_SpawnExplosion, false);
+        }
     }
+
 }

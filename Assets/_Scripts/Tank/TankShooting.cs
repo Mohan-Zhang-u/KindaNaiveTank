@@ -327,6 +327,9 @@ namespace Complete
 			if (WallChecker.Length > 0) {
 				foreach(Collider wobj in WallChecker){
 					if (wobj.gameObject.layer == WallMask) {
+                        m_Fired = true;
+                        m_CurrentLaunchForce = m_MinLaunchForce;
+                        m_AimSlider.value = m_MinLaunchForce;
 						return;
 					}
 				}

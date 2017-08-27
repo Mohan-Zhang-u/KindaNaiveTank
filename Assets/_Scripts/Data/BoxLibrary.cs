@@ -16,11 +16,11 @@ public struct BoxTypeDefinition
     //A short blurb describing the box     powerupPrefab
     public string description;
 
-	//The display prefab to be instantiated to represent this box in the menu and in-game
-	public GameObject displayPrefab;
-
     //The relative probability of this object spawning. 用来加权平均?
     public int dropWeighting;
+
+    //The display prefab to be instantiated to represent this box in the menu and in-game, the prefab shall has scripts attached to.
+    public GameObject displayPrefab;
 }
 
 
@@ -57,15 +57,16 @@ public class BoxLibrary :PersistentSingleton<BoxLibrary> {
 		return BoxDefinitions[index];
 	}
 
-	public BoxTypeDefinition GetBoxDataForName(string boxName)
+	public BoxTypeDefinition GetBoxDataForName(string boxName, out bool success)
 	{
 		foreach (BoxTypeDefinition box in BoxDefinitions){
 			if(box.name == boxName){
+                success = true;
 				return box;
 			}
 		}
-
-		Debug.Log("<color=red>WARNING: Requested box name does not exist.</color>");
+        success = false;
+        Debug.Log("<color=red>WARNING: Requested box name does not exist.</color>");
 		return BoxDefinitions[0];
 
 	}
@@ -74,5 +75,4 @@ public class BoxLibrary :PersistentSingleton<BoxLibrary> {
 	{
 		return BoxDefinitions.Length;
 	}
-
 }
