@@ -11,8 +11,9 @@ public class HotDropExplosive : ItemHandlerAbstractClass
 
     public GameObject BoxExplosionEffect;
 
-    private void OnEnable()
+    private void Awake()
     {
-        
+        m_HotdropEffectPrefab.SetActive(true);
+        m_HotdropEffectPrefab.GetComponent<HotdropLight>().Start();
     }
 }
