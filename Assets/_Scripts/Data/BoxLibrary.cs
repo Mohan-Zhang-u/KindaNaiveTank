@@ -32,6 +32,8 @@ public class BoxLibrary :PersistentSingleton<BoxLibrary> {
     //The prefab to spawn to indicate an incoming drop, and a temporary reference variable so we can early-out it if necessary.
     public GameObject m_HotdropEffectPrefab;
 
+    public GameObject BoxExplosionEffect;
+
     //An array of TankTypeDefinitions. These determine which boxs are available in the game and their properties.
     [SerializeField]
 	private BoxTypeDefinition[] BoxDefinitions;

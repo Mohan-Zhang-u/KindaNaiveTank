@@ -68,8 +68,8 @@ namespace Complete
 		public event Action playerReset;
 		//This constant defines the player index used to represent player suicide in the damage parsing system.
 		public const int TANK_SUICIDE_INDEX = -1;
-		//This constant defines the player index used to represent player damaged by the nutural environment in the damage parsing system.
-		public const int TANK_ENVIRONMNETDMG_INDEX = -2;
+        //This constant defines the player index used to represent player damaged by the nutural environment in the damage parsing system.
+        public const int TANK_ENVIRONMNETDMG_INDEX = -2;
 
 /*	TODO: syncVar used for NetWorkBehavior.s
 		[SyncVar(hook = "OnCurrentHealthChanged")]

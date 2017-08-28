@@ -7,21 +7,24 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 
 	public string ShellId;
 	// IDs.
-	public int FireByTankId;
+	public int FireByTankId = -2;
 	public string ExplosionId;
 
 	public bool AmountLimited = false;
-	public int LimitedAmount;
+    [HeaderAttribute("If not AmountLimited, ignore.")]
+    public int LimitedAmount;
 	public int ReflectOrBounceTimes; // bounce like refectshell? or not?
 	public float ShootColdDown; // if ShootColdDown = 0, just like a laser sword.
-	public float FlyingSpeed; //if not ForceChargeable, its speed shall be a constant.
-	public bool ForceChargeable; // have a shoot distance? the more the far or fast? or not?
-	/// <summary>
-	/// if the shell is forceChargeable, press -> shoot once.
-	/// else, press -> always shoot.
-	/// </summary>
-	// ----------need if ForceChargeable--------------
-	public float MinShootForce;
+    [HeaderAttribute("If ForceChargeable, ignore.")]
+    public float FlyingSpeed; //if not ForceChargeable, its speed shall be a constant.
+    public bool ForceChargeable; // have a shoot distance? the more the far or fast? or not?
+                                 /// <summary>
+                                 /// if the shell is forceChargeable, press -> shoot once.
+                                 /// else, press -> always shoot.
+                                 /// </summary>
+    // ----------need if ForceChargeable--------------
+    [HeaderAttribute("If not ForceChargeable, ignore.")]
+    public float MinShootForce;
 	public float MaxShootForce;
 	public float m_MaxChargeTime;
 
@@ -79,7 +82,7 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 		Explode (other);
 	}
 
-	// its shared all accross!!!!!!!!!!!!!!!!!!!!
+	// TODO: when it is Client side, we shall only apply the force. WHEN IT IS SERVER SIDE, moreover, we shall deal the damage.
 	/// <summary>
 	/// it is the ugliest part in C#. because, since this is a parent abstract class,
 	/// if we dont copy and paste this code to its parent, the ExplosionParticles and ExplosionAudio
