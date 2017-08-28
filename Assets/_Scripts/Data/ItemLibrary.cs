@@ -7,6 +7,7 @@ using System.Collections.Generic;
 [Serializable]
 public struct ItemTypeDefinition
 {
+    public GameObject displayPrefab;
     //Unique ID to reference item internally
     public string id;
 
@@ -18,7 +19,7 @@ public struct ItemTypeDefinition
 
     public bool IsExplosive;
     public bool IsObstacle;
-    public GameObject displayPrefab;
+
 
 }
 
