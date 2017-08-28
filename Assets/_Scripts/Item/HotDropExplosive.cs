@@ -13,7 +13,7 @@ public class HotDropExplosive : ItemHandlerAbstractClass
 
     private void Awake()
     {
-        m_HotdropEffectPrefab.SetActive(true);
-        m_HotdropEffectPrefab.GetComponent<HotdropLight>().Start();
+        //m_HotdropEffectPrefab.SetActive(true);
+        //m_HotdropEffectPrefab.GetComponent<HotdropLight>().Start();
     }
 }

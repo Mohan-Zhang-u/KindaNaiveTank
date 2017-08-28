@@ -1,136 +1,118 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.Networking;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
+using Complete;
 
-//[RequireComponent(typeof(Rigidbody))]
-//[RequireComponent(typeof(Collider))]
-////[RequireComponent(typeof(NetworkIdentity))]
-////[RequireComponent(typeof(NetworkTransform))]
-////This class acts as a base for all powerup pickups, defining all common behaviours.
-//public abstract class BoxBase : NetworkBehaviour
-//{
-//    //The name of this pickup.
-//    [SerializeField]
-//    protected string PickUpId;
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
+// TODO: add
+//[RequireComponent(typeof(NetworkIdentity))]
+//[RequireComponent(typeof(NetworkTransform))]
+//This class acts as a base for all powerup pickups, defining all common behaviours.
+public abstract class BoxBase : MonoBehaviour
+{
+    //The name of this pickup.
+    [SerializeField]
+    protected string BoxId;
 
-//    //The effect prefab to spawn when the pickup is collected.
-//    [SerializeField]
-//    protected GameObject m_CollectionEffect;
+    //The effect prefab to spawn when the pickup is collected.
+    [SerializeField]
+    protected GameObject m_CollectionEffect;
 
-//    //Delay before the attached TankSeeker is set to active.
-//    [SerializeField]
-//    protected float m_AttractorActivationDelay = 1.2f;
+    //Internal cache for the layer of objects that are able to trigger pickup. this is tank by default.
+    private int TankLayerMask;
 
-//    //Internal cache for the layer of objects that are able to trigger pickup.
-//    private int m_PickupLayer;
+    private GameManagerBase GameManagerScript; // this can be eitehr SinglePlayerGamemanager or MultiplayerGamemanager.
 
-//    ////Number of ticks before the pickup collider is enabled.
-//    //private int m_ColliderEnableCount = 2;
+    protected virtual void Awake()
+    {
+        TankLayerMask = LayerMask.NameToLayer("TankToSpawn");
+        GameManagerScript = FindObjectOfType<GameManagerBase>();
+    }
 
+    //TODO: implement this networkBehaviour [ServerCallback]
+    protected virtual void OnEnable()
+    {
 
-//    //Internal reference to the TankSeeker that attracts this pickup to player tanks.
-//    //private TankSeeker m_Attractor;
+        //Add this powerup to the GameManager so that it can be destroyed between rounds if needed.
+        if (GameManagerScript != null)
+        {
+            GameManagerScript.AddPowerup(this);
+        }
+        else
+        {
+            Debug.Log("<color=red>Cannot find a gamemanager to add this box! </color>");
+        }
+       
+        //Autospawn this object to clients when init is complete.
+        //TODO: implement this networkBehaviour NetworkServer.Spawn(gameObject);
+    }
 
-//    protected virtual void Awake()
-//    {
-//        m_PickupLayer = LayerMask.NameToLayer("TankToSpawn");
-//        //GetComponent<Collider>().enabled = false;
-//    }
+    #region Network Utility
+    //TODO: implement this networkBehaviour public override void OnNetworkDestroy()
+    //{
+    //    if (isServer)
+    //    {
+    //        //Remove this object's reference from the GameManager, since it's quite happily dead.
+    //        GameManager.s_Instance.RemovePowerup(this);
+    //    }
 
-//    [ServerCallback]
-//    protected virtual void Start()
-//    {
+    //    base.OnNetworkDestroy();
+    //}
 
-//        //Add this powerup to the GameManager so that it can be destroyed between rounds if needed.
-//        GameManager.s_Instance.AddPowerup(this);
+    //TODO: implement this networkBehaviour  [ServerCallback]
+    //protected virtual void Update()
+    //{
+    //    // IDK why this is useful
+    //    //Tick down the collider enable count, and enable the collection collider when depleted.
+    //    if (m_ColliderEnableCount >= 0)
+    //    {
+    //        m_ColliderEnableCount--;
 
-//        //Autospawn this object to clients when init is complete.
-//        NetworkServer.Spawn(gameObject);
-//    }
+    //        if (m_ColliderEnableCount == 0)
+    //        {
+    //            GetComponent<Collider>().enabled = true;
+    //        }
+    //    }
 
-//    //public override void OnNetworkDestroy()
-//    //{
-//    //    if (isServer)
-//    //    {
-//    //        //Remove this object's reference from the GameManager, since it's quite happily dead.
-//    //        GameManager.s_Instance.RemovePowerup(this);
-//    //    }
+    //}
+#endregion
 
-//    //    base.OnNetworkDestroy();
-//    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        //We only want to register triggers fired by objects in the player layer.
+        if (other.gameObject.layer == TankLayerMask)
+        {
+            //Create the collection effect. Immediate collection feedback on clients looks better.
+            if (m_CollectionEffect != null)
+            {
+                Instantiate(m_CollectionEffect, transform.position + Vector3.up, Quaternion.LookRotation(Vector3.up));
+            }
 
-//    [ServerCallback]
-//    //protected virtual void Update()
-//    //{
-//    //    // IDK why this is useful
-//    //    //Tick down the collider enable count, and enable the collection collider when depleted.
-//    //    if (m_ColliderEnableCount >= 0)
-//    //    {
-//    //        m_ColliderEnableCount--;
+            // TODO: implement this networkBehaviour If this is the server, fire powerup collection logic and networkdestroy this object.
+            //if (isServer)
+            //{
+            //    OnPickupCollected(other.gameObject);
+            //    NetworkServer.Destroy(gameObject);
+            //}
 
-//    //        if (m_ColliderEnableCount == 0)
-//    //        {
-//    //            GetComponent<Collider>().enabled = true;
-//    //        }
-//    //    }
+            OnPickupCollected(other.GetComponentInParent<TankAndItsUIManager>(), other);
+            Destroy(gameObject);
+        }
+    }
 
-//    //}
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
 
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        //We only want to register triggers fired by objects in the player layer.
-//        if (other.gameObject.layer == m_PickupLayer)
-//        {
-//            //Create the collection effect. Immediate collection feedback on clients looks better.
-//            if (m_CollectionEffect != null)
-//            {
-//                Instantiate(m_CollectionEffect, transform.position + Vector3.up, Quaternion.LookRotation(Vector3.up));
-//            }
+    //This method is overridden in child classes to implement specific powerup logic
+    //As a standard, though, it updates the triggering tank with info to update its player's HUD.
+    protected virtual void OnPickupCollected(TankAndItsUIManager m, Collider tankCollider)
+    {
+        m.OnPickupCollected(BoxId);
+        Debug.Log("executing parent!");
+    }
 
-//            ////If this is the server, fire powerup collection logic and networkdestroy this object.
-//            //if (isServer)
-//            //{
-//            //    OnPickupCollected(other.gameObject);
-//            //    NetworkServer.Destroy(gameObject);
-//            //}
-//            OnPickupCollected(other.GetComponentInParent<TankAndItsUIManager>());
-//            Destroy(gameObject);
-//        }
-//    }
-
-//    //Damage is called by any player fire, and implements IDamageObject. It allows drop pods to be destroyed by players as a denial tactic.
-//    //It also spawns a big nasty explosion that can take out any nearby tanks.
-//    public void Damage(float damage)
-//    {
-//        if (damage < m_MinDamage || !isAlive)
-//        {
-//            return;
-//        }
-
-//        isAlive = false;
-//        if (m_DeathExplosion != null && ExplosionManager.s_InstanceExists)
-//        {
-//            ExplosionManager.s_Instance.SpawnExplosion(transform.position, transform.up, gameObject, m_DestroyingPlayer, m_DeathExplosion, false);
-//        }
-
-//        NetworkServer.Destroy(gameObject);
-//    }
-
-//    public void SetDamagedBy(int playerNumber, string explosionId)
-//    {
-//        m_DestroyingPlayer = playerNumber;
-//    }
-
-//    public Vector3 GetPosition()
-//    {
-//        return transform.position;
-//    }
-
-//    //This method is overridden in child classes to implement specific powerup logic
-//    //As a standard, though, it updates the triggering tank with info to update its player's HUD.
-//    protected virtual void OnPickupCollected(TankAndItsUIManager m)
-//    {
-//        m.AddPickupId(PickUpId);
-//    }
-//}
+}

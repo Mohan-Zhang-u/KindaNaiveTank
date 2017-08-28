@@ -18,12 +18,12 @@ public class HotdropLight : NetworkBehaviour
 
 	//The pitch of the drop path.
 	[SerializeField]
-	[SyncVar]
-	protected float m_DropAnglePitch = 0f;
+    // TODO: use network here [SyncVar]
+    protected float m_DropAnglePitch = 0f;
 
 	//The yaw of the drop path.
 	[SerializeField]
-	[SyncVar]
+	// TODO: use network here [SyncVar]
 	protected float m_DropAngleYaw = 0f;
 
 	//The ratio of the smoke emitter's position between its maximum height and the ground.
@@ -50,7 +50,7 @@ public class HotdropLight : NetworkBehaviour
 		//(This prevents the effect path going through obstacles).
 		bool hasPath = false;
 
-		int mask = LayerMask.GetMask("Default","Powerups");
+		int mask = LayerMask.GetMask("Default","Box");
 
 		Vector3 testRotation;
 		float testPitch;
@@ -74,11 +74,11 @@ public class HotdropLight : NetworkBehaviour
 			}
 		}
 
-		//Now that we have a pitch and yaw, we can spawn this effect object across the clients initialized with these values.
-		NetworkServer.Spawn(gameObject);
-	}
+        //Now that we have a pitch and yaw, we can spawn this effect object across the clients initialized with these values.
+        // TODO: use network here NetworkServer.Spawn(gameObject);
+    }
 
-	private void Start()
+    private void Start()
 	{
 		//Start the effect animation. 
 		m_MyAnimator = GetComponent<Animator>();

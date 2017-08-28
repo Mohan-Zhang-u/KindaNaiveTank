@@ -41,7 +41,7 @@ namespace Complete
 		private GameObject ExplosionPrefab;                // A prefab that will be instantiated in Awake, then used whenever the tank dies.
         private AudioSource ExplosionAudio;               // The audio source to play when the tank explodes.
         private ParticleSystem ExplosionParticles;        // The particle system the will play when the tank is destroyed.
-		[SyncVar(hook = "OnCurrentHealthChanged")]
+        [SyncVar(hook = "OnCurrentHealthChanged")]
         private float CurrentHealth;                      // How much health the tank currently has.
 		[SyncVar(hook = "OnShieldLevelChanged")]
 		private float ShieldLevel;						//The current shield level of the tank.
@@ -403,6 +403,28 @@ namespace Complete
 				shieldChanged(ShieldLevel / StartingHealth);
 			}
 		}
+
+        public void AddHealth(float amount,int PlayerNumber)
+        {
+            if (CurrentHealth <= 0)
+            {
+                return;
+            }
+            float healthexpected = CurrentHealth + amount;
+            if (healthexpected >= StartingHealth)
+            {
+                CurrentHealth = StartingHealth;
+            }
+            else
+            {
+                CurrentHealth = healthexpected;
+            }
+            SetHealthAndShieldUI();
+            if (healthChanged != null)
+            {
+                healthChanged(CurrentHealth / StartingHealth);
+            }
+        }
         
 		//  TODO:!!!!!!!!!!!!!!!!Now all RPC things.!!!!!!!!!!!!!!!!
 		//		//Initializes all required references to external scripts.

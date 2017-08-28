@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Complete;
 
-public class BoxSpawnManager : NetworkBehaviour
+public class BoxSpawnManager : MonoBehaviour
 {
 
     private BoxLibrary BoxLibraryScript;
@@ -16,7 +16,7 @@ public class BoxSpawnManager : NetworkBehaviour
     private GameObject m_HotdropEffectPrefab;
     private GameObject BoxExplosionEffect;
 
-    private BoxTypeDefinition[] _BoxesToSpawn;
+    //private BoxTypeDefinition[] _BoxesToSpawn;
     // above come from BoxLibraryScript ----------------------------------------------------------
 
 
@@ -32,7 +32,8 @@ public class BoxSpawnManager : NetworkBehaviour
     protected float m_SpherecastRadius = 3f;
 
     //Flag to set whether this spawner is active or not.
-    private bool m_IsSpawnerActive = false;
+    [SerializeField]
+    protected bool m_IsSpawnerActive = false;
     // something we can handle in Gamemanager.---------------------------------------
 
     //The next time when a drop will occur.
@@ -46,8 +47,8 @@ public class BoxSpawnManager : NetworkBehaviour
 
     private GameObject m_ActiveDropEffect;
 
-    //The total of all drop weightings for random selection purposes.
-    private int m_TotalWeighting;
+    ////The total of all drop weightings for random selection purposes.
+    //private int m_TotalWeighting;
 
     private LayerLibrary LayerLibraryScript;
 
@@ -62,12 +63,11 @@ public class BoxSpawnManager : NetworkBehaviour
 
         LayerLibraryScript = FindObjectOfType<LayerLibrary>();
 
-        //Aggregate all the drop weightings of the items in our powerup list for selection.
-        for (int i = 0; i < _BoxesToSpawn.Length; i++)
-        {
-            m_TotalWeighting += _BoxesToSpawn[i].dropWeighting;
-        }
-
+        ////Aggregate all the drop weightings of the items in our powerup list for selection.
+        //for (int i = 0; i < _BoxesToSpawn.Length; i++)
+        //{
+        //    m_TotalWeighting += _BoxesToSpawn[i].dropWeighting;
+        //}
     }
 
     // TODO: [ServerCallback]
@@ -127,8 +127,10 @@ public class BoxSpawnManager : NetworkBehaviour
         //Instantiate the drop effect.
         GameObject dropEffect = (GameObject)Instantiate(m_HotdropEffectPrefab, m_DropTargetPosition, Quaternion.identity);
         m_ActiveDropEffect = dropEffect;
-        //Set the powerup spawn timer for when the effect is done.
-        m_NextSpawnTime = Time.time + dropEffect.GetComponent<HotdropLight>().dropTime;
+        //Set the powerup spawn timer for when the effect is done. assumes dropEffect.GetComponent<HotdropLight>().dropTime = 2.73333
+        m_NextSpawnTime = Time.time + 2.73333f;
+        // destory the animation after 5 seconds.
+        Destroy(dropEffect, 5f);
     }
 
     //Gets a random powerup and spawns it to the field along with an explosion to correlate with its "drop" from orbit.
@@ -137,9 +139,10 @@ public class BoxSpawnManager : NetworkBehaviour
         m_ActiveDropEffect = null;
 
         GameObject cratePrefab = FindObjectOfType<GameManagerBase>().GetRandomBox().displayPrefab;
-
+        Debug.Log("cratePrefab:" + cratePrefab.ToString());
         //Crates will auto-network-spawn on start, so we only need to instantiate them.
-        GameObject dropPod = (GameObject)Instantiate(cratePrefab, m_DropTargetPosition, Quaternion.identity);
+        // !!!!!!!!!!!!!we hereby add 1.5f inorder to let it be above the ground!!!!!!!!!!!
+        GameObject dropPod = (GameObject)Instantiate(cratePrefab, m_DropTargetPosition+new Vector3(0,1.5f,0), Quaternion.identity);
 
 
         if (m_SpawnExplosion != null)
@@ -177,8 +180,7 @@ public class BoxSpawnManager : NetworkBehaviour
     /// </summary>
     private void DoLogicalExplosion(Vector3 explosionPosition, Vector3 explosionNormal, GameObject ignoreObject, int damageOwnerId, ExplosionSettings explosionConfig)
     {
-        Collider[] colliders = Physics.OverlapSphere(explosionPosition, Mathf.Max(explosionConfig.explosionRadius, explosionConfig.physicsRadius), LayerMask.NameToLayer("TankToSpawn"));
-
+        Collider[] colliders = Physics.OverlapSphere(explosionPosition, Mathf.Max(explosionConfig.explosionRadius, explosionConfig.physicsRadius), LayerMask.GetMask("TankToSpawn"));
         // Go through all the colliders...
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -250,6 +252,10 @@ public class BoxSpawnManager : NetworkBehaviour
         //{
         //    NetworkServer.Destroy(m_ActiveDropEffect);
         //}
+        if (m_ActiveDropEffect != null)
+        {
+            Destroy(m_ActiveDropEffect);
+        }
 
         m_NextSpawnTime = 0f;
     }

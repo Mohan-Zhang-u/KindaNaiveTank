@@ -73,7 +73,7 @@ namespace Complete
 			WallMask = LayerMask.NameToLayer ("Wall");
 			SetDynamicObjectLibrary ();
 			OnChangeTankByIndex(0);
-			OnChangeShellByIndex (1);
+			OnChangeShellByIndex (0);
 			OnChangeTankOrShell ();
 		}
 

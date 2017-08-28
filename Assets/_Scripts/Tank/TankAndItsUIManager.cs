@@ -13,4 +13,10 @@ public class TankAndItsUIManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    // TODO: implement. set UI accordingly. Usually, it switches first and second Icon, reset which to fire when press item 1 or 2.
+    public void OnPickupCollected(string BoxId)
+    {
+
+    }
 }
