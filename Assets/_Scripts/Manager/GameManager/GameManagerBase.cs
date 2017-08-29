@@ -21,7 +21,7 @@ public class GameManagerBase : MonoBehaviour
 
 
 
-    private void Awake()
+    private void OnEnable()
     {
         BoxLibraryScript = FindObjectOfType<BoxLibrary>();
         m_PowerupList = new List<BoxBase>();

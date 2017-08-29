@@ -6,6 +6,7 @@
 /// SetTankActive 
 /// a lot of tankmanager thing... TankManager
 /// From notepad.
+/// !!!!!!!!!!!All tank's max shieldlevel is 100f.
 
 
 using UnityEngine;
@@ -445,46 +446,68 @@ namespace Complete
                 healthChanged(CurrentHealth / StartingHealth);
             }
         }
-        
-		//  TODO:!!!!!!!!!!!!!!!!Now all RPC things.!!!!!!!!!!!!!!!!
-		//		//Initializes all required references to external scripts.
-		//		public void Init(TankManager manager)
-		//		{
-		//			Manager = manager;
-		//			TDS = manager.display;
-		//			StartingHealth = manager.playerTankType.hitPoints;
-		//			Collider = TDS.GetComponent<BoxCollider>();
-		//		}
-		//
-		//		[ClientRpc]
-		//		public void RpcDelayedReset()
-		//		{
-		//			Manager.Reset(null);
-		//		}
-		//
-		//		[ClientRpc]
-		//		//Fired on clients to make tanks damaged by the local player flash red.
-		//		private void RpcDamageFlash(int sourcePlayer)
-		//		{
-		//			if (sourcePlayer == GameManager.s_Instance.GetLocalPlayerId())
-		//			{
-		//				TDS.StartDamageFlash();
-		//			}
-		//		}
-		//
 
-//		//Initializes all required references to external scripts.
-//		public void Init(TankManager manager)
-//		{
-//			Manager = manager;
-//			TDS = manager.display;
-//			StartingHealth = manager.playerTankType.hitPoints;
-//			Collider = TDS.GetComponent<BoxCollider>();
-//		}
+        public void AddShield(float amount, int PlayerNumber)
+        {
+            if (CurrentHealth <= 0)
+            {
+                return;
+            }
+            float ShieldExpected = ShieldLevel + amount;
+            if (ShieldExpected >= 100f)
+            {
+                ShieldLevel = 100f;
+            }
+            else
+            {
+                ShieldLevel = ShieldExpected;
+            }
+            SetHealthAndShieldUI();
+            if (shieldChanged != null)
+            {
+                shieldChanged(ShieldLevel / 100f);
+            }
+        }
+
+        //  TODO:!!!!!!!!!!!!!!!!Now all RPC things.!!!!!!!!!!!!!!!!
+        //		//Initializes all required references to external scripts.
+        //		public void Init(TankManager manager)
+        //		{
+        //			Manager = manager;
+        //			TDS = manager.display;
+        //			StartingHealth = manager.playerTankType.hitPoints;
+        //			Collider = TDS.GetComponent<BoxCollider>();
+        //		}
+        //
+        //		[ClientRpc]
+        //		public void RpcDelayedReset()
+        //		{
+        //			Manager.Reset(null);
+        //		}
+        //
+        //		[ClientRpc]
+        //		//Fired on clients to make tanks damaged by the local player flash red.
+        //		private void RpcDamageFlash(int sourcePlayer)
+        //		{
+        //			if (sourcePlayer == GameManager.s_Instance.GetLocalPlayerId())
+        //			{
+        //				TDS.StartDamageFlash();
+        //			}
+        //		}
+        //
+
+        //		//Initializes all required references to external scripts.
+        //		public void Init(TankManager manager)
+        //		{
+        //			Manager = manager;
+        //			TDS = manager.display;
+        //			StartingHealth = manager.playerTankType.hitPoints;
+        //			Collider = TDS.GetComponent<BoxCollider>();
+        //		}
 
 
-//		[ClientRpc]
-		private void RpcOnZeroHealth()
+        //		[ClientRpc]
+        private void RpcOnZeroHealth()
 		{
 			//-----------------------------------original-------------------------
 			// Move the instantiated explosion prefab to the tank's position and turn it on.

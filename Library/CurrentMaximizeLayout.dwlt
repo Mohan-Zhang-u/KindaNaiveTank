@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 9170
+  controlID: 9318
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 421}
   m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 9045
+  controlID: 9297
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -207,13 +207,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.54416126, y: -0.2022984, z: 0.13714364, w: -0.80259144}
+    m_Target: {x: -0.31056127, y: -0.56627274, z: 0.24294402, w: -0.72376335}
     speed: 2
-    m_Value: {x: -0.54416126, y: -0.20229839, z: 0.13714363, w: -0.80259144}
+    m_Value: {x: -0.3105662, y: -0.56628174, z: 0.24294786, w: -0.72377485}
   m_Size:
-    m_Target: 15.201083
+    m_Target: 9.864317
     speed: 2
-    m_Value: 15.201083
+    m_Value: 9.864317
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 9171
+  controlID: 9319
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -291,8 +291,8 @@ MonoBehaviour:
     y: 0
     width: 352
     height: 348
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 9}
   m_Panes:
   - {fileID: 9}
@@ -326,8 +326,8 @@ MonoBehaviour:
     height: 327
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
+    m_SelectedIDs: da7bf8ff
+    m_LastClickedID: -492582
     m_ExpandedIDs: 6a2bfaffbc2bfaffc42bfaffd22bfaffde2bfaff464afaff664afaff984afaffa04afaffae4afaffba4afaff201dfbff8858fbffda58fbffe258fbff0464fdffa412ffff1afcffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -369,8 +369,8 @@ MonoBehaviour:
     y: 348
     width: 352
     height: 271
-  m_MinSize: {x: 234, y: 271}
-  m_MaxSize: {x: 10004, y: 10021}
+  m_MinSize: {x: 230, y: 250}
+  m_MaxSize: {x: 10000, y: 10000}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -415,7 +415,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/_Prefabs/SciFiTanks
+    - Assets/_Prefabs/Boxes/GoodBoxes
   m_ViewMode: 0
   m_StartGridSize: 16
   m_LastFolders: []
@@ -451,10 +451,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 344}
-    m_SelectedIDs: 
+    scrollPos: {x: 0, y: 1596}
+    m_SelectedIDs: da7bf8ff
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001e06000080060000e4270000fc2800007e2b0000942b0000e62b0000622c0000ea2c0000642d0000662e00007a2e0000ea2e00003c3100008c310000a8310000e6320000f032000096330000a8340000aa340000fc3400001c350000243600000c37000026370000b238000020390000043a0000dc3a0000e23a0000ae3c00001e3d00000e3e00008c3e0000de3e0000da440000dc440000de440000e0440000e2440000e4440000e6440000
+    m_ExpandedIDs: 000000001e06000080060000e4270000f6280000fc2800007e2b0000e62b0000ea2c0000642d0000662e00003c310000783100008c310000a8310000e6320000f0320000963300001e340000a8340000aa3400001c3500002436000000370000043700000c3700002637000042370000b2380000043a00003a3a0000563a0000dc3a0000e23a00004c3b00001e3d00000a3e00000e3e00008c3e0000da440000dc440000de440000e0440000e2440000e4440000e6440000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -479,8 +479,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: da7bf8ff
+    m_LastClickedInstanceID: -492582
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -531,10 +531,10 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 710
-    y: 449
-    width: 354
-    height: 257
+    x: 706
+    y: 448
+    width: 348
+    height: 250
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -587,7 +587,7 @@ MonoBehaviour:
     y: 100
     width: 293
     height: 598
-  m_ScrollPosition: {x: 0, y: 0}
+  m_ScrollPosition: {x: 0, y: 653.9551}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: -160

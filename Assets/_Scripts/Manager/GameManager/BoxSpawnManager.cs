@@ -169,6 +169,7 @@ public class BoxSpawnManager : MonoBehaviour
         //}
         GameObject ExplosioinEffect = Instantiate<GameObject>(BoxExplosionEffect, explosionPosition, Quaternion.identity);
         ExplosioinEffect.transform.up = explosionNormal;
+        Destroy(ExplosioinEffect, 2.5f); //heavyshell's core actually lasts 2f seconds.
         // will this ExplosioinEffect call its freaking Awake?
 
         DoLogicalExplosion(explosionPosition, explosionNormal, ignoreObject, damageOwnerId, explosionConfig);
