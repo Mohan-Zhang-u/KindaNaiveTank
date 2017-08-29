@@ -28,7 +28,6 @@ namespace Complete
 {
 	public class TankHealth : NetworkBehaviour
     {
-		//AudioSource ParticleSystem Slider FillImage TDS Collider CurrentSpawnPoint
 		private GameObject DynamicObjectLibrary;
 		private TankShooting TankShootingScript;
 		public GameObject CompleteTank;
@@ -48,9 +47,11 @@ namespace Complete
 		[SyncVar]
 		private bool ZeroHealthHappened;                                // Has the tank been reduced beyond zero health yet? same as private bool !!!!ZeroHealthHappened;
 
-		private Slider Slider;                             // The slider to represent how much health the tank currently has.
-		private Image FillImage;                           // The image component of the slider.
-		private TankDisplay TDS;
+		private Slider HealthSlider;                             // The slider to represent how much health the tank currently has.
+        private Slider ShieldSlider;
+        private Image HealthFillImage;                           // The image component of the slider.
+        private Image ShieldFillImage;
+        private TankDisplay TDS;
 		// Used so that the tank doesn't collide with anything when it's dead.
 		private BoxCollider Collider;
 		//Internal reference to the spawn point where this tank is.
@@ -128,25 +129,39 @@ namespace Complete
 
 		}
 
-		// sets Slider FillImage TDS
+		// sets Slider HealthFillImage TDS
 		private void OnChangeTank(){
 			Slider[] Sliders = transform.GetComponentsInChildren<Slider> (true);
 			foreach (Slider s in Sliders) {
 				if (s.name == "HealthSlider")
-					Slider = s;
-			}
-			Image[] Images = Slider.GetComponentsInChildren<Image> (true);
+                    HealthSlider = s;
+                if (s.name == "ShieldSlider")
+                    ShieldSlider = s;
+
+            }
+			Image[] Images = HealthSlider.GetComponentsInChildren<Image> (true);
 			foreach (Image m in Images) {
-				if (m.name == "Fill")
-					FillImage = m;
+				if (m.name == "HealthFill")
+					HealthFillImage = m;
 
 			}
-			TDS = CompleteTank.GetComponentInChildren<TankDisplay> (true);
-			if (Slider == null)
+            Images = ShieldSlider.GetComponentsInChildren<Image>(true);
+            foreach (Image m in Images)
+            {
+                if (m.name == "ShieldFill")
+                    ShieldFillImage = m;
+
+            }
+            TDS = CompleteTank.GetComponentInChildren<TankDisplay> (true);
+			if (HealthSlider == null)
 				Debug.Log ("<color = red>HealthSlider init error</color>");
-			if (FillImage == null)
-				Debug.Log ("<color = red>FillImage init error</color>");
-			if (TDS == null)
+            if (ShieldSlider == null)
+                Debug.Log("<color = red>ShieldSlider init error</color>");
+            if (HealthFillImage == null)
+				Debug.Log ("<color = red>HealthFillImage init error</color>");
+            if (ShieldFillImage == null)
+                Debug.Log("<color = red>ShieldFillImage init error</color>");
+            if (TDS == null)
 				Debug.Log ("<color = red>TDS init error</color>");
 			TankShootingScript = GetComponent<TankShooting> ();
 			tdef = TankShootingScript.GetTankDefinition ();
@@ -371,12 +386,17 @@ namespace Complete
         {
 			if (ShieldLevel <= 0) {
 				TDS.SetShieldBubbleActive (false);
-			}
+                ShieldSlider.value = 0f;
+            }
+            else
+            {
+                ShieldSlider.value = ShieldLevel;
+            }
             // Set the slider's value appropriately.
-            Slider.value = CurrentHealth;
+            HealthSlider.value = CurrentHealth;
 
             // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
-            FillImage.color = Color.Lerp (ZeroHealthColor, FullHealthColor, CurrentHealth / StartingHealth);
+            HealthFillImage.color = Color.Lerp (ZeroHealthColor, FullHealthColor, CurrentHealth / StartingHealth);
 
         }
 
