@@ -164,13 +164,14 @@ namespace Complete
                 Debug.Log("<color = red>ShieldFillImage init error</color>");
             if (TDS == null)
 				Debug.Log ("<color = red>TDS init error</color>");
-			TankShootingScript = GetComponent<TankShooting> ();
+            TankShootingScript = GetComponent<TankShooting> ();
 			tdef = TankShootingScript.GetTankDefinition ();
 			ExplosionPrefab = tdef.TankExplosionPrefab;
 			StartingHealth = tdef.StartHealth;
-
-			// !!!!! can only be set like this because after explosion, This tank wont exist.
-			ExplosionParticles = Instantiate (ExplosionPrefab).GetComponent<ParticleSystem> ();
+            // now, set HealthSlider's max and min value
+            HealthSlider.maxValue = StartingHealth;
+            // !!!!! can only be set like this because after explosion, This tank wont exist.
+            ExplosionParticles = Instantiate (ExplosionPrefab).GetComponent<ParticleSystem> ();
 			// Get a reference to the audio source on the instantiated prefab.
 			ExplosionAudio = ExplosionParticles.GetComponent<AudioSource> ();
 			// Disable the prefab so it can be activated when it's required.
