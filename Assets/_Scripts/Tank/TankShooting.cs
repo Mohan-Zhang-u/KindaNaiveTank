@@ -73,7 +73,7 @@ namespace Complete
 			WallMask = LayerMask.NameToLayer ("Wall");
 			SetDynamicObjectLibrary ();
             // TODO: hereby we need input from UserSavingFile.
-			OnChangeTankByIndex(3,4);
+			OnChangeTankByIndex(4,1);
 			OnChangeShellByIndex (0);
 			OnChangeTankOrShell ();
 		}
