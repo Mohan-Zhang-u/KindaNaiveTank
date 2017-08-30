@@ -80,7 +80,7 @@ public class ShellLibrary :PersistentSingleton<ShellLibrary> {
 
 	}
 
-	public int GetNumberOfDefinitions()
+    public int GetNumberOfDefinitions()
 	{
 		return ShellDefinitions.Length;
 	}

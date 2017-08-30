@@ -118,6 +118,7 @@
     <Compile Include="Assets\_Scripts\Box\BoxBase.cs" />
     <Compile Include="Assets\_Scripts\Box\healthBox.cs" />
     <Compile Include="Assets\_Scripts\Box\ShieldBox.cs" />
+    <Compile Include="Assets\_Scripts\Box\WeaponBoxBase.cs" />
     <Compile Include="Assets\_Scripts\Camera\CameraControl.cs" />
     <Compile Include="Assets\_Scripts\Data\BoxLibrary.cs" />
     <Compile Include="Assets\_Scripts\Data\ItemLibrary.cs" />

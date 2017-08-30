@@ -381,18 +381,22 @@ namespace Complete
 		public void SetShieldLevel(float value)
 		{
 			ShieldLevel = value;
-		}
+            SetHealthAndShieldUI();
 
-        private void SetHealthAndShieldUI ()
+        }
+
+        private void SetHealthAndShieldUI()
         {
+            if (ShieldLevel > 0)
+            {
+                TDS.SetShieldBubbleActive(true);
+            }
 			if (ShieldLevel <= 0) {
 				TDS.SetShieldBubbleActive (false);
                 ShieldSlider.value = 0f;
             }
-            else
-            {
-                ShieldSlider.value = ShieldLevel;
-            }
+
+            ShieldSlider.value = ShieldLevel;
             // Set the slider's value appropriately.
             HealthSlider.value = CurrentHealth;
 
