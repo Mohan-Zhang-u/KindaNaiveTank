@@ -147,9 +147,13 @@
     <Compile Include="Assets\_Scripts\Tank\TankShooting.cs" />
     <Compile Include="Assets\_Scripts\Test\TestScript.cs" />
     <Compile Include="Assets\_Scripts\TestMovementScript.cs" />
+    <Compile Include="Assets\_Scripts\Texture\ChangeTankTexture.cs" />
     <Compile Include="Assets\_Scripts\UI\JoyStick\VirtualJoyStickScript.cs" />
     <Compile Include="Assets\_Scripts\Utilities\PersistentSingleton.cs" />
     <Compile Include="Assets\_Scripts\Utilities\Singleton.cs" />
+    <Compile Include="Assets\ImportedModels\NuclearBomb\Scripts\Blast.cs" />
+    <Compile Include="Assets\ImportedModels\NuclearBomb\Scripts\Nuke.cs" />
+    <Compile Include="Assets\NewBehaviourScript.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
@@ -194,10 +198,12 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\GraphicsUtils.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
+    <Compile Include="Assets\SM_UVcrol.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
+    <None Include="Assets\ImportedModels\NuclearBomb\Scripts\Shaders\UnlitAlphaColor.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />

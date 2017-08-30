@@ -1,0 +1,238 @@
+fileFormatVersion: 2
+guid: 88d6b548e39327d4995cd4231ed5216d
+timeCreated: 1437011220
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: SciFi Ultra Tank 4
+    100004: SciFi Ultra Tank 4.2
+    100006: SciFi Ultra Tank 4.2_bullet
+    100008: SciFi Ultra Tank 4.2_turret
+    100010: SciFi Ultra Tank 4.2_turret 1
+    100012: SciFi Ultra Tank 4.3
+    100014: SciFi Ultra Tank 4.3_bullet
+    100016: SciFi Ultra Tank 4.3_turret
+    100018: SciFi Ultra Tank 4.3_turret 1
+    100020: SciFi Ultra Tank 4.4
+    100022: SciFi Ultra Tank 4.4_bullet
+    100024: SciFi Ultra Tank 4.4_turret
+    100026: SciFi Ultra Tank 4.4_turret 1
+    100028: SciFi Ultra Tank 4.5
+    100030: SciFi Ultra Tank 4.5_bullet
+    100032: SciFi Ultra Tank 4.5_turret
+    100034: SciFi Ultra Tank 4.5_turret 1
+    100036: SciFi Ultra Tank 4_bullet
+    100038: SciFi Ultra Tank 4_turret
+    100040: SciFi Ultra Tank 4_turret 1
+    400000: SciFi Ultra Tank 4
+    400002: //RootNode
+    400004: SciFi Ultra Tank 4.2
+    400006: SciFi Ultra Tank 4.2_bullet
+    400008: SciFi Ultra Tank 4.2_turret
+    400010: SciFi Ultra Tank 4.2_turret 1
+    400012: SciFi Ultra Tank 4.3
+    400014: SciFi Ultra Tank 4.3_bullet
+    400016: SciFi Ultra Tank 4.3_turret
+    400018: SciFi Ultra Tank 4.3_turret 1
+    400020: SciFi Ultra Tank 4.4
+    400022: SciFi Ultra Tank 4.4_bullet
+    400024: SciFi Ultra Tank 4.4_turret
+    400026: SciFi Ultra Tank 4.4_turret 1
+    400028: SciFi Ultra Tank 4.5
+    400030: SciFi Ultra Tank 4.5_bullet
+    400032: SciFi Ultra Tank 4.5_turret
+    400034: SciFi Ultra Tank 4.5_turret 1
+    400036: SciFi Ultra Tank 4_bullet
+    400038: SciFi Ultra Tank 4_turret
+    400040: SciFi Ultra Tank 4_turret 1
+    2300000: SciFi Ultra Tank 4
+    2300002: SciFi Ultra Tank 4.2
+    2300004: SciFi Ultra Tank 4.2_bullet
+    2300006: SciFi Ultra Tank 4.2_turret
+    2300008: SciFi Ultra Tank 4.2_turret 1
+    2300010: SciFi Ultra Tank 4.3
+    2300012: SciFi Ultra Tank 4.3_bullet
+    2300014: SciFi Ultra Tank 4.3_turret
+    2300016: SciFi Ultra Tank 4.3_turret 1
+    2300018: SciFi Ultra Tank 4.4
+    2300020: SciFi Ultra Tank 4.4_bullet
+    2300022: SciFi Ultra Tank 4.4_turret
+    2300024: SciFi Ultra Tank 4.4_turret 1
+    2300026: SciFi Ultra Tank 4.5
+    2300028: SciFi Ultra Tank 4.5_bullet
+    2300030: SciFi Ultra Tank 4.5_turret
+    2300032: SciFi Ultra Tank 4.5_turret 1
+    2300034: SciFi Ultra Tank 4_bullet
+    2300036: SciFi Ultra Tank 4_turret
+    2300038: SciFi Ultra Tank 4_turret 1
+    3300000: SciFi Ultra Tank 4
+    3300002: SciFi Ultra Tank 4.2
+    3300004: SciFi Ultra Tank 4.2_bullet
+    3300006: SciFi Ultra Tank 4.2_turret
+    3300008: SciFi Ultra Tank 4.2_turret 1
+    3300010: SciFi Ultra Tank 4.3
+    3300012: SciFi Ultra Tank 4.3_bullet
+    3300014: SciFi Ultra Tank 4.3_turret
+    3300016: SciFi Ultra Tank 4.3_turret 1
+    3300018: SciFi Ultra Tank 4.4
+    3300020: SciFi Ultra Tank 4.4_bullet
+    3300022: SciFi Ultra Tank 4.4_turret
+    3300024: SciFi Ultra Tank 4.4_turret 1
+    3300026: SciFi Ultra Tank 4.5
+    3300028: SciFi Ultra Tank 4.5_bullet
+    3300030: SciFi Ultra Tank 4.5_turret
+    3300032: SciFi Ultra Tank 4.5_turret 1
+    3300034: SciFi Ultra Tank 4_bullet
+    3300036: SciFi Ultra Tank 4_turret
+    3300038: SciFi Ultra Tank 4_turret 1
+    4300000: SciFi Ultra Tank 4
+    4300002: SciFi Ultra Tank 4_bullet
+    4300004: SciFi Ultra Tank 4_turret
+    4300006: SciFi Ultra Tank 4_turret
+    4300008: SciFi Ultra Tank 4.2_turret
+    4300010: SciFi Ultra Tank 4.2_turret
+    4300012: SciFi Ultra Tank 4.2_bullet
+    4300014: SciFi Ultra Tank 4.2
+    4300016: SciFi Ultra Tank 4.3_turret
+    4300018: SciFi Ultra Tank 4.3_turret
+    4300020: SciFi Ultra Tank 4.3
+    4300022: SciFi Ultra Tank 4.3_bullet
+    4300024: SciFi Ultra Tank 4.4_turret
+    4300026: SciFi Ultra Tank 4.4_turret
+    4300028: SciFi Ultra Tank 4.4_bullet
+    4300030: SciFi Ultra Tank 4.4
+    4300032: SciFi Ultra Tank 4.5_turret
+    4300034: SciFi Ultra Tank 4.5
+    4300036: SciFi Ultra Tank 4.5_turret
+    4300038: SciFi Ultra Tank 4.5_bullet
+    7400000: 'anim_SciFi Ultra Tank 4_ bullet '
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: 'anim_SciFi Ultra Tank 4_ bullet '
+      takeName: 'SciFi Ultra Tank 2  '
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: SciFi Ultra Tank 4
+        weight: 1
+      - path: SciFi Ultra Tank 4.2
+        weight: 1
+      - path: SciFi Ultra Tank 4.2_bullet
+        weight: 1
+      - path: SciFi Ultra Tank 4.2_turret
+        weight: 1
+      - path: SciFi Ultra Tank 4.2_turret 1
+        weight: 1
+      - path: SciFi Ultra Tank 4.3
+        weight: 1
+      - path: SciFi Ultra Tank 4.3_bullet
+        weight: 1
+      - path: SciFi Ultra Tank 4.3_turret
+        weight: 1
+      - path: SciFi Ultra Tank 4.3_turret 1
+        weight: 1
+      - path: SciFi Ultra Tank 4.4
+        weight: 1
+      - path: SciFi Ultra Tank 4.4_bullet
+        weight: 1
+      - path: SciFi Ultra Tank 4.4_turret
+        weight: 1
+      - path: SciFi Ultra Tank 4.4_turret 1
+        weight: 1
+      - path: SciFi Ultra Tank 4.5
+        weight: 1
+      - path: SciFi Ultra Tank 4.5_bullet
+        weight: 1
+      - path: SciFi Ultra Tank 4.5_turret
+        weight: 1
+      - path: SciFi Ultra Tank 4.5_turret 1
+        weight: 1
+      - path: SciFi Ultra Tank 4_bullet
+        weight: 1
+      - path: SciFi Ultra Tank 4_turret
+        weight: 1
+      - path: SciFi Ultra Tank 4_turret 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

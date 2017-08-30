@@ -124,6 +124,15 @@
     <Reference Include="Facebook.Unity.Settings">
       <HintPath>Library\FacebookSDK\Facebook.Unity.Settings.dll</HintPath>
     </Reference>
+    <Reference Include="AssetStoreToolsExtra">
+      <HintPath>Assets\AssetStoreTools\Editor\AssetStoreToolsExtra.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetStoreTools">
+      <HintPath>Assets\AssetStoreTools\Editor\AssetStoreTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-UnityScript">
+      <HintPath>Library\ScriptAssemblies\Assembly-UnityScript.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="KindaNaiveTank.csproj">
@@ -171,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
+    <None Include="Assets\ImportedModels\NuclearBomb\Scripts\Shaders\UnlitAlphaColor.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
