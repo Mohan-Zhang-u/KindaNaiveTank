@@ -72,7 +72,8 @@ namespace Complete
         void Awake() {
 			WallMask = LayerMask.NameToLayer ("Wall");
 			SetDynamicObjectLibrary ();
-			OnChangeTankByIndex(0);
+            // TODO: hereby we need input from UserSavingFile.
+			OnChangeTankByIndex(0,0);
 			OnChangeShellByIndex (0);
 			OnChangeTankOrShell ();
 		}
@@ -159,19 +160,21 @@ namespace Complete
 			DynamicObjectLibrary = GameObject.Find ("DynamicObjectLibrary");
 		}
 			
-		public void OnChangeTankByIndex(int index){
+		public void OnChangeTankByIndex(int index, int TankPrefabIndex){
 			tdef = DynamicObjectLibrary.GetComponent<TankLibrary>().GetTankDataForIndex(index);
-			SetFunctionForOnChangeTank(tdef);
+			SetFunctionForOnChangeTank(tdef, TankPrefabIndex);
 		}
 
-		public void OnChangeTankByName(string name){
+		public void OnChangeTankByName(string name, int TankPrefabIndex)
+        {
 			tdef = DynamicObjectLibrary.GetComponent<TankLibrary>().GetTankDataForName(name);
-			SetFunctionForOnChangeTank(tdef);
+			SetFunctionForOnChangeTank(tdef, TankPrefabIndex);
 
 		}
 
 		// this is the helperfunction used in OnChangeTankByIndex and OnChangeTankByName
-		private void SetFunctionForOnChangeTank(TankTypeDefinition def){
+		private void SetFunctionForOnChangeTank(TankTypeDefinition def, int TankPrefabIndex)
+        {
 			// first, destroy the old tank.
 			Transform[] allchilds = CompleteTank.GetComponentsInChildren <Transform>(true);
 			foreach (Transform gt in allchilds) {
@@ -181,7 +184,7 @@ namespace Complete
 				}
 			}
 			// then, initialize and add a new tank.
-			SubTank = (GameObject) Instantiate(def.displayPrefab, CompleteTank.transform.position , CompleteTank.transform.rotation, CompleteTank.transform);
+			SubTank = (GameObject) Instantiate(def.displayPrefab[TankPrefabIndex], CompleteTank.transform.position , CompleteTank.transform.rotation, CompleteTank.transform);
 			TankDisplayScript = SubTank.GetComponent<TankDisplay> ();
 			m_FireTransform = TankDisplayScript.DownTurrent ();
 			fireRateMultiplier = tdef.fireRateMultiplier;

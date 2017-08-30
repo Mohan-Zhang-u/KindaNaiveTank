@@ -25,10 +25,10 @@ public struct TankTypeDefinition
 	public float armour;//default 1f
 
 	//The display prefab to be instantiated to represent this tank in the menu and in-game
-	public GameObject displayPrefab;
+	public GameObject[] displayPrefab;
 
 	//How much this tank costs to unlock in the game's internal currency.
-	public int cost;
+	public int[] cost;
 
 	[HeaderAttribute("Selection For parent RigidBody")]
 

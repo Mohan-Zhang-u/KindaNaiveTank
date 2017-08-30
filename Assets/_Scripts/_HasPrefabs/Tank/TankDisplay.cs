@@ -5,8 +5,10 @@ using System.Collections.Generic;
 
 public class TankDisplay : MonoBehaviour {
 
-	//Root object for all tank mesh renderer/mesh objects. Used to mass enable/disable them.
-	[SerializeField]
+    [SerializeField]
+    protected bool IsLocked = false;
+    //Root object for all tank mesh renderer/mesh objects. Used to mass enable/disable them.
+    [SerializeField]
 	protected GameObject m_TankRendererParent;
 
 	// //Array of particle emitters for track dust.
