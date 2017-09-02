@@ -69,6 +69,7 @@ public class ShellDisplay : MonoBehaviour {
 
 	// when the shell is destoryed, notify TankShooting.
 	public void OnDestroy () {
+        Debug.Log("TankShootingScript:" + TankShootingScript.ToString());
 		TankShootingScript.RespawnedShellExploded ();
 	}
 }

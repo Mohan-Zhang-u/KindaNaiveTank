@@ -7,6 +7,7 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 
 	public string ShellId;
 	// IDs.
+    [HideInInspector]
 	public int FireByTankId = -2;
 	public string ExplosionId;
 
