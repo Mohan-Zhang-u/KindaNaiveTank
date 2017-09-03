@@ -41,31 +41,35 @@ public class SpreadShellHandler : ShellHandlerAbstractClass {
 
         // now, finialize explosion. perform Particles.
         // prepare the explosion system
-        ExplosionParticles = Instantiate(ShellExplosion).GetComponent<ParticleSystem>();
-        if (ExplosionAudio == null)
-            ExplosionAudio = ExplosionParticles.GetComponent<AudioSource>();
-        ExplosionParticles.transform.position = transform.position;
-        ExplosionParticles.gameObject.SetActive(true);
-        if (ExplosionParticles)
+        if (ShellExplosion != null)
         {
-            // Unparent the particles from the shell.
-            ExplosionParticles.transform.parent = null;
-
-            // Play the particle system.
-            ExplosionParticles.Play();
-            // Play the explosion sound effect.
-            if (ExplosionAudio)
+            ExplosionParticles = Instantiate(ShellExplosion).GetComponent<ParticleSystem>();
+            if (ExplosionAudio == null)
+                ExplosionAudio = ExplosionParticles.GetComponent<AudioSource>();
+            ExplosionParticles.transform.position = transform.position;
+            ExplosionParticles.gameObject.SetActive(true);
+            if (ExplosionParticles)
             {
-                ExplosionAudio.volume = UnityEngine.Random.Range(0.1f, 0.25f);
-                ExplosionAudio.Play();
-            }
-                
-            
+                // Unparent the particles from the shell.
+                ExplosionParticles.transform.parent = null;
 
-            // Once the particles have finished, destroy the gameobject they are on.
-            ParticleSystem.MainModule mainModule = ExplosionParticles.main;
-            Destroy(ExplosionParticles.gameObject, mainModule.duration);
+                // Play the particle system.
+                ExplosionParticles.Play();
+                // Play the explosion sound effect.
+                if (ExplosionAudio)
+                {
+                    ExplosionAudio.volume = UnityEngine.Random.Range(0.1f, 0.25f);
+                    ExplosionAudio.Play();
+                }
+
+
+
+                // Once the particles have finished, destroy the gameobject they are on.
+                ParticleSystem.MainModule mainModule = ExplosionParticles.main;
+                Destroy(ExplosionParticles.gameObject, mainModule.duration);
+            }
         }
+        
 
         Destroy(gameObject);
     }

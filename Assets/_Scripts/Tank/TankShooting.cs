@@ -18,7 +18,8 @@ namespace Complete
 
 		// -------------------------AUDIO CUSTOM-----------------------------------------
         public AudioSource m_ShootingAudio;         // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
-		private AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
+        public AudioClip SwordClip;
+        private AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
 		private AudioClip m_FireClip;                // Audio that plays when each shot is fired.
 		// -------------------------AUDIO CUSTOM-----------------------------------------
 
@@ -74,7 +75,7 @@ namespace Complete
 			SetDynamicObjectLibrary ();
             // TODO: hereby we need input from UserSavingFile.
 			OnChangeTankByIndex(0,0);
-			OnChangeShellByIndex (2);
+			OnChangeShellByIndex (0);
 			OnChangeTankOrShell ();
 		}
 
@@ -126,7 +127,8 @@ namespace Complete
 					// ... launch the shell.
 					Fire ();
 				}
-			} else {
+			}
+            else {
 				//not chargeable, so always shoot.
 				m_AimSlider.value = 0;
 				m_CurrentLaunchForce = FlyingSpeed;
@@ -134,8 +136,12 @@ namespace Complete
 					if (CurrentAmount == LimitedAmount) {
 						return;
 					} else {
-						CurrentAmount++;
-						Fire ();
+                        if (FireButtonOnPointerDown)
+                        {
+                            CurrentAmount++;
+                            Fire();
+                        }
+                        
 					}	
 				} else {
 					// continuously fire.
@@ -338,33 +344,9 @@ namespace Complete
 				}
 			}
 
-
-            if(ShellDef.id == "3SpreadShell"){
-                // there's many thing that is copy&paste from below. check out once changed.
-
-                // the init of left, mid right shells.
-                GameObject[] shellInstances = new GameObject[3];
-                shellInstances[0] = Instantiate(ShellPrefab, m_FireTransform.position - m_FireTransform.right, m_FireTransform.rotation * Quaternion.Euler(0,-30,0)) as GameObject;
-                shellInstances[1] = Instantiate(ShellPrefab, m_FireTransform.position, m_FireTransform.rotation) as GameObject;
-                shellInstances[2] = Instantiate(ShellPrefab, m_FireTransform.position + m_FireTransform.right, m_FireTransform.rotation * Quaternion.Euler(0, 30, 0)) as GameObject;
-                foreach (GameObject shellInstance in shellInstances)
-                {
-                    // set ShellDisplay.TankShootingScript;
-                    shellInstance.GetComponent<ShellDisplay>().TankShootingScript = this;
-
-                    // ------------now the only two var that is not initialized in ShellHandlerAbstractClass
-                    shellInstance.GetComponent<ShellHandlerAbstractClass>().FireByTankId = _PlayerNumber;
-                    // TODO: set ExplosionId
-                    shellInstance.GetComponent<ShellHandlerAbstractClass>().ExplosionId = "";
-
-                    shellInstance.GetComponent<Rigidbody>().velocity = FlyingSpeed * shellInstance.transform.forward;
-
-                }
-            }
-            else
+            //hereby perform fire sword.
+            if (ShellDef.id == "Sword")
             {
-                // all below
-                // Create an instance of the shell and store a reference to it's rigidbody.
                 GameObject shellInstance = Instantiate(ShellPrefab, m_FireTransform.position, m_FireTransform.rotation) as GameObject;
                 // set ShellDisplay.TankShootingScript;
                 shellInstance.GetComponent<ShellDisplay>().TankShootingScript = this;
@@ -373,38 +355,85 @@ namespace Complete
                 shellInstance.GetComponent<ShellHandlerAbstractClass>().FireByTankId = _PlayerNumber;
                 // TODO: set ExplosionId
                 shellInstance.GetComponent<ShellHandlerAbstractClass>().ExplosionId = "";
+                StartCoroutine(MoveSwordToPosition(shellInstance));
 
-                if (Chargeable)
+                m_ShootingAudio.clip = SwordClip;
+                m_ShootingAudio.Play();
+            }
+            else{
+
+                //hereby perform 3SpreadShell.
+                if (ShellDef.id == "3SpreadShell")
                 {
-                    m_Fired = true;
-                    // Set the shell's velocity to the launch force in the fire position's forward direction.
-                    shellInstance.GetComponent<Rigidbody>().velocity = m_CurrentLaunchForce * m_FireTransform.forward;
-                    // shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward; 
+                    // there's many thing that is copy&paste from below. check out once changed.
 
-                    // Reset the launch force.  This is a precaution in case of missing button events.
-                    m_CurrentLaunchForce = m_MinLaunchForce;
+                    // the init of left, mid right shells.
+                    GameObject[] shellInstances = new GameObject[3];
+                    shellInstances[0] = Instantiate(ShellPrefab, m_FireTransform.position - m_FireTransform.right, m_FireTransform.rotation * Quaternion.Euler(0, -30, 0)) as GameObject;
+                    shellInstances[1] = Instantiate(ShellPrefab, m_FireTransform.position, m_FireTransform.rotation) as GameObject;
+                    shellInstances[2] = Instantiate(ShellPrefab, m_FireTransform.position + m_FireTransform.right, m_FireTransform.rotation * Quaternion.Euler(0, 30, 0)) as GameObject;
+                    foreach (GameObject shellInstance in shellInstances)
+                    {
+                        // set ShellDisplay.TankShootingScript;
+                        shellInstance.GetComponent<ShellDisplay>().TankShootingScript = this;
+
+                        // ------------now the only two var that is not initialized in ShellHandlerAbstractClass
+                        shellInstance.GetComponent<ShellHandlerAbstractClass>().FireByTankId = _PlayerNumber;
+                        // TODO: set ExplosionId
+                        shellInstance.GetComponent<ShellHandlerAbstractClass>().ExplosionId = "";
+
+                        shellInstance.GetComponent<Rigidbody>().velocity = FlyingSpeed * shellInstance.transform.forward;
+
+                    }
                 }
                 else
                 {
+                    // hereby perform all others (reflect and projectile shells).
+                    // all below
+                    // Create an instance of the shell and store a reference to it's rigidbody.
+                    GameObject shellInstance = Instantiate(ShellPrefab, m_FireTransform.position, m_FireTransform.rotation) as GameObject;
+                    // set ShellDisplay.TankShootingScript;
+                    shellInstance.GetComponent<ShellDisplay>().TankShootingScript = this;
 
-                    shellInstance.GetComponent<Rigidbody>().velocity = FlyingSpeed * m_FireTransform.forward;
+                    // ------------now the only two var that is not initialized in ShellHandlerAbstractClass
+                    shellInstance.GetComponent<ShellHandlerAbstractClass>().FireByTankId = _PlayerNumber;
+                    // TODO: set ExplosionId
+                    shellInstance.GetComponent<ShellHandlerAbstractClass>().ExplosionId = "";
 
-                    if (AmountLimited)
+                    if (Chargeable)
                     {
+                        m_Fired = true;
+                        // Set the shell's velocity to the launch force in the fire position's forward direction.
+                        shellInstance.GetComponent<Rigidbody>().velocity = m_CurrentLaunchForce * m_FireTransform.forward;
+                        // shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward; 
 
+                        // Reset the launch force.  This is a precaution in case of missing button events.
+                        m_CurrentLaunchForce = m_MinLaunchForce;
                     }
                     else
                     {
 
+                        shellInstance.GetComponent<Rigidbody>().velocity = FlyingSpeed * m_FireTransform.forward;
+
+                        if (AmountLimited)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
                     }
+
+                    // Change the clip to the firing clip and play it.
+
                 }
 
-                // Change the clip to the firing clip and play it.
-               
+                m_ShootingAudio.clip = m_FireClip;
+                m_ShootingAudio.Play();
             }
 
-            m_ShootingAudio.clip = m_FireClip;
-            m_ShootingAudio.Play();
+           
 
 
             if (fireRateMultiplier > 0.00001f)
@@ -459,9 +488,21 @@ namespace Complete
 			UpdateFireColdingDown = false;
 		}
 
-			public TankTypeDefinition GetTankDefinition () {
-				return tdef;
-			}
+        private IEnumerator MoveSwordToPosition(GameObject Sword)
+        {
+            float count = 0;
+            while (count < 1)
+            {
+                Sword.transform.SetPositionAndRotation(Sword.transform.position + Sword.transform.forward * Time.deltaTime, Sword.transform.rotation);
+                count += Time.deltaTime;
+                yield return null;
+
+            }
+        }
+
+		public TankTypeDefinition GetTankDefinition () {
+			return tdef;
+		}
 
     }
 

@@ -179,9 +179,10 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 
 	//TODO: im not pretty sure whether its is CORRECT!!!!!!!!!!!!!!!!!!!!
 	virtual public void CollideWithShells(Collider c){
-		if (c.isTrigger) {
-			c.GetComponent<ShellHandlerAbstractClass> ().Explode (ShellPrefab.GetComponent<Collider> ());
-		}
+        // recursive call, will cause stackoverflow.
+		//if (c.isTrigger) {
+		//	c.GetComponent<ShellHandlerAbstractClass> ().Explode (ShellPrefab.GetComponent<Collider> ());
+		//}
 	}
 
 	// targetPosition is tank's position. the function calculates according to tank's position and the explosive(shell's) position

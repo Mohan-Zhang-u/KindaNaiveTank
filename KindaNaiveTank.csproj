@@ -142,6 +142,8 @@
     <Compile Include="Assets\_Scripts\Shell\ReflectShellHandler.cs" />
     <Compile Include="Assets\_Scripts\Shell\ShellHandlerAbstractClass.cs" />
     <Compile Include="Assets\_Scripts\Shell\SpreadShellHandler.cs" />
+    <Compile Include="Assets\_Scripts\Shell\SuccessiveShellHandler.cs" />
+    <Compile Include="Assets\_Scripts\Shell\SwordHandler.cs" />
     <Compile Include="Assets\_Scripts\Tank\TankAndItsUIManager.cs" />
     <Compile Include="Assets\_Scripts\Tank\TankHealth.cs" />
     <Compile Include="Assets\_Scripts\Tank\TankMovement.cs" />
