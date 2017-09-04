@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TankAndItsUIManager : MonoBehaviour {
 
+    public AudioSource RidiculeSource;
+
 	// Use this for initialization
 	void Start () {
 		
