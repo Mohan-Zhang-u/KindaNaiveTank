@@ -166,7 +166,6 @@ namespace Complete
                 if (b.name == "Fire")
                 {
                     buttoneventtrigger = b.GetComponent<EventTrigger>();
-                    Debug.Log(buttoneventtrigger);
                     EventTrigger.Entry entry1 = new EventTrigger.Entry();
                     entry1.eventID = EventTriggerType.PointerDown;
                     entry1.callback.AddListener(new UnityEngine.Events.UnityAction<BaseEventData>(SetFireButtonOnPointerDown));

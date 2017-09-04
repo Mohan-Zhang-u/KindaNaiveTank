@@ -8,13 +8,19 @@ public class TankAndItsUIManager : MonoBehaviour {
     public AudioSource RidiculeSource;
 
     private GameObject ActiveUICanvas;
-
     private Button ItemFireButton1;
     private Button ItemFireButton2;
     private Button RidiculeButton;
 
+    private int RidiculeButtonColddownCount = 3;
+    private WaitForSeconds ColdDownTime;
+    private bool IsColdingDown = false;
+
     private void OnEnable()
     {
+        ColdDownTime = new WaitForSeconds(3);
+
+        // set Canvas
         ActiveUICanvas = GameObject.Find("ActiveUICanvas");
         // hereby set Ridicule button.
         Button[] buttons = ActiveUICanvas.GetComponentsInChildren<Button>();
@@ -46,10 +52,36 @@ public class TankAndItsUIManager : MonoBehaviour {
 
         if (RidiculeButton)
         {
-            //RidiculeButton.onClick.AddListener();
+            RidiculeButton.onClick.AddListener(PlayRidicule);
         }
     }
 
+    // there is a build-in colddown counter;
+    public void PlayRidicule()
+    {
+        if (RidiculeButtonColddownCount > 0)
+        {
+            RidiculeButtonColddownCount -= 1;
+            RidiculeSource.Play();
+            if (!IsColdingDown && gameObject.activeSelf)
+            {
+                StartCoroutine(RidiculeButtonColddown());
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private IEnumerator RidiculeButtonColddown()
+    {
+        IsColdingDown = true;
+        yield return ColdDownTime;
+        RidiculeButtonColddownCount = 3;
+        IsColdingDown = false;
+
+    }
 
 
     // TODO: implement. set UI accordingly. Usually, it switches first and second Icon, reset which to fire when press item 1 or 2.
