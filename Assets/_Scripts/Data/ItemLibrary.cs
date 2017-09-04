@@ -2,12 +2,15 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 //same as TankLibrary.cs TankTypeDefinition
 [Serializable]
 public struct ItemTypeDefinition
 {
     public GameObject displayPrefab;
+
+    public Image displayImage;
     //Unique ID to reference item internally
     public string id;
 
@@ -26,18 +29,32 @@ public struct ItemTypeDefinition
 
 public class ItemLibrary : PersistentSingleton<ItemLibrary>
 {
+    [HeaderAttribute("Below is for item parameters")]
+    public float InvincibleTime;
+    public Light InvincibleLight;
+
 
     //An array of TankTypeDefinitions. These determine which tanks are available in the game and their properties.
     [SerializeField]
     private ItemTypeDefinition[] ItemDefinitions;
 
+    public Dictionary<string, Image> ItemIconDict;
+
     protected override void Awake()
     {
         base.Awake();
-
         if (ItemDefinitions.Length == 0)
         {
             Debug.Log("<color=red>WARNING: No items have been defined in the item Library!</color>");
+        }
+    }
+
+    private void OnEnable()
+    {
+        ItemIconDict = new Dictionary<string, Image>();
+        foreach (ItemTypeDefinition item in ItemDefinitions)
+        {
+            ItemIconDict.Add(item.name, item.displayImage);
         }
     }
 

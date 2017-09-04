@@ -14,6 +14,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using System.Collections;
 
 public struct DamageSource {
 	float amount; int playerNumber; string explosionId;
@@ -61,8 +62,7 @@ namespace Complete
 		// Events that fire when specific conditions are reached. Mainly used for the HUD to tie into.
 
 		//Field to set the tank as invulnerable. Mainly used in the shooting range.
-		[HideInInspector]
-		public bool invulnerable;
+		private bool invulnerable;
 		// !!!!!!!!! idk why but it uses DIVISION!!!!!!!!!!!
 		public event Action<float> healthChanged;
 		public event Action<float> shieldChanged;
@@ -472,6 +472,29 @@ namespace Complete
             {
                 shieldChanged(ShieldLevel / 100f);
             }
+        }
+
+        public void SetInvincibleForSeconds(bool b, float t)
+        {
+            if (invulnerable)
+            {
+                return;
+            }
+            else if (!b)
+            {
+                invulnerable = false;
+            }
+            else
+            {
+                StartCoroutine(InvincibleForSeconds(t));
+            }
+        }
+
+        private IEnumerator InvincibleForSeconds(float t)
+        {
+            invulnerable = false;
+            yield return new WaitForSeconds(t);
+            invulnerable = true;
         }
 
         //  TODO:!!!!!!!!!!!!!!!!Now all RPC things.!!!!!!!!!!!!!!!!

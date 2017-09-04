@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Complete;
 
 public class TankAndItsUIManager : MonoBehaviour {
+    private GameObject DynamicObjectLibrary;
+    private ItemLibrary ItemLibraryScript;
+    private Dictionary<string, Image> ItemIconDict;
 
     public AudioSource RidiculeSource;
 
@@ -18,6 +22,10 @@ public class TankAndItsUIManager : MonoBehaviour {
 
     private void OnEnable()
     {
+        DynamicObjectLibrary = GameObject.Find("DynamicObjectLibrary");
+        ItemLibraryScript = DynamicObjectLibrary.GetComponent<ItemLibrary>();
+        ItemIconDict = ItemLibraryScript.ItemIconDict;
+
         ColdDownTime = new WaitForSeconds(3);
 
         // set Canvas
@@ -83,9 +91,32 @@ public class TankAndItsUIManager : MonoBehaviour {
 
     }
 
+    public void OnPickUpItems(string ItemName)
+    {
+
+    }
 
     // TODO: implement. set UI accordingly. Usually, it switches first and second Icon, reset which to fire when press item 1 or 2.
     public void OnPickupCollected(string BoxId)
+    {
+
+    }
+
+    private void UseItemWithName(string ItemName)
+    {
+        if (ItemName == "Invincible")
+        {
+            float invincibleSeconds = ItemLibraryScript.InvincibleTime;
+            Light Invinciblelight = ItemLibraryScript.InvincibleLight;
+            gameObject.GetComponent<TankHealth>().SetInvincibleForSeconds(true, invincibleSeconds);
+            Light l = Object.Instantiate(Invinciblelight, gameObject.transform.position + new Vector3(0, 3f, 0), gameObject.transform.rotation, gameObject.transform);
+            Destroy(l, invincibleSeconds);
+        }
+
+        SetItemIcon(ItemName);
+    }
+
+    private void SetItemIcon(string ItemName)
     {
 
     }
