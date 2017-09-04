@@ -11,6 +11,5 @@ public class AccelerateBox : BoxBase
     {
         tankCollider.GetComponentInParent<TankMovement>().MultiplySpeed(AccelerateAmount);
         m.OnPickupCollected(BoxId);
-        Debug.Log("collected healthBox");
     }
 }

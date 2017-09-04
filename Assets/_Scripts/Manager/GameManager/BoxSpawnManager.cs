@@ -139,7 +139,6 @@ public class BoxSpawnManager : MonoBehaviour
         m_ActiveDropEffect = null;
 
         GameObject cratePrefab = FindObjectOfType<GameManagerBase>().GetRandomBox().displayPrefab;
-        Debug.Log("cratePrefab:" + cratePrefab.ToString());
         //Crates will auto-network-spawn on start, so we only need to instantiate them.
         // !!!!!!!!!!!!!we hereby add 1.5f inorder to let it be above the ground!!!!!!!!!!!
         GameObject dropPod = (GameObject)Instantiate(cratePrefab, m_DropTargetPosition+new Vector3(0,1.5f,0), Quaternion.identity);

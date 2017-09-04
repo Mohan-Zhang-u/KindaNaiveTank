@@ -122,6 +122,7 @@
     <Compile Include="Assets\_Scripts\Box\WeaponBoxBase.cs" />
     <Compile Include="Assets\_Scripts\Camera\CameraControl.cs" />
     <Compile Include="Assets\_Scripts\Data\BoxLibrary.cs" />
+    <Compile Include="Assets\_Scripts\Data\ItemIconLibrary.cs" />
     <Compile Include="Assets\_Scripts\Data\ItemLibrary.cs" />
     <Compile Include="Assets\_Scripts\Data\LayerLibrary.cs" />
     <Compile Include="Assets\_Scripts\Data\ShellLibrary.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Assets\_Scripts\Test\TestScript.cs" />
     <Compile Include="Assets\_Scripts\TestMovementScript.cs" />
     <Compile Include="Assets\_Scripts\Texture\ChangeTankTexture.cs" />
+    <Compile Include="Assets\_Scripts\UI\ActiveUICanvasScript.cs" />
     <Compile Include="Assets\_Scripts\UI\JoyStick\VirtualJoyStickScript.cs" />
     <Compile Include="Assets\_Scripts\Utilities\PersistentSingleton.cs" />
     <Compile Include="Assets\_Scripts\Utilities\Singleton.cs" />

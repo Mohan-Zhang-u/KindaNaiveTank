@@ -19,10 +19,14 @@ public class GameManagerBase : MonoBehaviour
     // this is public because inited in under a same gameobject
     public BoxSpawnManager _BoxSpawnManagerScript;
 
+    public GameObject ActiveUICanvas;
 
-
-    private void OnEnable()
+    virtual public void OnEnable()
     {
+
+        // UI canvas Related.
+
+        // box library repated.
         BoxLibraryScript = FindObjectOfType<BoxLibrary>();
         m_PowerupList = new List<BoxBase>();
         _AllowedBoxTypes = new List<BoxTypeDefinition>();

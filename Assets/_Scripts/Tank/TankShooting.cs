@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 namespace Complete
 {
@@ -55,6 +56,8 @@ namespace Complete
 
         private float DontGoThroughWallFloat = 0.5f;
 
+        private EventTrigger buttoneventtrigger;
+
         // -------------------------now, MonoBehaviour Functions.--------------------------------
         // I dont know whether we need OnEnable or not.
         //        private void OnEnable()
@@ -70,22 +73,16 @@ namespace Complete
         //        }
 
         // was start, change to onenable.
-        void Awake() {
+        void OnEnable() {
 			WallMask = LayerMask.NameToLayer ("Wall");
 			SetDynamicObjectLibrary ();
+            // set according to ui.
+            SetFireButtonListener();
             // TODO: hereby we need input from UserSavingFile.
 			OnChangeTankByIndex(0,0);
 			OnChangeShellByIndex (0);
 			OnChangeTankOrShell ();
 		}
-
-//		void OnEnable ()
-//		{
-//			// The fire axis is based on the player number.
-////			m_FireButton = "Fire";
-//			OnChangeTankByIndex(0);
-//			OnChangeShellByIndex (0);
-//		}
 
 		void Update () {
 			// check whether finished colddown.
@@ -152,13 +149,43 @@ namespace Complete
 			}
 		}
 
+        private void OnDisable()
+        {
+            if (buttoneventtrigger)
+                buttoneventtrigger.triggers.Clear();
+        }
 
-		//---------------------------now, Setters. -------------------------------------------
-		public void SetFireButtonOnPointerDown () {
+
+        //---------------------------now, Setters. -------------------------------------------
+        public void SetFireButtonListener()
+        {
+            GameObject ActiveUICanvas = GameObject.Find("ActiveUICanvas");
+            Button[] buttons = ActiveUICanvas.GetComponentsInChildren<Button>();
+            foreach (Button b in buttons)
+            {
+                if (b.name == "Fire")
+                {
+                    buttoneventtrigger = b.GetComponent<EventTrigger>();
+                    Debug.Log(buttoneventtrigger);
+                    EventTrigger.Entry entry1 = new EventTrigger.Entry();
+                    entry1.eventID = EventTriggerType.PointerDown;
+                    entry1.callback.AddListener(new UnityEngine.Events.UnityAction<BaseEventData>(SetFireButtonOnPointerDown));
+
+                    EventTrigger.Entry entry2 = new EventTrigger.Entry();
+                    entry2.eventID = EventTriggerType.PointerUp;
+                    entry2.callback.AddListener(new UnityEngine.Events.UnityAction<BaseEventData>(SetFireButtonOnPointerUp));
+
+                    buttoneventtrigger.triggers.Add(entry1);
+                    buttoneventtrigger.triggers.Add(entry2);
+                }
+            }
+        }
+
+        public void SetFireButtonOnPointerDown(UnityEngine.EventSystems.BaseEventData baseEvent) {
 			FireButtonOnPointerDown = true;
 		}
 
-		public void SetFireButtonOnPointerUp () {
+		public void SetFireButtonOnPointerUp(UnityEngine.EventSystems.BaseEventData baseEvent) {
 			FireButtonOnPointerDown = false;
 		}
 
