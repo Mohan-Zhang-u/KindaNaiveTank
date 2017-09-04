@@ -115,6 +115,7 @@
     <Compile Include="Assets\_Scripts\_HasPrefabs\Box\BoxDisplay.cs" />
     <Compile Include="Assets\_Scripts\_HasPrefabs\Shell\ShellDisplay.cs" />
     <Compile Include="Assets\_Scripts\_HasPrefabs\Tank\TankDisplay.cs" />
+    <Compile Include="Assets\_Scripts\Box\AccelerateBox.cs" />
     <Compile Include="Assets\_Scripts\Box\BoxBase.cs" />
     <Compile Include="Assets\_Scripts\Box\healthBox.cs" />
     <Compile Include="Assets\_Scripts\Box\ShieldBox.cs" />

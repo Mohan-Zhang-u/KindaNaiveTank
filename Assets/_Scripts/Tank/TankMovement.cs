@@ -158,6 +158,41 @@ namespace Complete
 			EnableMove = b;
 		}
 
+        // if operation success, return true. amount can be positive or negative.
+        public bool AddOrDecreaseSpeed(float amount)
+        {
+            if (amount > 0)
+            {
+                m_Speed += amount;
+                return true;
+            }
+            else
+            {
+                if((m_Speed + amount) <= 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    m_Speed += amount;
+                    return true;
+                }
+            }
+        }
+
+        // increase or decrease speed by a multiplier. the upper limit is 35.
+        public void MultiplySpeed(float amount)
+        {
+            if (amount <= 0)
+                return;
+            m_Speed = m_Speed * amount;
+            if (m_Speed > 35)
+            {
+                m_Speed = 35;
+                Debug.Log("<color=green>Speed reaches upper limit!</color>");
+            }
+        }
+
 //        private void Turn ()
 //        {
 //            // Determine the number of degrees to be turned based on the input, speed and time between frames.

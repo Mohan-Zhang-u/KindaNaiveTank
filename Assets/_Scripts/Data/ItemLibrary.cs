@@ -37,7 +37,7 @@ public class ItemLibrary : PersistentSingleton<ItemLibrary>
 
         if (ItemDefinitions.Length == 0)
         {
-            Debug.Log("<color=red>WARNING: No items have been defined in the Tank Library!</color>");
+            Debug.Log("<color=red>WARNING: No items have been defined in the item Library!</color>");
         }
     }
 
