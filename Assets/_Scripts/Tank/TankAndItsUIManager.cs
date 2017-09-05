@@ -19,6 +19,7 @@ public class TankAndItsUIManager : MonoBehaviour {
     private Button RidiculeButton;
     private Image FirstItemImg;
     private Image SecondItemImg;
+    private VirtualJoyStickScript JoystickScript;
 
     private int RidiculeButtonColddownCount = 3;
     private WaitForSeconds ColdDownTime;
@@ -37,7 +38,7 @@ public class TankAndItsUIManager : MonoBehaviour {
 
         // set Canvas
         ActiveUICanvas = GameObject.Find("ActiveUICanvas");
-        // hereby set Ridicule button.
+        JoystickScript = ActiveUICanvas.GetComponentInChildren<VirtualJoyStickScript>();
         Button[] buttons = ActiveUICanvas.GetComponentsInChildren<Button>();
         foreach (Button b in buttons)
         {
@@ -237,6 +238,23 @@ public class TankAndItsUIManager : MonoBehaviour {
             GameObject TrapItem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position + new Vector3(0, -1f, 0) - 5 * gameObject.transform.forward, gameObject.transform.rotation);
             TrapItem.GetComponent<TrapHandler>().DeployByTankId = _PlayerNumber;
         }
+        else if (ItemName == "FirstAidKit")
+        {
+            GameObject FirstAidKitParticleSystem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position, gameObject.transform.rotation);
+            StartCoroutine(FirstAidKitHeal(FirstAidKitParticleSystem));
+        }
+    }
+
+    private IEnumerator FirstAidKitHeal(GameObject FirstAidKitParticleSystem)
+    {
+        float t=0;
+        while (t<2.5f && JoystickScript.JoyStickInputVectors.magnitude < 0.05f)
+        {
+            t += Time.deltaTime;
+            gameObject.GetComponent<TankHealth>().AddHealth(15f * Time.deltaTime, _PlayerNumber); // in total 15*2.5 hp added
+            yield return null;
+        }
+        Destroy(FirstAidKitParticleSystem);
     }
 
 }
