@@ -32,7 +32,7 @@ public class SpreadShellHandler : ShellHandlerAbstractClass {
         }
         for (int i = 0; i < ExplosiveItemColliders.Length; i++)
         {
-            CollideWithExplosiveItems(GeneralItemsColliders[i]);
+            CollideWithExplosiveItems(ExplosiveItemColliders[i]);
         }
         for (int i = 0; i < GroundColliders.Length; i++)
         {

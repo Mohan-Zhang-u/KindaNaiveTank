@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Complete;
 
+public interface IExplosiveItem
+{
+    float CalculateDamage(Vector3 targetPosition);
+    void Explode();
+}
+
 public abstract class ItemHandlerAbstractClass : MonoBehaviour
 {
-    public GameObject ItemPrefab;
     public string ItemName;
     // IDs.
     [HideInInspector]
     public int DeployByTankId = -2;
     public int MaxLifeTime;
     
+
     public LayerMask TankMask;
 
     //	public void Awake(){
@@ -29,6 +35,12 @@ public abstract class ItemHandlerAbstractClass : MonoBehaviour
         // If it isn't destroyed by then, destroy the item after it's lifetime.
         Destroy(gameObject, MaxLifeTime);
     }
+
+    //public GameObject ExplosionPrefab;
+    //virtual public void Explode()
+    //{
+
+    //}
 
     ////  ezly copy from ProjectileItemHandler.cs
     //#region CopyAndPaste 

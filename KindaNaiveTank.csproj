@@ -132,6 +132,7 @@
     <Compile Include="Assets\_Scripts\Item\HotDropExplosive.cs" />
     <Compile Include="Assets\_Scripts\Item\HotdropLight.cs" />
     <Compile Include="Assets\_Scripts\Item\ItemHandlerAbstractClass.cs" />
+    <Compile Include="Assets\_Scripts\Item\TimeBombHandler.cs" />
     <Compile Include="Assets\_Scripts\Item\TrapHandler.cs" />
     <Compile Include="Assets\_Scripts\Manager\EventManager.cs" />
     <Compile Include="Assets\_Scripts\Manager\GameManager\BoxSpawnManager.cs" />
@@ -208,6 +209,13 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\SM_UVcrol.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\UnityTechAssets\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
+    <Compile Include="Assets\UnityTechAssets\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
+    <Compile Include="Assets\UnityTechAssets\EffectExamples\Shared\Scripts\GunAim.cs" />
+    <Compile Include="Assets\UnityTechAssets\EffectExamples\Shared\Scripts\GunShoot.cs" />
+    <Compile Include="Assets\UnityTechAssets\EffectExamples\Shared\Scripts\ParticleCollision.cs" />
+    <Compile Include="Assets\UnityTechAssets\EffectExamples\Shared\Scripts\ParticleExamples.cs" />
+    <Compile Include="Assets\UnityTechAssets\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
@@ -252,6 +260,7 @@
     <None Include="Assets\PostProcessing\Resources\Shaders\Tonemapping.cginc" />
     <None Include="Assets\PostProcessing\Resources\Shaders\Uber.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
+    <None Include="Assets\UnityTechAssets\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
     <None Include="Assets\_ImportFromRef\Plugins\Android\everyplay\AndroidManifest.xml" />
     <None Include="Assets\_ImportFromRef\Plugins\Android\everyplay\build.xml" />
     <None Include="Assets\_ImportFromRef\Plugins\Android\everyplay\proguard-project.txt" />

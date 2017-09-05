@@ -238,11 +238,17 @@ public class TankAndItsUIManager : MonoBehaviour {
             GameObject TrapItem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position + new Vector3(0, -1f, 0) - 5 * gameObject.transform.forward, gameObject.transform.rotation);
             TrapItem.GetComponent<TrapHandler>().DeployByTankId = _PlayerNumber;
         }
+        else if (ItemName == "TimeBomb")
+        {
+            GameObject TimeBombItem = Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position - 5 * gameObject.transform.forward, gameObject.transform.rotation);
+            TimeBombItem.GetComponent<TimeBombHandler>().DeployByTankId = _PlayerNumber;
+        }
         else if (ItemName == "FirstAidKit")
         {
             GameObject FirstAidKitParticleSystem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position, gameObject.transform.rotation);
             StartCoroutine(FirstAidKitHeal(FirstAidKitParticleSystem));
         }
+        
     }
 
     private IEnumerator FirstAidKitHeal(GameObject FirstAidKitParticleSystem)

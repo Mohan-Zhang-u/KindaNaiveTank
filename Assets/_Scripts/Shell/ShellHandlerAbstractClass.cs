@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Complete;
 
-public abstract class ShellHandlerAbstractClass : MonoBehaviour {
+public abstract class ShellHandlerAbstractClass : MonoBehaviour, IExplosiveItem
+{
 
 	public string ShellId;
 	// IDs.
@@ -83,16 +84,22 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 		Explode (other);
 	}
 
-	// TODO: when it is Client side, we shall only apply the force. WHEN IT IS SERVER SIDE, moreover, we shall deal the damage.
-	/// <summary>
-	/// it is the ugliest part in C#. because, since this is a parent abstract class,
-	/// if we dont copy and paste this code to its parent, the ExplosionParticles and ExplosionAudio
-	/// will be THIS ABSTRACT CLASS' ExplosionParticles and ExplosionAudio.
-	/// The only way we can use ExplosionParticles and ExplosionAudio in parent class is that 
-	/// we copy and paste this function there.
-	/// </summary>
-	/// <param name="c">C.</param>
-	virtual public void Explode (Collider other) {
+    // here, we use this in order to use the IExplosiveItem interface.
+    public void Explode()
+    {
+        Explode(null);
+    }
+
+    // TODO: when it is Client side, we shall only apply the force. WHEN IT IS SERVER SIDE, moreover, we shall deal the damage.
+    /// <summary>
+    /// it is the ugliest part in C#. because, since this is a parent abstract class,
+    /// if we dont copy and paste this code to its parent, the ExplosionParticles and ExplosionAudio
+    /// will be THIS ABSTRACT CLASS' ExplosionParticles and ExplosionAudio.
+    /// The only way we can use ExplosionParticles and ExplosionAudio in parent class is that 
+    /// we copy and paste this function there.
+    /// </summary>
+    /// <param name="c">C.</param>
+    virtual public void Explode (Collider other) {
 		// Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
 		Collider[] TankColliders = Physics.OverlapSphere (transform.position, ExplosionRadius, TankMask);
 		Collider[] WallColliders = Physics.OverlapSphere (transform.position, ExplosionRadius, WallMask);
@@ -115,7 +122,7 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 			CollideWithGeneralItem (GeneralItemsColliders[i]);
 		}
 		for (int i = 0; i < ExplosiveItemColliders.Length; i++) {
-			CollideWithExplosiveItems (GeneralItemsColliders[i]);
+			CollideWithExplosiveItems (ExplosiveItemColliders[i]);
 		}
 		for (int i = 0; i < GroundColliders.Length; i++) {
 			CollideWithGround (GroundColliders[i]);
@@ -180,13 +187,14 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 	//TODO: im not pretty sure whether its is CORRECT!!!!!!!!!!!!!!!!!!!!
 	virtual public void CollideWithShells(Collider c){
         // recursive call, will cause stackoverflow.
-		//if (c.isTrigger) {
-		//	c.GetComponent<ShellHandlerAbstractClass> ().Explode (ShellPrefab.GetComponent<Collider> ());
-		//}
-	}
+        if (c.isTrigger && (c!= gameObject.GetComponent<Collider>()))
+        {
+            c.GetComponent<ShellHandlerAbstractClass>().Explode(ShellPrefab.GetComponent<Collider>());
+        }
+    }
 
-	// targetPosition is tank's position. the function calculates according to tank's position and the explosive(shell's) position
-	virtual public float CalculateDamage (Vector3 targetPosition)
+    // targetPosition is tank's position. the function calculates according to tank's position and the explosive(shell's) position
+    virtual public float CalculateDamage (Vector3 targetPosition)
 	{
 		// Create a vector from the shell to the target.
 		Vector3 explosionToTarget = targetPosition - transform.position;
@@ -218,8 +226,8 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour {
 
 	//TODO: We Assumes that It Have Explode.
 	public virtual void CollideWithExplosiveItems(Collider c){
-		c.GetComponent<ShellHandlerAbstractClass> ().Explode (ShellPrefab.GetComponent<Collider> ());
-	}
+        c.gameObject.GetComponent<IExplosiveItem>().Explode();
+    }
 
 	public virtual void CollideWithGround(Collider c){
 
