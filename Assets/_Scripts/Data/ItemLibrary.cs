@@ -10,7 +10,7 @@ public struct ItemTypeDefinition
 {
     public GameObject displayPrefab;
 
-    public Image displayImage;
+    public Sprite displayImage;
     //Unique ID to reference item internally
     public string id;
 
@@ -38,7 +38,7 @@ public class ItemLibrary : PersistentSingleton<ItemLibrary>
     [SerializeField]
     private ItemTypeDefinition[] ItemDefinitions;
 
-    public Dictionary<string, Image> ItemIconDict;
+    public Dictionary<string, Sprite> ItemIconDict;
 
     protected override void Awake()
     {
@@ -51,7 +51,7 @@ public class ItemLibrary : PersistentSingleton<ItemLibrary>
 
     private void OnEnable()
     {
-        ItemIconDict = new Dictionary<string, Image>();
+        ItemIconDict = new Dictionary<string, Sprite>();
         foreach (ItemTypeDefinition item in ItemDefinitions)
         {
             ItemIconDict.Add(item.name, item.displayImage);

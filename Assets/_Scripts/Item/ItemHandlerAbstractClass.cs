@@ -6,51 +6,13 @@ using Complete;
 public abstract class ItemHandlerAbstractClass : MonoBehaviour
 {
     public GameObject ItemPrefab;
-    public string ItemId;
+    public string ItemName;
     // IDs.
-    public int FireByTankId = -2;
-    public string ExplosionId;
-
-    public int LimitedAmount = 1; //default 1
-    /// <summary>
-    /// 2 types of Item. One is just use to oneself, like healing and shield. the other is Deployable item.
-    /// there are 3 types of Deployable item. One is TapOnScreen, where you uses RayCast. the second is just like reflected shell(very rare). The third is like projectile shell.
-    /// </summary>
-    public bool Deployable;
-    [HeaderAttribute("If not Deployable, ignore.")]
-    public bool TapOnScreen;
-    [HeaderAttribute("If ForceChargeable, ignore.")]
-    public float FlyingSpeed; //if not ForceChargeable, its speed shall be a constant.
-    public bool ForceChargeable; // have a shoot distance? the more the far or fast? or not?
-                                 /// <summary>
-                                 /// if the item is forceChargeable, press -> shoot once.
-                                 /// else, press -> always shoot.
-                                 /// </summary>
-    // ----------need if ForceChargeable--------------
-    [HeaderAttribute("If not ForceChargeable, ignore.")]
-    public float MinShootForce;
-    public float MaxShootForce;
-    public float m_MaxChargeTime;
-
-    [HeaderAttribute("If not Explosive, ignore.")]
-    public float MaxDamage; //for hotray, its 150f.
-    public float ExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
-    public float MaxLifeTime = 1000f;                    // The time in seconds before the item is removed.
-    public float ExplosionRadius = 5f;                // The maximum distance away from the explosion tanks can be and are still affected.
-    public GameObject ItemExplosion;
     [HideInInspector]
-    public ParticleSystem ExplosionParticles;         // Reference to the particles that will play on explosion.
-    [HideInInspector]
-    public AudioSource ExplosionAudio;                // Reference to the audio that will play on explosion.
-
-
+    public int DeployByTankId = -2;
+    public int MaxLifeTime;
+    
     public LayerMask TankMask;
-    public LayerMask WallMask;
-    public LayerMask ItemMask;
-    public LayerMask GeneralItemsMask;
-    public LayerMask ExplosiveItemsMask;
-    public LayerMask GroundMask;
-    public LayerMask ObstacleItemMask;
 
     //	public void Awake(){
     //		TankMask = LayerMask.NameToLayer ("TankToSpawn");

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 namespace Complete
 {
@@ -72,6 +73,29 @@ namespace Complete
 				transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (Joystick.JoyStickInputVectors), Time.deltaTime * m_TurnSpeed);
 			} 
 		}
+
+        // if successfully disabled move, return.
+        public bool TryDisableMove(float Disabletime)
+        {
+            if (!EnableMove)
+            {
+                return false;
+            }
+            else
+            {
+                if (gameObject.activeSelf)
+                    StartCoroutine(TryDisableMoveWithTime(Disabletime));
+                return true;
+            }
+        }
+
+        private IEnumerator TryDisableMoveWithTime(float Disabletime)
+        {
+            EnableMove = false;
+            Debug.Log("now DisableMove");
+            yield return new WaitForSeconds(Disabletime);
+            EnableMove = true;
+        }
 
         //private void Move()
         //{

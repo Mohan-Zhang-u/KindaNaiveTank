@@ -474,27 +474,30 @@ namespace Complete
             }
         }
 
-        public void SetInvincibleForSeconds(bool b, float t)
+        // return false if InvincibleForSeconds not started
+        public bool SetInvincibleForSeconds(bool b, float t)
         {
             if (invulnerable)
             {
-                return;
+                return false;
             }
             else if (!b)
             {
                 invulnerable = false;
+                return false;
             }
             else
             {
                 StartCoroutine(InvincibleForSeconds(t));
+                return true;
             }
         }
 
         private IEnumerator InvincibleForSeconds(float t)
         {
-            invulnerable = false;
-            yield return new WaitForSeconds(t);
             invulnerable = true;
+            yield return new WaitForSeconds(t);
+            invulnerable = false;
         }
 
         //  TODO:!!!!!!!!!!!!!!!!Now all RPC things.!!!!!!!!!!!!!!!!
