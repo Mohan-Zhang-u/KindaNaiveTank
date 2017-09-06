@@ -112,7 +112,6 @@ public abstract class BoxBase : MonoBehaviour
     protected virtual void OnPickupCollected(TankAndItsUIManager m, Collider tankCollider)
     {
         m.OnPickupCollected(BoxId);
-        Debug.Log("executing parent!");
     }
 
 }

@@ -12,8 +12,8 @@ public class GameManagerBase : MonoBehaviour
     private BoxLibrary BoxLibraryScript;
     private List<BoxBase> m_PowerupList;  // this is used to contain all instantiated boxes, and ezly destroy them afterwards.
     private List<BoxTypeDefinition> _AllowedBoxTypes;
-
-    public string[] IdOfAllowedBoxTypes; //this is to fill in when constructing scenes.
+    public BoxesSettings IdOfAllowedBoxTypesScriptableObj;
+    private string[] IdOfAllowedBoxTypes; //this is to fill in when constructing scenes.
     private int totalweight;
 
     // this is public because inited in under a same gameobject
@@ -23,7 +23,7 @@ public class GameManagerBase : MonoBehaviour
 
     virtual public void OnEnable()
     {
-
+        IdOfAllowedBoxTypes = IdOfAllowedBoxTypesScriptableObj.YourBoxTypes;
         // UI canvas Related.
 
         // box library repated.

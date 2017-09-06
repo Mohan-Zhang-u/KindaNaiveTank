@@ -11,6 +11,5 @@ public class ShieldBox : BoxBase
     {
         tankCollider.GetComponentInParent<TankHealth>().AddShield(AddShieldAmount, -2);
         m.OnPickupCollected(BoxId);
-        Debug.Log("collected ShieldBox");
     }
 }

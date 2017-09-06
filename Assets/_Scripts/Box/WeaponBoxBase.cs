@@ -10,6 +10,5 @@ public class WeaponBoxBase : BoxBase
     {
         tankCollider.GetComponentInParent<TankShooting>().OnChangeShellByName(ShellName);
         m.OnPickupCollected(BoxId);
-        Debug.Log("collected ShieldBox");
     }
 }

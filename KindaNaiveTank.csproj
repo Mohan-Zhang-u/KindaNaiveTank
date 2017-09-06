@@ -117,8 +117,11 @@
     <Compile Include="Assets\_Scripts\_HasPrefabs\Tank\TankDisplay.cs" />
     <Compile Include="Assets\_Scripts\Box\AccelerateBox.cs" />
     <Compile Include="Assets\_Scripts\Box\BoxBase.cs" />
+    <Compile Include="Assets\_Scripts\Box\GoodRandomBox.cs" />
+    <Compile Include="Assets\_Scripts\Box\HealOrHarmBox.cs" />
     <Compile Include="Assets\_Scripts\Box\healthBox.cs" />
     <Compile Include="Assets\_Scripts\Box\ItemBoxBase.cs" />
+    <Compile Include="Assets\_Scripts\Box\RandomBox.cs" />
     <Compile Include="Assets\_Scripts\Box\ShieldBox.cs" />
     <Compile Include="Assets\_Scripts\Box\WeaponBoxBase.cs" />
     <Compile Include="Assets\_Scripts\Camera\CameraControl.cs" />
@@ -146,6 +149,7 @@
     <Compile Include="Assets\_Scripts\Manager\SpawnManager.cs" />
     <Compile Include="Assets\_Scripts\Manager\SpawnPoint.cs" />
     <Compile Include="Assets\_Scripts\MyLibrary.cs" />
+    <Compile Include="Assets\_Scripts\Settings\BoxesSettings.cs" />
     <Compile Include="Assets\_Scripts\Settings\ExplosionSettings.cs" />
     <Compile Include="Assets\_Scripts\Shell\ProjectileShellHandler.cs" />
     <Compile Include="Assets\_Scripts\Shell\ReflectShellHandler.cs" />

@@ -68,7 +68,7 @@ public class BoxLibrary :PersistentSingleton<BoxLibrary> {
 			}
 		}
         success = false;
-        Debug.Log("<color=red>WARNING: Requested box name does not exist.</color>");
+        Debug.Log("<color=red>WARNING: Requested box name does not exist, with name:</color>"+ boxName);
 		return BoxDefinitions[0];
 
 	}
