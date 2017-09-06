@@ -129,6 +129,7 @@
     <Compile Include="Assets\_Scripts\Data\TankLibrary.cs" />
     <Compile Include="Assets\_Scripts\Effect\Effect.cs" />
     <Compile Include="Assets\_Scripts\Effect\InvincibleLightEffect.cs" />
+    <Compile Include="Assets\_Scripts\Item\FirePathHandler.cs" />
     <Compile Include="Assets\_Scripts\Item\FlameThrowerHandler.cs" />
     <Compile Include="Assets\_Scripts\Item\HotDropExplosive.cs" />
     <Compile Include="Assets\_Scripts\Item\HotdropLight.cs" />

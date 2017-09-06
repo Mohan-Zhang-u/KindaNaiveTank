@@ -7,11 +7,23 @@ public class FlameThrowerHandler : ItemHandlerAbstractClass
 {
     public float HarmSpeed;
 
+    private TankShooting tsScript;
+
+    private void OnEnable()
+    {
+        tsScript = gameObject.GetComponentInParent<TankShooting>();
+        tsScript.EnableFire = false;
+    }
+
+    private void OnDisable()
+    {
+        tsScript.EnableFire = true;
+    }
+
     private void OnParticleCollision(GameObject other)
     {
         if (other.layer == LayerMask.NameToLayer("Players"))
         {
-            Debug.Log("collided");
             TankHealth tankHealthScript = other.GetComponentInParent<TankHealth>();
             if (tankHealthScript)
             {

@@ -246,17 +246,18 @@ public class TankAndItsUIManager : MonoBehaviour {
         else if (ItemName == "FirePath")
         {
             GameObject FirePathItem = Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position - 2 * gameObject.transform.forward, gameObject.transform.rotation,gameObject.transform);
-            FirePathItem.GetComponent<FlameThrowerHandler>().DeployByTankId = _PlayerNumber;
+            FirePathItem.GetComponent<FirePathHandler>().DeployByTankId = _PlayerNumber;
         }
         else if (ItemName == "FirstAidKit")
         {
             GameObject FirstAidKitParticleSystem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position, gameObject.transform.rotation);
             StartCoroutine(FirstAidKitHeal(FirstAidKitParticleSystem));
         }
-        else if (ItemName == "FireThrower")
+        else if (ItemName == "FlameThrower")
         {
-            GameObject FireThrowerItem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform);
-            
+            Transform ft = gameObject.GetComponentInChildren<TankDisplay>().GetFireTransform();
+            GameObject FlameThrowerItem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, ft.position, ft.rotation, gameObject.transform);
+            FlameThrowerItem.GetComponent<FlameThrowerHandler>().DeployByTankId = _PlayerNumber;
         }
 
     }
