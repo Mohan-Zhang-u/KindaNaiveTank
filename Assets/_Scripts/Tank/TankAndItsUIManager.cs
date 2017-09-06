@@ -264,6 +264,11 @@ public class TankAndItsUIManager : MonoBehaviour {
             GameObject DecelerationZoneItem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position - 5 * gameObject.transform.forward, gameObject.transform.rotation * Quaternion.Euler(0, -90, 0));
             DecelerationZoneItem.GetComponent<DecelerationZoneHandler>().DeployByTankId = _PlayerNumber;
         }
+        else if (ItemName == "SelfExplosion")
+        { 
+            GameObject SelfExplosionItem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, transform.position, transform.rotation, gameObject.transform);
+            SelfExplosionItem.GetComponent<SelfExplosionHandler>().DeployByTankId = _PlayerNumber;
+        }
 
     }
 

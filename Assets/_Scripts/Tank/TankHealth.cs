@@ -490,6 +490,16 @@ namespace Complete
             }
         }
 
+        public float GetCurrentShieldLevel()
+        {
+            return ShieldLevel;
+        }
+
+        public float GetCurrentHealth()
+        {
+            return CurrentHealth;
+        }
+
         // return false if InvincibleForSeconds not started
         public bool SetInvincibleForSeconds(bool b, float t)
         {

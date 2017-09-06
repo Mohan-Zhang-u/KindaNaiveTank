@@ -22,10 +22,10 @@ public class SpreadShellHandler : ShellHandlerAbstractClass {
         {
             CollideWithWalls(WallColliders[i]);
         }
-        for (int i = 0; i < ShellColliders.Length; i++)
-        {
-            CollideWithShells(ShellColliders[i]);
-        }
+        //for (int i = 0; i < ShellColliders.Length; i++)
+        //{
+        //    CollideWithShells(ShellColliders[i]);
+        //}
         for (int i = 0; i < GeneralItemsColliders.Length; i++)
         {
             CollideWithGeneralItem(GeneralItemsColliders[i]);

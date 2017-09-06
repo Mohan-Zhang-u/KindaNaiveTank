@@ -82,7 +82,7 @@ namespace Complete
             SetFireButtonListener();
             // TODO: hereby we need input from UserSavingFile.
 			OnChangeTankByIndex(0,0);
-			OnChangeShellByIndex (1);
+			OnChangeShellByIndex (2);
 			OnChangeTankOrShell ();
             EnableFire = true;
         }

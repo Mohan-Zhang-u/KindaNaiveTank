@@ -135,6 +135,7 @@
     <Compile Include="Assets\_Scripts\Item\HotDropExplosive.cs" />
     <Compile Include="Assets\_Scripts\Item\HotdropLight.cs" />
     <Compile Include="Assets\_Scripts\Item\ItemHandlerAbstractClass.cs" />
+    <Compile Include="Assets\_Scripts\Item\SelfExplosionHandler.cs" />
     <Compile Include="Assets\_Scripts\Item\TimeBombHandler.cs" />
     <Compile Include="Assets\_Scripts\Item\TrapHandler.cs" />
     <Compile Include="Assets\_Scripts\Manager\EventManager.cs" />
