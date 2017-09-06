@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 public struct DamageSource {
-	float amount; int playerNumber; string explosionId;
+	public float amount; public int playerNumber;public string explosionId;
 
 	public DamageSource(float p1, int p2, string p3){
 		amount = p1;
@@ -59,10 +59,10 @@ namespace Complete
 		//Internal reference to the spawn point where this tank is.
 		//private SpawnPoint CurrentSpawnPoint;
 		private List<DamageSource> DamageSourceList;
-		// Events that fire when specific conditions are reached. Mainly used for the HUD to tie into.
+        // Events that fire when specific conditions are reached. Mainly used for the HUD to tie into.
 
-		//Field to set the tank as invulnerable. Mainly used in the shooting range.
-		private bool invulnerable;
+        //Field to set the tank as invulnerable. Mainly used in the shooting range.
+        private bool invulnerable;
 		// !!!!!!!!! idk why but it uses DIVISION!!!!!!!!!!!
 		public event Action<float> healthChanged;
 		public event Action<float> shieldChanged;
@@ -330,7 +330,23 @@ namespace Complete
 //				playerNumber = Manager.playerNumber;
 			}
 
-			DamageSourceList.Add (new DamageSource(amount, playerNumber, explosionId));
+            if (DamageSourceList.Count == 0)
+            {
+                DamageSourceList.Add(new DamageSource(amount, playerNumber, explosionId));
+                return;
+            }
+            // damage deal by the same player with same explosioinId, change the last element's reference to a new struct with more damage.
+            else if ((playerNumber == DamageSourceList[DamageSourceList.Count - 1].playerNumber) && (explosionId == DamageSourceList[DamageSourceList.Count - 1].explosionId))
+            {
+                DamageSourceList[DamageSourceList.Count - 1] = new DamageSource(DamageSourceList[DamageSourceList.Count - 1].amount + amount, playerNumber, explosionId);
+                return;
+            }
+
+            else
+            {
+                DamageSourceList.Add(new DamageSource(amount, playerNumber, explosionId));
+                return;
+            }
 		}
 
 		//Assigns internal damage variables from explosion.

@@ -57,6 +57,8 @@ namespace Complete
         private float DontGoThroughWallFloat = 0.5f;
 
         private EventTrigger buttoneventtrigger;
+        [HideInInspector]
+        public bool EnableFire = true;
 
         // -------------------------now, MonoBehaviour Functions.--------------------------------
         // I dont know whether we need OnEnable or not.
@@ -82,11 +84,12 @@ namespace Complete
 			OnChangeTankByIndex(0,0);
 			OnChangeShellByIndex (1);
 			OnChangeTankOrShell ();
-		}
+            EnableFire = true;
+        }
 
 		void Update () {
 			// check whether finished colddown.
-			if (UpdateFireColdingDown) {
+			if (UpdateFireColdingDown || !EnableFire) {
 				return;
 			}
             // check what type of shell is going to be fired.

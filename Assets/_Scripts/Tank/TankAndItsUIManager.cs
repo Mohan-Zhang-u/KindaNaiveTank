@@ -243,12 +243,22 @@ public class TankAndItsUIManager : MonoBehaviour {
             GameObject TimeBombItem = Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position - 5 * gameObject.transform.forward, gameObject.transform.rotation);
             TimeBombItem.GetComponent<TimeBombHandler>().DeployByTankId = _PlayerNumber;
         }
+        else if (ItemName == "FirePath")
+        {
+            GameObject FirePathItem = Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position - 2 * gameObject.transform.forward, gameObject.transform.rotation,gameObject.transform);
+            FirePathItem.GetComponent<FlameThrowerHandler>().DeployByTankId = _PlayerNumber;
+        }
         else if (ItemName == "FirstAidKit")
         {
             GameObject FirstAidKitParticleSystem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position, gameObject.transform.rotation);
             StartCoroutine(FirstAidKitHeal(FirstAidKitParticleSystem));
         }
-        
+        else if (ItemName == "FireThrower")
+        {
+            GameObject FireThrowerItem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform);
+            
+        }
+
     }
 
     private IEnumerator FirstAidKitHeal(GameObject FirstAidKitParticleSystem)
