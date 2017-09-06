@@ -209,11 +209,18 @@ namespace Complete
         {
             if (amount <= 0)
                 return;
+
             m_Speed = m_Speed * amount;
+
             if (m_Speed > 35)
             {
                 m_Speed = 35;
                 Debug.Log("<color=green>Speed reaches upper limit!</color>");
+            }
+            if(m_Speed < 1)
+            {
+                m_Speed = 1;
+                Debug.Log("<color=green>Speed reaches lower limit!</color>");
             }
         }
 

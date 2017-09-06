@@ -259,6 +259,11 @@ public class TankAndItsUIManager : MonoBehaviour {
             GameObject FlameThrowerItem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, ft.position, ft.rotation, gameObject.transform);
             FlameThrowerItem.GetComponent<FlameThrowerHandler>().DeployByTankId = _PlayerNumber;
         }
+        else if (ItemName == "DecelerationZone")
+        {
+            GameObject DecelerationZoneItem = Object.Instantiate(ItemLibraryScript.GetItemDataForName(ItemName).displayPrefab, gameObject.transform.position - 5 * gameObject.transform.forward, gameObject.transform.rotation * Quaternion.Euler(0, -90, 0));
+            DecelerationZoneItem.GetComponent<DecelerationZoneHandler>().DeployByTankId = _PlayerNumber;
+        }
 
     }
 
