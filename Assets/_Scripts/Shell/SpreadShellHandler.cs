@@ -43,7 +43,7 @@ public class SpreadShellHandler : ShellHandlerAbstractClass {
         // prepare the explosion system
         if (ShellExplosion != null)
         {
-            ExplosionParticles = Instantiate(ShellExplosion).GetComponent<ParticleSystem>();
+            ExplosionParticles = Instantiate(ShellExplosion, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
             if (ExplosionAudio == null)
                 ExplosionAudio = ExplosionParticles.GetComponent<AudioSource>();
             ExplosionParticles.transform.position = transform.position;

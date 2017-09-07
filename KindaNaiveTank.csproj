@@ -125,6 +125,7 @@
     <Compile Include="Assets\_Scripts\Box\ShieldBox.cs" />
     <Compile Include="Assets\_Scripts\Box\WeaponBoxBase.cs" />
     <Compile Include="Assets\_Scripts\Camera\CameraControl.cs" />
+    <Compile Include="Assets\_Scripts\Camera\MainCameraControl.cs" />
     <Compile Include="Assets\_Scripts\Data\BoxLibrary.cs" />
     <Compile Include="Assets\_Scripts\Data\ItemLibrary.cs" />
     <Compile Include="Assets\_Scripts\Data\LayerLibrary.cs" />

@@ -130,7 +130,7 @@ public abstract class ShellHandlerAbstractClass : MonoBehaviour, IExplosiveItem
 
 		// now, finialize explosion. perform Particles.
 		// prepare the explosion system
-		ExplosionParticles = Instantiate (ShellExplosion).GetComponent<ParticleSystem> ();
+		ExplosionParticles = Instantiate (ShellExplosion,transform.position,Quaternion.identity).GetComponent<ParticleSystem> ();
 		if (ExplosionAudio == null)
 			ExplosionAudio = ExplosionParticles.GetComponent<AudioSource> ();
 		ExplosionParticles.transform.position = transform.position;
