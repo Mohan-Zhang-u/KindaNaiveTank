@@ -1,13 +1,17 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainCameraControl : MonoBehaviour {
 
     public GameObject player;       //Public variable to store a reference to the player game object
 
-    public float MainCameraXRotateDegrees; //from 70 to 0, radians = (Math.PI / 180) * degrees
+    public Slider CameraRoation;
+    public Slider CameraDistance;
 
-    public float Distance; // from 40 to 10?
+    private float MainCameraXRotateDegrees; //from 70 to 0, radians = (Math.PI / 180) * degrees
+
+    private float Distance; // from 40 to 10?
 
     private double radians;
     private Vector3 offset;         //Private variable to store the offset distance between the player and camera
@@ -15,6 +19,8 @@ public class MainCameraControl : MonoBehaviour {
     // Use this for initialization
     void OnEnable()
     {
+        MainCameraXRotateDegrees = CameraRoation.value;
+        Distance = CameraDistance.value;
         OnChangeRotateDegreesOrDistance();
     }
 
@@ -26,8 +32,10 @@ public class MainCameraControl : MonoBehaviour {
         transform.position = player.transform.position + offset;
     }
 
-    void OnChangeRotateDegreesOrDistance()
+    public void OnChangeRotateDegreesOrDistance()
     {
+        MainCameraXRotateDegrees = CameraRoation.value;
+        Distance = CameraDistance.value;
         radians = (Math.PI / 180) * MainCameraXRotateDegrees;
         offset.z = (float) (-Distance * Math.Cos(radians));
         offset.y = (float) (Distance * Math.Sin(radians));
