@@ -19,23 +19,31 @@ public class GameManagerBase : MonoBehaviour
     // this is public because inited in under a same gameobject
     public BoxSpawnManager _BoxSpawnManagerScript;
 
+    public GameObject MinimapCamera;
+    public GameObject InGameMainCamera;
     public GameObject ActiveUICanvas;
 
     virtual public void OnEnable()
     {
-        IdOfAllowedBoxTypes = IdOfAllowedBoxTypesScriptableObj.YourBoxTypes;
-        // UI canvas Related.
-
-        // box library repated.
-        BoxLibraryScript = FindObjectOfType<BoxLibrary>();
-        m_PowerupList = new List<BoxBase>();
-        _AllowedBoxTypes = new List<BoxTypeDefinition>();
         // to ensure Singleton(only one instance GameManagerBase can exists)
         if (FindObjectOfType<GameManagerBase>() != this)
         {
             Destroy(this);
         }
+
+
+
+        // UI canvas Related.
+
+        #region box library repated.
+        // box library repated.
+        IdOfAllowedBoxTypes = IdOfAllowedBoxTypesScriptableObj.YourBoxTypes;
+        BoxLibraryScript = FindObjectOfType<BoxLibrary>();
+        m_PowerupList = new List<BoxBase>();
+        _AllowedBoxTypes = new List<BoxTypeDefinition>();
+       
         InitAllowedBoxTypes();
+        #endregion
     }
 
     private void Update()
