@@ -73,19 +73,16 @@ public class DataStore : ISerializationCallbackReceiver
     private static readonly string s_DefaultName = "Player";
 
     public int selectedTank;
-    public int selectedDecoration;
+    //public int selectedDecoration;
     public int currency;
     public bool[] unlockedTanks;
     public string playerName;
-    public List<string> unlockedMultiplayerMaps;
 
     public Dictionary<string, SinglePlayerLevelData> SinglePlayerLevelsDictionary;
     public Dictionary<string, MultiPlayerLevelData> MultiPlayerLevelsDictionary;
     public List<SinglePlayerLevelData> SinglePlayerlevels;
     public List<MultiPlayerLevelData> MultiPlayerlevels;
     public SettingsData settingsData;
-    
-
 
     // 为什么这些东西要init在这里而不是Libraryfile里面呢?因为这些东西是开关游戏不变的,所以需要存在一个serialize的文件里. 而且, 不需要SceneLibrary是因为已经有了built-in
     // SceneManager.
@@ -121,7 +118,6 @@ public class DataStore : ISerializationCallbackReceiver
             Debug.LogError("No tank library. Failed to init unlocked tanks");
         }
 
-        unlockedMultiplayerMaps = new List<string>();
         SinglePlayerLevelsDictionary = new Dictionary<string, SinglePlayerLevelData>();
         MultiPlayerLevelsDictionary = new Dictionary<string, MultiPlayerLevelData>();
         SinglePlayerlevels = new List<SinglePlayerLevelData>();

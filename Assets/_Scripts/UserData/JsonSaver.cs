@@ -32,7 +32,7 @@ public class JsonSaver : IDataSaver
     /// </summary>
     /// <param name="data">Data.</param>
     public void Save(DataStore data)
-    {
+    {   
         string json = JsonUtility.ToJson(data);
 
         using (StreamWriter writer = GetWriteStream())
