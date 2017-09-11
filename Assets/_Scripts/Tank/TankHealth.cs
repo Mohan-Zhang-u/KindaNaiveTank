@@ -30,7 +30,6 @@ namespace Complete
 {
 	public class TankHealth : NetworkBehaviour
     {
-		private GameObject DynamicObjectLibrary;
 		private TankShooting TankShootingScript;
 		public GameObject CompleteTank;
 		private TankTypeDefinition tdef;
@@ -96,7 +95,6 @@ namespace Complete
 
 		private void OnEnable()
 		{
-			SetDynamicObjectLibrary ();
 			DamageSourceList = new List<DamageSource> ();
 			// setDefaults calls OnChangeTank;
 			OnChangeTank();
@@ -189,10 +187,6 @@ namespace Complete
 		//	get { return CurrentSpawnPoint; }
 		//	set { CurrentSpawnPoint = value; }
 		//}
-
-		private void SetDynamicObjectLibrary () {
-			DynamicObjectLibrary = GameObject.Find ("DynamicObjectLibrary");
-		}
 
 		//public void NullifySpawnPoint(SpawnPoint point)
 		//{

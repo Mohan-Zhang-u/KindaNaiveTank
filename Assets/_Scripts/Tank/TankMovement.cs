@@ -9,7 +9,6 @@ namespace Complete
         public AudioSource m_MovementAudio;         // Reference to the audio source used to play engine sounds. NB: different to the shooting audio source.
 
 		private VirtualJoyStickScript Joystick;
-		private GameObject DynamicObjectLibrary;
 		private TankShooting TankShootingScript;
 		private TankTypeDefinition tdef;
         private Rigidbody m_Rigidbody;              // Reference used to move the tank.
@@ -37,7 +36,6 @@ namespace Complete
 			
         private void OnEnable ()
         {
-			SetDynamicObjectLibrary ();
 			SetVirtualJoyStick ();
 			OnChangeTank ();
         }
@@ -140,10 +138,6 @@ namespace Complete
 					m_MovementAudio.Play();
 				}
 			}
-		}
-
-		private void SetDynamicObjectLibrary () {
-			DynamicObjectLibrary = GameObject.Find ("DynamicObjectLibrary");
 		}
 
 		private void SetVirtualJoyStick() {

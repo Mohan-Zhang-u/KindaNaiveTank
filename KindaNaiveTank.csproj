@@ -127,6 +127,7 @@
     <Compile Include="Assets\_Scripts\Camera\CameraControl.cs" />
     <Compile Include="Assets\_Scripts\Camera\MainCameraControl.cs" />
     <Compile Include="Assets\_Scripts\Data\BoxLibrary.cs" />
+    <Compile Include="Assets\_Scripts\Data\DataStore.cs" />
     <Compile Include="Assets\_Scripts\Data\ItemLibrary.cs" />
     <Compile Include="Assets\_Scripts\Data\LayerLibrary.cs" />
     <Compile Include="Assets\_Scripts\Data\ShellLibrary.cs" />
@@ -167,6 +168,9 @@
     <Compile Include="Assets\_Scripts\Texture\ChangeTankTexture.cs" />
     <Compile Include="Assets\_Scripts\UI\ActiveUICanvasScript.cs" />
     <Compile Include="Assets\_Scripts\UI\JoyStick\VirtualJoyStickScript.cs" />
+    <Compile Include="Assets\_Scripts\UserData\IDataSaver.cs" />
+    <Compile Include="Assets\_Scripts\UserData\JsonSaver.cs" />
+    <Compile Include="Assets\_Scripts\UserData\PlayerDataManager.cs" />
     <Compile Include="Assets\_Scripts\Utilities\PersistentSingleton.cs" />
     <Compile Include="Assets\_Scripts\Utilities\Singleton.cs" />
     <Compile Include="Assets\ImportedModels\NuclearBomb\Scripts\Blast.cs" />

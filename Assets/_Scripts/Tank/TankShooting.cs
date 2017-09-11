@@ -12,7 +12,6 @@ namespace Complete
 		private Collider[] WallChecker;
 		[HideInInspector]
         public int _PlayerNumber = 1;              // Used to identify the different players. TODO: This shall be modified in GameManager.
-		private GameObject DynamicObjectLibrary;
 		public GameObject CompleteTank;
 		[HideInInspector]
 		public bool FireButtonOnPointerDown = false;
@@ -77,12 +76,11 @@ namespace Complete
         // was start, change to onenable.
         void OnEnable() {
 			WallMask = LayerMask.NameToLayer ("Wall");
-			SetDynamicObjectLibrary ();
             // set according to ui.
             SetFireButtonListener();
             // TODO: hereby we need input from UserSavingFile.
 			OnChangeTankByIndex(0,0);
-			OnChangeShellByIndex (0);
+			OnChangeShellByIndex (1);
 			OnChangeTankOrShell ();
             EnableFire = true;
         }
@@ -90,7 +88,8 @@ namespace Complete
 		void Update () {
 			// check whether finished colddown.
 			if (UpdateFireColdingDown || !EnableFire) {
-				return;
+                m_AimSlider.value = m_MinLaunchForce;
+                return;
 			}
             // check what type of shell is going to be fired.
             if (Chargeable) {
@@ -190,19 +189,15 @@ namespace Complete
 		public void SetFireButtonOnPointerUp(UnityEngine.EventSystems.BaseEventData baseEvent) {
 			FireButtonOnPointerDown = false;
 		}
-
-		public void SetDynamicObjectLibrary () {
-			DynamicObjectLibrary = GameObject.Find ("DynamicObjectLibrary");
-		}
 			
 		public void OnChangeTankByIndex(int index, int TankPrefabIndex){
-			tdef = DynamicObjectLibrary.GetComponent<TankLibrary>().GetTankDataForIndex(index);
+			tdef = TankLibrary.s_Instance.GetTankDataForIndex(index);
 			SetFunctionForOnChangeTank(tdef, TankPrefabIndex);
 		}
 
 		public void OnChangeTankByName(string name, int TankPrefabIndex)
         {
-			tdef = DynamicObjectLibrary.GetComponent<TankLibrary>().GetTankDataForName(name);
+			tdef = TankLibrary.s_Instance.GetTankDataForName(name);
 			SetFunctionForOnChangeTank(tdef, TankPrefabIndex);
 
 		}
@@ -236,13 +231,13 @@ namespace Complete
 		}
 			
 		public void OnChangeShellByIndex(int index){
-			ShellDef = DynamicObjectLibrary.GetComponent<ShellLibrary> ().GetShellDataForIndex (index);
+			ShellDef = ShellLibrary.s_Instance.GetShellDataForIndex (index);
 			SetFunctionForOnChangeShell (ShellDef);
 
 		}
 
 		public void OnChangeShellByName(string name){
-			ShellDef = DynamicObjectLibrary.GetComponent<ShellLibrary> ().GetShellDataForName (name);
+			ShellDef = ShellLibrary.s_Instance.GetShellDataForName (name);
 			SetFunctionForOnChangeShell (ShellDef);
 		}
 
