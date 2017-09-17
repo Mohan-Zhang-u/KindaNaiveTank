@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 using UnityEditor;
 #endif
 
-public class PlayerDataManager : Singleton<PlayerDataManager>
+public class PlayerDataManager : PersistentSingleton<PlayerDataManager>
 {
     //References to the datastore object, and the saver object responsible for serializing the datastore to file.
     [NonSerialized]
@@ -117,22 +117,39 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
 
     //protected override void Awake()
     //{
-        
+
     //}
+
+    // we do this, be cause: FIRSTLY, we want PlayerDataManager Inited the last. 
+    // Second, we Dont want the game object to awake twice, otherwise our game object will be destroyed. 
+    // Third, we need to hide the parent Awake and call it in start here.
+    new private void Awake()
+    {
+        
+    }
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        
+        //DontDestroyOnLoad(gameObject);
+        //if (s_Instance != null)
+        //{
+        //    Destroy(gameObject);
+        //}
+        //else
+        //{
+        //    s_Instance = this;
+        //}
         base.Awake();
+        
 
         // In the Unity editor, use a plain text saver so files can be inspected.
 #if UNITY_EDITOR || NETFX_CORE
         m_Saver = new JsonSaver();
 #else
-			m_Saver = new EncryptedJsonSaver();
+		m_Saver = new EncryptedJsonSaver();
 #endif
         m_Data = new DataStore();
-
         /*
         //TODO:!!!!!!!!!!!!!!!!!!!!!We always want the first tank and the first decoration (a null decoration) to be unlocked by default, and init accordingly.
         if (m_Data.decorations.Length > 0)
