@@ -159,6 +159,8 @@
     <Compile Include="Assets\_Scripts\Shell\SpreadShellHandler.cs" />
     <Compile Include="Assets\_Scripts\Shell\SuccessiveShellHandler.cs" />
     <Compile Include="Assets\_Scripts\Shell\SwordHandler.cs" />
+    <Compile Include="Assets\_Scripts\Shell\TrackShellChildHandler.cs" />
+    <Compile Include="Assets\_Scripts\Shell\TrackShellHandler.cs" />
     <Compile Include="Assets\_Scripts\Tank\TankAndItsUIManager.cs" />
     <Compile Include="Assets\_Scripts\Tank\TankHealth.cs" />
     <Compile Include="Assets\_Scripts\Tank\TankMovement.cs" />

@@ -22,9 +22,21 @@ public class MyLibrary {
 		return null;
 	}
 
+    // check whether the certain bit value ( layer in range [0,31]) is in a layermask.value using bitwise
+    public static bool LayerInLayerMask(int layer, LayerMask mask)
+    {
+        if ((mask.value & (1 << layer)) > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
-		
+
 
 
 

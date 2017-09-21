@@ -436,7 +436,6 @@ namespace Complete
                     }
                     else
                     {
-
                         shellInstance.GetComponent<Rigidbody>().velocity = FlyingSpeed * m_FireTransform.forward;
 
                         if (AmountLimited)
